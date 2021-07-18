@@ -202,6 +202,7 @@ input[type="checkbox"] {
   padding: 10px 40px;
   background: white;
   color: #7B7B7B;
+  z-index: 2;
 }
 .dropdown-container .items label:first-of-type
 {
@@ -232,6 +233,11 @@ input[type="checkbox"] {
   border: none;
   background: none;
   color: #fff;
+  padding: 6px 40px;
+}
+.dropdown .items #usd:checked ~ #text div::before
+{
+  content: "EUR";
 }
 .dropdown-container #dropdown:checked ~ .bg
 {
@@ -321,7 +327,7 @@ input[type="checkbox"] {
   right: -12px;
   content: '$';
 } 
-.shares-form__price-container::after {
+.shares-form-inputs__price-container::after {
   position: absolute;
   top: 6px;
   right: 25px;
@@ -336,14 +342,14 @@ input[type="checkbox"] {
 #rub:checked ~ .main .shares-item__value:not(:first-of-type) > span::after,
 #rub:checked ~ .main .average-output-price::after,
 #rub:checked ~ .main .profit__price span::after,
-#rub:checked ~ .main .shares-form__price-container::after{
+#rub:checked ~ .main .shares-form-inputs__price-container::after{
   content: '₽';
 }
 #eur:checked ~ .main .shares-item__value:not(:first-of-type) > span::after,
 #eur:checked ~ .main .shares-item__value:not(:first-of-type) > span::after,
 #eur:checked ~ .main .average-output-price::after,
 #eur:checked ~ .main .profit__price span::after,
-#eur:checked ~ .main .shares-form__price-container::after{
+#eur:checked ~ .main .shares-form-inputs__price-container::after{
   content: '€';
 } */
 
@@ -473,11 +479,14 @@ input[type="checkbox"] {
   padding: 40px 48px;
   border-top: 5px solid #F8F8F8;
 }
+.shares-form__shares-form-inputs {
+  display: flex;
+}
 .shares-form-container__shares-form {
   display: flex;
   align-items: center;
 }
-.shares-form__amount-container {
+.shares-form-inputs__amount-container {
   position: relative;
 }
 .amount-container__btns {
@@ -587,7 +596,7 @@ input[type="checkbox"] {
   background-color: #909090;
 }
 
-.shares-form__price-container{
+.shares-form-inputs__price-container{
   position: relative;
   margin-left: 37px;
 }
@@ -660,7 +669,7 @@ input[type="checkbox"] {
   cursor: pointer;
   transition: all 0.2s;
 }
-.tabs-titles__title:hover {
+.tabs-titles__title:hover{
   color: #000;
   transition: all 0.05s;
 }
@@ -698,14 +707,18 @@ input[type="checkbox"] {
 }
 .tab01, 
 .tab02 {
+  flex-direction: column;
   position: absolute;
   top: 0;
 }
 .tab01 {
   left: -80px;
 }
-.tab02 {  
+.tab02 {
   left: 80px;
+}
+.current-price-container__profit{
+  margin-left: 28px;
 }
 .content-text__text {
   visibility: hidden;
@@ -713,9 +726,24 @@ input[type="checkbox"] {
   display: flex;
   transition: all 0.15s;
 }
-.text__average-price-container,
-.text__desired-average-price-container {
+.text__current-price-container{
+  display: flex;
+  margin-top: 30px;
+}
+.text__average-price-container{
   margin-right: 27px;
+}
+.text__desired-average-price-container {
+  display: flex;
+}
+.desired-average-price-container__desired-price,
+.desired-average-price-container__current-price {
+  flex-grow: 1;
+  width: 50%;
+  box-sizing: border-box;
+}
+.desired-average-price-container__current-price {
+  margin-left: 17px;
 }
 .current-price__title,
 .profit__title,
@@ -724,13 +752,6 @@ input[type="checkbox"] {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-}
-.average-price-container__current-price > .current-price__title,
-.profit__title {
-  margin-top: 30px;
-}
-.profit__title {
-  margin-top: 52px;
 }
 
 .current-price__input,
@@ -748,7 +769,7 @@ input[type="checkbox"] {
   box-sizing: border-box;
 }
 .profit__price {
-  margin-top: 12px;
+  margin-top: 15px;
 }
 .profit__price span {  
   position: relative;
@@ -763,7 +784,7 @@ input[type="checkbox"] {
   line-height: 22px;
   color: #909090;
 }
-.desired-average-price-container__shares-amount {
+.text__shares-amount {
   margin-top: 30px;
 }
 
@@ -779,7 +800,7 @@ input[type="checkbox"] {
 
 
 /*ADAPTIVE*/
-@media all and (max-width: 1300px){
+@media all and (max-width: 1299px){
   .header__container,
   .main__container {
     min-width: 1000px;
@@ -805,12 +826,11 @@ input[type="checkbox"] {
     margin-left: 20px;
   }
 }
-
-@media all and (max-width: 1000px){
+@media all and (max-width: 999px){
   .header__container,
   .main__container {
-    min-width: 700px;
-    max-width: 1000px;
+    min-width: 400px;
+    max-width: 700px;
     padding: 0 66px;
   }
   .main__container {
@@ -835,4 +855,155 @@ input[type="checkbox"] {
     padding-top: 48px;
     padding-bottom: 48px;
   }
+
+  .tab01 {
+    left: -20px;
+  }
+  .tab02 {  
+    left: 20px;
+  }
+}
+
+
+@media all and (max-width: 700px){
+  .header__container,
+  .main__container {
+    width: 100%;
+    min-width: 400px;
+    max-width: 700px;
+    padding: 0 13px;
+  }
+  .main__container {
+    padding-top: 18px;
+    padding-bottom: 200px;
+  }
+  .main-title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .shares-article__title {
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .shares-article__shares-container {
+    margin-top: 18px;
+  }
+
+
+  .shares-container__table-container,
+  .shares-container__shares-form-container {
+    padding: 9px;
+  }
+  .shares-container__table-container{
+    padding-bottom: 24px;
+  }
+  .shares-container__shares-form-container{
+    padding-top: 24px;
+  }
+  .table-container__shares-table {
+    width: 100%;
+    max-width: none;
+  }
+  .shares-header__col-title {
+    width: auto;
+  }
+  .shares-header__first-col {
+    min-width: 136px;
+  }
+  .shares-header__second-col {
+    min-width: 110px;
+  }
+  .shares-header__third-col {
+    min-width: 70px;
+  }
+  .shares-header__forth-col {
+    min-width: 36px;
+  }
+  .shares-header__col-title {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .shares-item__first-value {
+    padding-left: 60px;
+  }
+  .shares-item__sec-value {
+    padding-left: 25px;
+  }
+  .btn-container__delete-btn {
+    padding: 0;
+    padding-right: 10px;
+  }
+  .shares-item__value {
+    font-size: 12px;
+    line-height: 22px;
+  }
+
+  .current-price__input,
+  .desired-price__input {
+    width: 100%;
+  }
+  .text__average-price-container {
+    margin-right: 17px;
+  }
+  .desired-average-price-container__current-price {
+    width: 50%;
+  }
+  .shares-form-container__shares-form {
+    flex-direction: column;
+  }
+  .shares-form__shares-form-inputs {
+    width: 100%;
+  }
+  .shares-form-inputs__amount-container,
+  .shares-form-inputs__price-container {
+    flex-grow: 1;
+    width: 50%;
+  }
+  .shares-form-inputs__price-container {
+    margin-left: 25px;
+  }
+  .amount-container__input,
+  .price-container__input {
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+  }
+  .shares-form__btn-container {
+    margin: 0;
+    margin-top: 24px;
+    width: 100%;
+  }
+  .btn-container__btn-add {
+    width: 100%;
+  }
+
+  .tabs__content {
+    margin-top: 34px;
+  }
+
+  .tab01 {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .text__current-price-container{
+    display: flex;
+    margin-top: 30px;
+  }
+  .current-price-container__price,
+  .current-price-container__profit {
+    flex-grow: 1;
+    width: 50%;
+  }
+  .current-price-container__profit {
+    margin-left: 17px;
+  }
+  .profit__price {
+    margin-top: 17px;
+  }
+  .profit__title,
+  .text__current-price-container .current-price__title {
+    margin: 0;
+  }
+
 }
