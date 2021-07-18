@@ -35,7 +35,7 @@
                       <label for="eur">EUR</label>
                       <input type="radio" name="list" value="second_value" id="rub">
                       <label for="rub"><div>RUB</div></label>
-                      <div id="text"><div>USD</div></div>
+                      <div id="text"><div></div></div>
                     </div>
                 </label>
             </div>
@@ -101,19 +101,21 @@
 
                         <div class="shares-container__shares-form-container">
                             <form action="" class="shares-form-container__shares-form">
-                                <div class="shares-form__amount-container">
-                                    <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
-                                        maxlength="2">
-
-                                    <div class="amount-container__btns">
-                                        <button type="button" class="btns__less-btn"
-                                            onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
-                                        <button type="button" class="btns__more-btn"
-                                            onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value + 1)}"></button>
+                                <div class="shares-form__shares-form-inputs">
+                                    <div class="shares-form-inputs__amount-container">
+                                        <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
+                                            maxlength="2">
+    
+                                        <div class="amount-container__btns">
+                                            <button type="button" class="btns__less-btn"
+                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
+                                            <button type="button" class="btns__more-btn"
+                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value + 1)}"></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="shares-form__price-container">
-                                    <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
+                                    <div class="shares-form-inputs__price-container">
+                                        <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
+                                    </div>
                                 </div>
                                 <div class="shares-form__btn-container">
                                     <button class="btn-container__btn-add">Добавить</button>
@@ -179,19 +181,21 @@
 
                         <div class="shares-container__shares-form-container">
                             <form action="" class="shares-form-container__shares-form">
-                                <div class="shares-form__amount-container">
-                                    <input type="text" class="amount-container__input" placeholder="1" value="1"
-                                        maxlength="2">
-
-                                    <div class="amount-container__btns">
-                                        <button type="button" class="btns__less-btn"
-                                            onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
-                                        <button type="button" class="btns__more-btn"
-                                            onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value + 1)}"></button>
+                                <div class="shares-form__shares-form-inputs">
+                                    <div class="shares-form-inputs__amount-container">
+                                        <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
+                                            maxlength="2">
+    
+                                        <div class="amount-container__btns">
+                                            <button type="button" class="btns__less-btn"
+                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
+                                            <button type="button" class="btns__more-btn"
+                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value + 1)}"></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="shares-form__price-container">
-                                    <input type="text" placeholder="215,3" value="215,3" class="price-container__input" maxlength="5">
+                                    <div class="shares-form-inputs__price-container">
+                                        <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
+                                    </div>
                                 </div>
                                 <div class="shares-form__btn-container">
                                     <button class="btn-container__btn-add">Добавить</button>
@@ -224,14 +228,16 @@
                                 <div class="average-price-container__position-cost">
                                     Средняя цена позиции: <span class="average-output-price">207,5</span>
                                 </div>
-                                <div class="average-price-container__current-price">
+                            </div>
+                            <div class="text__current-price-container">
+                                <div class="current-price-container__price">
                                     <div class="current-price__title">Текущая цена</div>
                                     <input type="text" placeholder="220" value="220" class="current-price__input">
                                 </div>
-                            </div>
-                            <div class="text__profit">
-                                <div class="profit__title">Текущий профит</div>
-                                <div class="profit__price">+ 2 200 <span></span></div>
+                                <div class="current-price-container__profit">
+                                    <div class="profit__title">Текущий профит</div>
+                                    <div class="profit__price">+ 2 200 <span></span></div>
+                                </div>
                             </div>
                         </div>
                         <div class="content-text__text tab02">
@@ -240,13 +246,13 @@
                                     <div class="desired-price__title">Желаемая средняя цена</div>
                                     <input type="text" placeholder="205" value="205" class="desired-price__input">
                                 </div>
-                                <div class="desired-average-price-container__shares-amount">
-                                    Количество акций к покупке: <span class="shares-amount__amount-output">10 шт</span>
+                                <div class="desired-average-price-container__current-price">
+                                    <div class="current-price__title">Текущая цена</div>
+                                    <input type="text" placeholder="200" value="200" class="current-price__input">
                                 </div>
                             </div>
-                            <div class="text__current-price">
-                                <div class="current-price__title">Текущая цена</div>
-                                <input type="text" placeholder="200" value="200" class="current-price__input">
+                            <div class="text__shares-amount">
+                                Количество акций к покупке: <span class="shares-amount__amount-output">10 шт</span>
                             </div>
                         </div>
                     </div>
