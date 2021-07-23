@@ -36,19 +36,31 @@ const changePriceInputs = () => {
     );
 };
 
+// const checkNumber = (input, value) => {
+//     if (value !== value || value === 0) {
+//         input.value = '1';
+//         value = 1;
+//         return false;
+//     }
+//     return true;
+// };
+
+const readInputValue = (input) => {
+    let value = Number(input.value.replace(/\s/g, '').replace(',', '.'));
+    if (value !== value || value === 0) {
+        value = 1;
+    }
+    input.value = value.toLocaleString();
+}
+
 const createNewElement = (tag, className) => {
     const element = document.createElement(tag);
     element.className = className;
 
     return element;
-}
+};
+
 const addElement = ({input, textContent, className, top, left} = {}) => {
-    const value = Number(input.value.replace(/\s/g, ''));
-
-    if (value !== value || value === 0) {
-        input.value = '0';
-    }
-
     const wrapperElement = input.parentElement;
     const element = document.createElement('span');
 
@@ -58,7 +70,6 @@ const addElement = ({input, textContent, className, top, left} = {}) => {
     element.style.left = left;
 
     wrapperElement.append(element);
-    input.value = value.toLocaleString();
 };
 
 const removeElement = ({input, className} = {}) => {
