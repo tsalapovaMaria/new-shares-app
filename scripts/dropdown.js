@@ -1,6 +1,7 @@
 const inputElements = document.querySelectorAll('.items > input[type=radio]');
 const currentCurrencyElement = document.querySelector('#text > div');
 const currencyElements = document.querySelectorAll('[data-currency]');
+const tableSpanElements = document.querySelectorAll('.price-container__currency');
 
 const changeCurrency = (inputValue) => {
     switch(inputValue){
@@ -30,8 +31,7 @@ const changeCurrencyElements = () => {
     );
 }
 const changePriceInputs = () => {
-    const currencySpanElements = document.querySelectorAll('.price-container__currency');
-    Array.from(currencySpanElements).forEach(
+    Array.from(tableSpanElements).forEach(
         span => {
             span.textContent = currency;
         }
