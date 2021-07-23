@@ -9,30 +9,33 @@ Array.from(addButtons).forEach(
 
         inputs[id].value = (value + 1).toLocaleString();
         removeElement(
-            inputs[id],
-            '.amount-container__amounts');
+            {input: inputs[id],
+            className: amountClassName});
         addElement(
-            inputs[id],
-            'шт',
-            'amount-container__amounts',
-            '8px',
-            20 + String(inputs[id].value).length * 9 + 'px'
+            {input: inputs[id],
+            textContent: 'шт',
+            className: amountClassName,
+            top: '8px',
+            left: 20 + String(inputs[id].value).length * 9 + 'px'}
         );
     }));
 
 Array.from(removeButtons).forEach(
     (btn, id) => btn.addEventListener('click', () => {
         const value = +inputs[id].value.replace(/\s/g, "");
+        if(value === 0){
+            return;
+        }
 
         inputs[id].value = (value - 1).toLocaleString();
         removeElement(
-            inputs[id],
-            '.amount-container__amounts');
+            {input: inputs[id],
+            className: amountClassName});
         addElement(
-            inputs[id],
-            'шт',
-            'amount-container__amounts',
-            '8px',
-            20 + String(inputs[id].value).length * 9 + 'px'
+            {input: inputs[id],
+            textContent: 'шт',
+            className: amountClassName,
+            top: '8px',
+            left: 20 + String(inputs[id].value).length * 9 + 'px'}
         );
     }));

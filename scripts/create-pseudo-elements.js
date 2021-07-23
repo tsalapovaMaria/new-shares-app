@@ -24,16 +24,17 @@ Array.from(amountInputs).forEach(input => {
 
 Array.from(priceInputs).forEach(input => {
     input.addEventListener('blur',
-        () => addElement(
-            {input: input,
+        () => addElement({
+            input: input,
             textContent: currency,
             className: priceClassName,
             top: '7px',
-            left: String(input.value).length * 11 / 2 + input.offsetWidth / 2 + 'px'}
-        ))
+            left: String(input.value).length * 11 / 2 + input.offsetWidth / 2 + 'px'
+        }))
     input.addEventListener('focus',
-        () => removeElement(
-            {input: input,
-            className: priceClassName})
+        () => removeElement({
+            input: input,
+            className: priceClassName
+        })
     )
 });

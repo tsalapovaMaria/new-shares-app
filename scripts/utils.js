@@ -36,6 +36,12 @@ const changePriceInputs = () => {
     );
 };
 
+const createNewElement = (tag, className) => {
+    const element = document.createElement(tag);
+    element.className = className;
+
+    return element;
+}
 const addElement = ({input, textContent, className, top, left} = {}) => {
     const value = Number(input.value.replace(/\s/g, ''));
 
@@ -56,7 +62,7 @@ const addElement = ({input, textContent, className, top, left} = {}) => {
 };
 
 const removeElement = ({input, className} = {}) => {
-    const element = input.parentElement.querySelector(className);
+    const element = input.parentElement.querySelector(`.${className}`);
     if (element) {
         element.remove();
     }
