@@ -18,6 +18,7 @@
 </head>
 
 <body>
+
     <header class="header">
         <div class="header__container">
             <h1 class="main-title">Калькулятор расчёта среднего</h1>
@@ -28,23 +29,14 @@
                     <input type="radio" name="list" value="not_changed" id="dropdown">
                     <label class="bg" for="bg"></label>
                     <div class="items">
-                        <input type="radio" name="list" value="first_value" id="usd" checked>
-                        <label for="usd">USD</label>
-                        <input type="radio" name="list" value="second_value" id="eur">
-                        <label for="eur">EUR</label>
-                        <input type="radio" name="list" value="second_value" id="rub">
-                        <label for="rub">
-                            <div>RUB</div>
-                        </label>
-                        <div id="text">
-                            <div></div>
-                        </div>
+                      <input type="radio" name="list" value="first_value" id="usd" checked>
+                      <label for="usd">USD</label>
+                      <input type="radio" name="list" value="second_value" id="eur">
+                      <label for="eur">EUR</label>
+                      <input type="radio" name="list" value="second_value" id="rub">
+                      <label for="rub"><div>RUB</div></label>
+                      <div id="text"><div></div></div>
                     </div>
-                    <span class="arrow">
-                        <svg height="30px" viewBox="0 0 512 512" width="30px">
-                            <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
-                        </svg>
-                    </span>
                 </label>
             </div>
         </div>
@@ -61,13 +53,13 @@
                                 <thead>
                                     <tr class="shares-table__shares-header">
                                         <th class="shares-header__col-title shares-header__first-col">
-                                            <div>кол-во акций</div>
+                                            <div>количество акций</div>
                                         </th>
                                         <th class="shares-header__col-title shares-header__sec-col">
-                                            <div>стоимость покупки</div>
+                                            <div>цена покупки</div>
                                         </th>
                                         <th class="shares-header__col-title shares-header__third-col">
-                                            <div>итоговая сумма</div>
+                                            <div>сумма</div>
                                         </th>
                                         <th class="shares-header__col-title shares-header__forth-col"></th>
                                     </tr>
@@ -113,7 +105,6 @@
                                     <div class="shares-form-inputs__amount-container">
                                         <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
                                             maxlength="2">
-
                                         <div class="amount-container__btns">
                                             <button type="button" class="btns__less-btn"
                                                 onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
@@ -122,8 +113,7 @@
                                         </div>
                                     </div>
                                     <div class="shares-form-inputs__price-container">
-                                        <input type="text" placeholder="215,3" value="215,3"
-                                            class="price-container__input">
+                                        <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
                                     </div>
                                 </div>
                                 <div class="shares-form__btn-container">
@@ -194,7 +184,6 @@
                                     <div class="shares-form-inputs__amount-container">
                                         <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
                                             maxlength="2">
-
                                         <div class="amount-container__btns">
                                             <button type="button" class="btns__less-btn"
                                                 onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
@@ -203,8 +192,7 @@
                                         </div>
                                     </div>
                                     <div class="shares-form-inputs__price-container">
-                                        <input type="text" placeholder="215,3" value="215,3"
-                                            class="price-container__input">
+                                        <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
                                     </div>
                                 </div>
                                 <div class="shares-form__btn-container">
@@ -229,7 +217,6 @@
                             <span class="title-label__title">Усреднение позиций</span>
                         </label>
                     </div>
-
                     <div class="slider"></div>
 
                     <div class="tabs__content-text">
