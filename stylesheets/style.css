@@ -84,7 +84,7 @@ body {
   cursor: pointer;
 }
 .arrow svg {
-  fill: #fff;
+  fill: #FFFFFF;
   transform: rotate(90deg);
   width: 20px;
   
