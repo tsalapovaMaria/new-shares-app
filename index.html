@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
@@ -25,18 +24,16 @@
 
             <div class="dropdown-container">
                 <label for="dropdown" class="dropdown">
-                    <input type="radio" name="list" value="not_changed" id="bg" checked />
+                    <input type="radio" name="list" value="not_changed" id="background" checked>
                     <input type="radio" name="list" value="not_changed" id="dropdown">
-                    <label class="bg" for="bg"></label>
+                    <label class="background" for="background"></label>
                     <div class="items">
-                        <input type="radio" name="list" value="first_value" id="usd" checked>
-                        <label for="usd">USD</label>
-                        <input type="radio" name="list" value="second_value" id="eur">
-                        <label for="eur">EUR</label>
-                        <input type="radio" name="list" value="second_value" id="rub">
-                        <label for="rub">
-                            <div>RUB</div>
-                        </label>
+                        <input type="radio" name="list" value="usd" id="first-value" checked>
+                        <label for="first-value">USD</label>
+                        <input type="radio" name="list" value="eur" id="second-value">
+                        <label for="second-value">EUR</label>
+                        <input type="radio" name="list" value="rub" id="third-value">
+                        <label for="third-value">RUB</label>
                         <div id="text">
                             <div>USD</div>
                         </div>
@@ -110,7 +107,7 @@
                         </div>
 
                         <div class="shares-container__shares-form-container">
-                            <form action="" class="shares-form-container__shares-form">
+                            <div class="shares-form-container__shares-form">
                                 <div class="shares-form__shares-form-inputs">
                                     <div class="shares-form-inputs__amount-container">
                                         <input type="text" class="amount-container__input" placeholder="1 шт" value="1" required>
@@ -128,7 +125,7 @@
                                 <div class="shares-form__btn-container">
                                     <button class="btn-container__btn-add" type="submit">Добавить</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -188,7 +185,7 @@
                         </div>
 
                         <div class="shares-container__shares-form-container">
-                            <form action="" class="shares-form-container__shares-form">
+                            <div class="shares-form-container__shares-form">
                                 <div class="shares-form__shares-form-inputs">
                                     <div class="shares-form-inputs__amount-container">
                                         <input type="text" class="amount-container__input" placeholder="1 шт" value="1" required>
@@ -206,7 +203,7 @@
                                 <div class="shares-form__btn-container">
                                     <button class="btn-container__btn-add" type="submit">Добавить</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -231,9 +228,9 @@
                     <div class="tabs__content-text">
                         <div class="content-text__text tab01">
                             <div class="text__average-price-container">
-                                <div class="average-price-container__position-cost">
-                                    Средняя цена позиции: <span class="average-output-price" data-currency="$">207,5</span>
-                                </div>
+                                <span class="average-price-container__position-cost">Средняя цена позиции: 
+                                    <span class="average-output-price" data-currency="$">207,5</span>
+                                </span>
                             </div>
                             <div class="text__current-price-container">
                                 <div class="current-price-container__price">
@@ -257,9 +254,9 @@
                                     <input type="text" placeholder="200" value="200" class="current-price__input">
                                 </div>
                             </div>
-                            <div class="text__shares-amount">
-                                Количество акций к покупке: <span class="shares-amount__amount-output">10 шт</span>
-                            </div>
+                            <span class="text__shares-amount">Количество акций к покупке: 
+                                <span class="shares-amount__amount-output">10 шт</span>
+                            </span>
                         </div>
                     </div>
                 </div>

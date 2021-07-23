@@ -52,6 +52,9 @@ body {
   font-size: 18px;
   line-height: 18px;
 }
+.dropdown-container {
+  height: 38px;
+}
 .dropdown-container input{
   display: none;
 }
@@ -72,9 +75,15 @@ body {
 {
   display: inline-block;
   width: 110px;
-  height: 34px;
+  height: 38px;
   line-height: 30px;
   position: relative;
+  cursor: pointer;
+}
+.dropdown-container .dropdown:hover
+{
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px;
 }
 .arrow {
   position: absolute;
@@ -108,16 +117,10 @@ body {
   position: absolute;
   overflow: hidden;
   width: 110px;
-  cursor: pointer;
 }
 .dropdown-container #dropdown:not(:checked) ~ .items
 {
   height: 35px;
-}
-.dropdown-container:hover
-{
-  background: rgba(255,255,255,0.2);
-  border-radius: 8px;
 }
 .dropdown-container .items label
 {
@@ -159,7 +162,7 @@ body {
   color: #fff;
   padding: 6px 40px;
 }
-.dropdown-container #dropdown:checked ~ .bg
+.dropdown-container #dropdown:checked ~ .background
 {
   position: fixed;
   top: 0;
@@ -258,6 +261,10 @@ body {
 .shares-item__sec-value,
 .shares-item__third-value {
   padding-right: 10px;
+}
+.shares-header__forth-col,
+.shares-item__forth-value {
+  min-width: 20px;
 }
 
 .shares-item__btn-container{
@@ -733,8 +740,8 @@ body {
     line-height: 18px;
   }
   .btn-container__delete-btn {
+    top: 14px;
     padding: 0;
-    padding-right: 10px;
   }
   .shares-item__value {
     font-size: 12px;
@@ -802,6 +809,10 @@ body {
 
 }
 @media all and (max-width: 399px){
+  .header__container,
+  .main__container {
+    min-width: 320px;
+  }
   .shares-header__col-title,
   .shares-item__value {
     font-size: 11px;
@@ -814,7 +825,6 @@ body {
   }
   .btn-container__delete-btn {
     top: 21px;
-    left: -10px;
 
     width: 15px;
     height: 15px;
