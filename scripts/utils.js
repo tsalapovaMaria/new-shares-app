@@ -61,6 +61,13 @@ const addElement = ({input, textContent, className, top, left} = {}) => {
     element.style.left = left;
 
     wrapperElement.append(element);
+
+    element.addEventListener('click', (e) => {
+        if(!e.target.closest(`.${input.parentElement.className}`)){
+            return;
+        }
+        input.focus();
+    });
 };
 
 const removeElement = ({input, className} = {}) => {

@@ -18,4 +18,6 @@ Array.from(btns).forEach(
         thirdTd.innerText = (amount * price).toLocaleString();
 
         tbody[id].append(newTr);
+        amountInputs[id].value = '1';
+        priceInputs[id].value = '215,3';
 }));
