@@ -36,15 +36,6 @@ const changePriceInputs = () => {
     );
 };
 
-// const checkNumber = (input, value) => {
-//     if (value !== value || value === 0) {
-//         input.value = '1';
-//         value = 1;
-//         return false;
-//     }
-//     return true;
-// };
-
 const readInputValue = (input) => {
     let value = Number(input.value.replace(/\s/g, '').replace(',', '.'));
     if (value !== value || value === 0) {

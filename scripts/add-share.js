@@ -3,16 +3,9 @@ const tbody = document.querySelectorAll('.table-container__shares-table > tbody'
 const tr = document.querySelector('.shares-table__shares-item');
 
 Array.from(btns).forEach(
-    (btn, id) => btn.addEventListener('click', (e) => {
-
+    (btn, id) => btn.addEventListener('click', () => {
         const amount = Number(amountInputs[id].value.replace(/\s/g, ''));
         const price = Number(priceInputs[id].value.replace(/\s/g, '').replace(',', '.'));
-        const isAmountNumber = checkNumber(amount, amountInputs[id]);
-        const isPriceNumber = checkNumber(price, priceInputs[id]);
-        
-        if(isAmountNumber || isPriceNumber){
-            return;
-        }
 
         const newTr = tr.cloneNode(true);
 

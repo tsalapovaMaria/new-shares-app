@@ -69,7 +69,6 @@ body {
 .dropdown-container #text div{
   margin-top: 11px;
   margin-left: 40px;
-  height: 40px;
 }
 .dropdown-container .dropdown
 {
@@ -473,8 +472,7 @@ body {
   background: #0C9241;
   transition: all 0.15s;
 }
-.btn-container__btn-add:active,
-.btn-container__btn-add:focus {
+.btn-container__btn-add:active {
   background: #054146;
 }
 
