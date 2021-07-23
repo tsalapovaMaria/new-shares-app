@@ -53,63 +53,6 @@ body {
   line-height: 18px;
 }
 
-/*dropdown*/
-
-.dropdown__menu {  
-  min-width: 110px;
-  height: 70px;
-
-  position: relative;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-input[type="checkbox"] {
-  display: none;
-}
-.menu__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  min-height: 40px;
-
-  position: relative;
-
-  font-size: 16px;
-  line-height: 18px;
-  color: #FFFFFF;
-
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.menu__button:hover {
-  border-radius: 8px;
-  background-color: rgba(255,255,255,0.2);
-  transition: all 0.15s;
-}
-.menu__button::after,
-.menu__button::before {
-  content: "";
-  position: absolute;
-  right: 25px;
-  
-  top: 18px;
-  height: 2px;
-  width: 7px;
-  background-color: #fff;
-  transform: rotate(45deg);
-  transition: transform 0.2s;
-}
-.menu__button::before {
-  right: 20px;
-  transform: rotate(-45deg);
-}
-
-
-
 .dropdown-container input{
   display: none;
 }
@@ -125,13 +68,6 @@ input[type="checkbox"] {
   margin-top: 6px;
   height: 40px;
 }
-.dropdown-container #rub {
-  position: relative;
-}
-.dropdown-container #rub div{
-  position: absolute;
-  top: 7px;
-}
 .dropdown-container .dropdown
 {
   display: inline-block;
@@ -140,28 +76,24 @@ input[type="checkbox"] {
   line-height: 30px;
   position: relative;
 }
-.dropdown-container .dropdown:before
-{
-  content: ">";
-  display: inline-block;
+.arrow {
   position: absolute;
-  right: 5px;
   top: 5px;
-  z-index: 2;
-  width: 30px;
-  height: 26px;
-  text-align: center;
-  line-height: 26px;
-  transform: rotate(90deg);
+  right: 7px;
+
   cursor: pointer;
 }
-.dropdown-container .dropdown input[name="list"]:not(:checked) ~ #text
+.arrow svg {
+  fill: #fff;
+  transform: rotate(90deg);
+  width: 20px;
+  
+  transition: all 0.2s;
+}
+.dropdown-container #dropdown:checked ~ .arrow svg
 {
-  background: rgba(255,255,255,0.2);
-  border-radius: 8px;
-  margin-top: 5px;
-  color: #FFF;
-  text-align: center;
+  transform: rotate(270deg);
+  transition: all 0.2s;
 }
 .dropdown-container .dropdown input[name="list"]:checked ~ #text
 {
@@ -169,6 +101,7 @@ input[type="checkbox"] {
   color: transparent;
   z-index: 2;
 }
+
 .dropdown-container .dropdown input[name="list"]:checked ~ #rub div{
   position: relative;
 }
@@ -457,7 +390,6 @@ input[type="checkbox"] {
 
   height: 35px;
   width: 35px;
-
   background-color: #fff;
   border: none;
 
