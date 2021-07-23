@@ -1,14 +1,6 @@
 const btns = document.querySelectorAll('.btn-container__btn-add');
-
 const tbody = document.querySelectorAll('.table-container__shares-table > tbody');
 const tr = document.querySelector('.shares-table__shares-item');
-
-const createNewElement = (tag, className) => {
-    const element = document.createElement(tag);
-    element.className = className;
-
-    return element;
-}
 
 Array.from(btns).forEach(
     (btn, id) => btn.addEventListener('click', (e) => {
