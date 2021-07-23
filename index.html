@@ -29,14 +29,24 @@
                     <input type="radio" name="list" value="not_changed" id="dropdown">
                     <label class="bg" for="bg"></label>
                     <div class="items">
-                      <input type="radio" name="list" value="first_value" id="usd" checked>
-                      <label for="usd">USD</label>
-                      <input type="radio" name="list" value="second_value" id="eur">
-                      <label for="eur">EUR</label>
-                      <input type="radio" name="list" value="second_value" id="rub">
-                      <label for="rub"><div>RUB</div></label>
-                      <div id="text"><div></div></div>
+                        <input type="radio" name="list" value="first_value" id="usd" checked>
+                        <label for="usd">USD</label>
+                        <input type="radio" name="list" value="second_value" id="eur">
+                        <label for="eur">EUR</label>
+                        <input type="radio" name="list" value="second_value" id="rub">
+                        <label for="rub">
+                            <div>RUB</div>
+                        </label>
+                        <div id="text">
+                            <div>USD</div>
+                        </div>
                     </div>
+                    <span class="arrow">
+                        <svg height="30px" viewBox="0 0 512 512" width="30px">
+                            <polygon
+                                points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
+                        </svg>
+                    </span>
                 </label>
             </div>
         </div>
@@ -53,7 +63,7 @@
                                 <thead>
                                     <tr class="shares-table__shares-header">
                                         <th class="shares-header__col-title shares-header__first-col">
-                                            <div>количество акций</div>
+                                            <div>кол-во акций</div>
                                         </th>
                                         <th class="shares-header__col-title shares-header__sec-col">
                                             <div>цена покупки</div>
@@ -70,10 +80,10 @@
                                             <span>10</span>
                                         </td>
                                         <td class="shares-item__value shares-item__sec-value">
-                                            <span>210</span>
+                                            <span data-currency="$">210</span>
                                         </td>
                                         <td class="shares-item__value shares-item__third-value">
-                                            <span>2100</span>
+                                            <span data-currency="$">2100</span>
                                         </td>
                                         <td class="shares-item__btn-container">
                                             <button class="btn-container__delete-btn"
@@ -85,10 +95,10 @@
                                             <span>10</span>
                                         </td>
                                         <td class="shares-item__value shares-item__sec-value">
-                                            <span>205</span>
+                                            <span data-currency="$">205</span>
                                         </td>
                                         <td class="shares-item__value shares-item__third-value">
-                                            <span>2050</span>
+                                            <span data-currency="$">2050</span>
                                         </td>
                                         <td class="shares-item__btn-container">
                                             <button class="btn-container__delete-btn"
@@ -103,21 +113,20 @@
                             <form action="" class="shares-form-container__shares-form">
                                 <div class="shares-form__shares-form-inputs">
                                     <div class="shares-form-inputs__amount-container">
-                                        <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
-                                            maxlength="2">
+                                        <input type="text" class="amount-container__input" placeholder="1 шт" value="1" required>
+                                        <span class="amount-container__amounts">шт</span>
+
                                         <div class="amount-container__btns">
-                                            <button type="button" class="btns__less-btn"
-                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
-                                            <button type="button" class="btns__more-btn"
-                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value + 1)}"></button>
+                                            <button type="button" class="btns__remove-btn"></button>
+                                            <button type="button" class="btns__add-btn"></button>
                                         </div>
                                     </div>
                                     <div class="shares-form-inputs__price-container">
-                                        <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
+                                        <input type="text" placeholder="215,3 $" class="price-container__input" required>
                                     </div>
                                 </div>
                                 <div class="shares-form__btn-container">
-                                    <button class="btn-container__btn-add">Добавить</button>
+                                    <button class="btn-container__btn-add" type="submit">Добавить</button>
                                 </div>
                             </form>
                         </div>
@@ -149,10 +158,10 @@
                                             <span>5</span>
                                         </td>
                                         <td class="shares-item__value shares-item__sec-value">
-                                            <span>215</span>
+                                            <span data-currency="$">215</span>
                                         </td>
                                         <td class="shares-item__value shares-item__third-value">
-                                            <span>1075</span>
+                                            <span data-currency="$">1075</span>
                                         </td>
                                         <td class="shares-item__btn-container">
                                             <button class="btn-container__delete-btn"
@@ -164,10 +173,10 @@
                                             <span>1</span>
                                         </td>
                                         <td class="shares-item__value shares-item__sec-value">
-                                            <span>220</span>
+                                            <span data-currency="$">220</span>
                                         </td>
                                         <td class="shares-item__value shares-item__third-value">
-                                            <span>220</span>
+                                            <span data-currency="$">220</span>
                                         </td>
                                         <td class="shares-item__btn-container">
                                             <button class="btn-container__delete-btn"
@@ -182,21 +191,19 @@
                             <form action="" class="shares-form-container__shares-form">
                                 <div class="shares-form__shares-form-inputs">
                                     <div class="shares-form-inputs__amount-container">
-                                        <input type="text" class="amount-container__input" placeholder="1 шт" value="1"
-                                            maxlength="2">
+                                        <input type="text" class="amount-container__input" placeholder="1 шт" value="1" required>
+
                                         <div class="amount-container__btns">
-                                            <button type="button" class="btns__less-btn"
-                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value - 1)}"></button>
-                                            <button type="button" class="btns__more-btn"
-                                                onclick="{this.parentNode.previousSibling.previousSibling.value = (+this.parentNode.previousSibling.previousSibling.value + 1)}"></button>
+                                            <button type="button" class="btns__remove-btn"></button>
+                                            <button type="button" class="btns__add-btn"></button>
                                         </div>
                                     </div>
                                     <div class="shares-form-inputs__price-container">
-                                        <input type="text" placeholder="215,3" value="215,3" class="price-container__input">
+                                        <input type="text" placeholder="215,3 $" class="price-container__input" required>
                                     </div>
                                 </div>
                                 <div class="shares-form__btn-container">
-                                    <button class="btn-container__btn-add">Добавить</button>
+                                    <button class="btn-container__btn-add" type="submit">Добавить</button>
                                 </div>
                             </form>
                         </div>
@@ -217,13 +224,14 @@
                             <span class="title-label__title">Усреднение позиций</span>
                         </label>
                     </div>
+
                     <div class="slider"></div>
 
                     <div class="tabs__content-text">
                         <div class="content-text__text tab01">
                             <div class="text__average-price-container">
                                 <div class="average-price-container__position-cost">
-                                    Средняя цена позиции: <span class="average-output-price">207,5</span>
+                                    Средняя цена позиции: <span class="average-output-price" data-currency="$">207,5</span>
                                 </div>
                             </div>
                             <div class="text__current-price-container">
@@ -233,7 +241,7 @@
                                 </div>
                                 <div class="current-price-container__profit">
                                     <div class="profit__title">Текущий профит</div>
-                                    <div class="profit__price">+ 2 200 <span></span></div>
+                                    <div class="profit__price" data-currency="$">+ 2 200</div>
                                 </div>
                             </div>
                         </div>
@@ -257,6 +265,11 @@
             </div>
         </div>
     </main>
+
+    <script src="scripts/create-pseudo-elements.js"></script>
+    <script src="scripts/add-remove-buttons.js"></script>
+    <script src="scripts/add-share.js"></script>
+    <script src="scripts/dropdown.js"></script>
 </body>
 
 </html>
