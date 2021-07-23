@@ -2,10 +2,8 @@ const inputElements = document.querySelectorAll('.items > input[type=radio]');
 const currentCurrencyElement = document.querySelector('#text > div');
 const currencyElements = document.querySelectorAll('[data-currency]');
 
-console.log(currencyElements);
-
-const changeCurrency = (id) => {
-    switch(id){
+const changeCurrency = (inputValue) => {
+    switch(inputValue){
         case 'usd':
             currency = '$';
             break;
@@ -40,11 +38,11 @@ const changePriceInputs = () => {
     );
 }
 
-Array.from(inputElements).forEach(radioBtn => 
-    radioBtn.addEventListener('change', () => {
-        if(radioBtn.checked){
-            changeCurrency(radioBtn.id);
-            currentCurrencyElement.textContent = radioBtn.id.toUpperCase();
+Array.from(inputElements).forEach(input => 
+    input.addEventListener('change', () => {
+        if(input.checked){
+            changeCurrency(input.value);
+            currentCurrencyElement.textContent = input.value.toUpperCase();
 
             changePlaceholderCurrency();
             changeCurrencyElements();
