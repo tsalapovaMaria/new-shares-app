@@ -52,7 +52,6 @@ body {
   font-size: 18px;
   line-height: 18px;
 }
-
 .dropdown-container input{
   display: none;
 }
@@ -65,7 +64,8 @@ body {
   height: 40px;
 }
 .dropdown-container #text div{
-  margin-top: 6px;
+  margin-top: 11px;
+  margin-left: 40px;
   height: 40px;
 }
 .dropdown-container .dropdown
@@ -84,7 +84,7 @@ body {
   cursor: pointer;
 }
 .arrow svg {
-  fill: #fff;
+  fill: #FFFFFF;
   transform: rotate(90deg);
   width: 20px;
   
@@ -101,14 +101,6 @@ body {
   color: transparent;
   z-index: 2;
 }
-
-.dropdown-container .dropdown input[name="list"]:checked ~ #rub div{
-  position: relative;
-}
-.dropdown-container #dropdown:disabled ~ .items #text
-{
-  background: #eee;
-}
 .dropdown-container .items
 {
   display: block;
@@ -122,9 +114,8 @@ body {
 {
   height: 35px;
 }
-.dropdown-container #dropdown:not(:checked) ~ .items:hover
+.dropdown-container:hover
 {
-  height: 40px;
   background: rgba(255,255,255,0.2);
   border-radius: 8px;
 }
@@ -167,10 +158,6 @@ body {
   background: none;
   color: #fff;
   padding: 6px 40px;
-}
-.dropdown .items #usd:checked ~ #text div::before
-{
-  content: "EUR";
 }
 .dropdown-container #dropdown:checked ~ .bg
 {
@@ -255,21 +242,13 @@ body {
 }
 .shares-item__value:not(:first-of-type) > span::after,
 .average-output-price::after,
-.profit__price span::after {
+.profit__price::after {
   position: absolute;
   right: -12px;
-  content: '$';
+  content: attr(data-currency);
 } 
-.shares-form-inputs__price-container::after {
-  position: absolute;
-  top: 6px;
-  right: 25px;
-  content: '$';
-
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 18px;
-  color: #333333;
+.profit__price::after {
+  right: 30px;
 } 
 /* #rub:checked ~ .main .shares-item__value:not(:first-of-type) > span::after,
 #rub:checked ~ .main .shares-item__value:not(:first-of-type) > span::after,
@@ -327,7 +306,7 @@ body {
 }
 .table-container__shares-table {
   width: 850px;
-  max-width: 453px;
+  max-width: 100%;
   border-collapse: collapse;
 }
 .shares-table__shares-header {
@@ -345,16 +324,17 @@ body {
   font-size: 14px;
 }
 .shares-header__first-col {
-  width: 176px;
+  width: 130px;
   border-radius: 8px 0 0 8px;
 }
 .shares-header__sec-col {
-  width: 136px;
+  width: 140px;
 }
 .shares-header__third-col {
-  width: 87px;
+  width: 150px;
 }
 .shares-header__forth-col {
+  width: 40px;
   border-radius: 0 8px 8px 0;
 }
 
@@ -363,17 +343,12 @@ body {
   padding-top: 23px;
 
   font-size: 14px;
-  text-align: left;
+  text-align: center;
   color: #7B7B7B;
 }
-.shares-item__first-value {
-  padding-left: 70px;
-}
-.shares-item__sec-value {
-  padding-left: 50px;
-}
+.shares-item__sec-value,
 .shares-item__third-value {
-  padding-left: 23px;
+  padding-right: 10px;
 }
 
 .shares-item__btn-container{
@@ -384,12 +359,13 @@ body {
 .btn-container__delete-btn {
   position: absolute;
   top: 12px;
-  left: 10px;
+  left: 0px;
 
   font-size: 13px;
 
   height: 35px;
   width: 35px;
+
   background-color: #fff;
   border: none;
 
@@ -412,10 +388,15 @@ body {
   border-top: 5px solid #F8F8F8;
 }
 .shares-form__shares-form-inputs {
+  width: 100%;
   display: flex;
+}
+.shares-form__shares-form-inputs > div{
+  width: 100%;
 }
 .shares-form-container__shares-form {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .shares-form-inputs__amount-container {
@@ -434,12 +415,16 @@ body {
 }
 
 .amount-container__input{
-  width: 122px;
-  height: 22px;
+  padding: 5px 100px 3px 17px;
+}
+.amount-container__input,
+.price-container__input  {  
+  width: 100%;
+  height: 30px;
 
-  padding: 5px 0 3px 17px;
-  cursor: default;
+  box-sizing: border-box;
 
+  position: relative;
   border: none;
   background: #faf8fb;
   border-radius: 8px;
@@ -452,18 +437,21 @@ body {
 
   color: #4f4e57;
 }
-.amount-container__input,
-.price-container__input  {  
-  position: relative;
-  border: none;
-  background: #faf8fb;
-  border-radius: 8px;
+.amount-container__amounts,
+.price-container__currency {
+  position: absolute;
 
-  font-size: 16px;
-  line-height: 22px;
+  z-index: 2;
+  cursor: default;
 
+  font-weight: normal;
   color: #4f4e57;
 }
+.amount-container__amounts {
+  top: 8px;
+  left: 30px;
+}
+
 .amount-container__amount-span {
   position: relative;
 }
@@ -476,8 +464,8 @@ body {
   font-weight: 100;
   z-index: 2;
 }
-.btns__less-btn,
-.btns__more-btn {
+.btns__remove-btn,
+.btns__add-btn {
   position: absolute;
   width: 31px;
   height: 24px;
@@ -488,20 +476,20 @@ body {
   cursor: pointer;
   background: none;
 }
-.btns__more-btn {
+.btns__add-btn {
   right: 0;
 }
-.btns__less-btn:hover::after,
-.btns__more-btn:hover::before,
-.btns__more-btn:hover::after {
+.btns__remove-btn:hover::after,
+.btns__add-btn:hover::before,
+.btns__add-btn:hover::after {
   border: 1px solid #34bc48;  
   background-color: #34bc48;
 
   transition: all 0.15s;
 }
-.btns__more-btn::after,
-.btns__more-btn::before,
-.btns__less-btn::after {
+.btns__add-btn::after,
+.btns__add-btn::before,
+.btns__remove-btn::after {
   content: "";
 
   position: absolute;
@@ -519,10 +507,10 @@ body {
   z-index: 2;
   transition: all 0.15s;
 }
-.btns__more-btn::before {
+.btns__add-btn::before {
   transform: rotate(90deg);
 }
-.btns__less-btn::after {
+.btns__remove-btn::after {
   left: 9px;
   border: 1px solid #909090;
   background-color: #909090;
@@ -530,14 +518,10 @@ body {
 
 .shares-form-inputs__price-container{
   position: relative;
-  margin-left: 37px;
+  margin-left: 20px;
 }
 .price-container__input {
-  padding: 6px 0;
-
-  width: 124px;
-  height: 30px;
-  box-sizing: border-box;
+  padding: 6px 10px 6px 0;
 
   text-align: center;
 
@@ -546,10 +530,11 @@ body {
 }
 
 .shares-form__btn-container {
-  margin-left: 29px;
+  margin-top: 20px;
+  width: 100%;
 }
 .btn-container__btn-add {
-  width: 123px;
+  width: 100%;
   height: 40px;
 
   background: #34BC48;
@@ -661,9 +646,6 @@ body {
 .text__current-price-container{
   display: flex;
   margin-top: 30px;
-}
-.text__average-price-container{
-  margin-right: 27px;
 }
 .text__desired-average-price-container {
   display: flex;
@@ -874,9 +856,6 @@ body {
   .desired-price__input {
     width: 100%;
   }
-  .text__average-price-container {
-    margin-right: 17px;
-  }
   .desired-average-price-container__current-price {
     width: 50%;
   }
@@ -893,12 +872,6 @@ body {
   }
   .shares-form-inputs__price-container {
     margin-left: 25px;
-  }
-  .amount-container__input,
-  .price-container__input {
-    width: 100%;
-    height: 30px;
-    box-sizing: border-box;
   }
   .shares-form__btn-container {
     margin: 0;
