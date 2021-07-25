@@ -29,13 +29,15 @@ Array.from(priceInputs).forEach(input => {
     input.addEventListener('blur',
         () => {
             readInputValue(input);
-            addElement({
+
+            const spanCurrency = addElement({
                 input: input,
-                textContent: currency,
+                textContent: '',
                 className: priceClassName,
-                top: '7px',
-                left: String(input.value).length * 11 / 2 + input.offsetWidth / 2 + 'px'
+                top: '0px',
+                left: String(input.value).length * 9 / 2 - input.offsetWidth / 2 + 'px'
             });
+            spanCurrency.dataset.currency = currency;
         });
     input.addEventListener('focus',
         () => removeElement({

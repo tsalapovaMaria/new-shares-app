@@ -353,8 +353,7 @@ body {
 
   color: #4f4e57;
 }
-.amount-container__amounts,
-.price-container__currency {
+.amount-container__amounts {
   position: absolute;
 
   z-index: 2;
@@ -362,6 +361,17 @@ body {
 
   font-weight: normal;
   color: #4f4e57;
+}
+.price-container__currency {
+  position: relative;
+}
+.price-container__currency::after {  
+  content: attr(data-currency);
+  position: absolute;
+  font-weight: normal;
+  color: #4f4e57;
+  top: 1px;
+
 }
 .amount-container__amounts {
   top: 8px;

@@ -1,5 +1,5 @@
 const changeCurrency = (inputValue) => {
-    switch(inputValue){
+    switch (inputValue) {
         case 'usd':
             currency = '$';
             break;
@@ -21,6 +21,8 @@ const changePlaceholderCurrency = () => {
 };
 
 const changeCurrencyElements = () => {
+    const currencyElements = document.querySelectorAll('[data-currency]');
+
     Array.from(currencyElements).forEach(
         element => {
             element.dataset.currency = currency;
@@ -31,7 +33,7 @@ const changeCurrencyElements = () => {
 const changePriceInputs = () => {
     Array.from(tableSpanElements).forEach(
         span => {
-            span.textContent = currency;
+            span.dataset.currency = currency;
         }
     );
 };
@@ -51,11 +53,17 @@ const createNewElement = (tag, className) => {
     return element;
 };
 
-const addElement = ({input, textContent, className, top, left} = {}) => {
+const addElement = ({
+    input,
+    textContent,
+    className,
+    top,
+    left
+} = {}) => {
     const wrapperElement = input.parentElement;
     const element = document.createElement('span');
 
-    element.className = className;   
+    element.className = className;
     element.textContent = `${textContent}`;
     element.style.top = top;
     element.style.left = left;
@@ -63,14 +71,18 @@ const addElement = ({input, textContent, className, top, left} = {}) => {
     wrapperElement.append(element);
 
     element.addEventListener('click', (e) => {
-        if(!e.target.closest(`.${input.parentElement.className}`)){
+        if (!e.target.closest(`.${input.parentElement.className}`)) {
             return;
         }
         input.focus();
     });
+    return element;
 };
 
-const removeElement = ({input, className} = {}) => {
+const removeElement = ({
+    input,
+    className
+} = {}) => {
     const element = input.parentElement.querySelector(`.${className}`);
     if (element) {
         element.remove();
