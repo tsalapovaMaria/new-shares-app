@@ -1,9 +1,11 @@
 const btns = document.querySelectorAll('.btn-container__btn-add');
-const tbody = document.querySelectorAll('.table-container__shares-table > tbody');
+const tbodyElement = document.querySelectorAll('.table-container__shares-table > tbody');
 const trElements = document.querySelectorAll('.shares-table__shares-item');
 
 Array.from(btns).forEach(
     (btn, id) => btn.addEventListener('click', () => {
+        const currentTbody = Array.from(tbodyElement);
+
         const amount = Number(amountInputs[id].value.replace(/\s/g, ''));
         const price = Number(priceInputs[id].value.replace(/\s/g, '').replace(',', '.'));
 
@@ -17,7 +19,20 @@ Array.from(btns).forEach(
         secTd.innerText = price.toLocaleString();
         thirdTd.innerText = (amount * price).toLocaleString();
 
-        tbody[id].append(newTr);
         amountInputs[id].value = '1';
         priceInputs[id].value = '215,3';
+
+        tbodyElement[id].append(newTr);
+        newTr.style.transform = 'scale(1.2)';
+        newTr.style.opacity = 0.2;
+
+        setTimeout(() => {
+            newTr.style.transform = 'scale(1)';
+            newTr.style.transition = '0.5s all';
+            newTr.style.opacity = 1;
+        },0);
+
+        const deleteBtn = newTr.querySelector('.btn-container__delete-btn');
+
+        addBtnsEventRemoveShare(deleteBtn, newTr);
 }));

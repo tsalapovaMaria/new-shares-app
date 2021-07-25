@@ -88,3 +88,29 @@ const removeElement = ({
         element.remove();
     }
 };
+
+const removeShare = (currentRow) => {
+    const currentTbody = currentRow.parentElement;
+
+    currentRow.style.transition = '0.35s all';
+    currentRow.style.transform = 'scale(1.2)';
+    currentRow.style.opacity = '0';
+
+    setTimeout(() => {
+        currentRow.remove();
+        if (currentTbody.children.length === 0) {
+            const element = createNewElement('DIV', 'table-is-empty');
+            element.textContent = 'НЕТ ПОКУПОК';
+            currentTbody.append(element);
+
+            element.style.left = currentTbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
+            currentTbody.className = 'empty-table';
+        }
+    }, 250);
+}
+
+const addBtnsEventRemoveShare = (btn, tr) => {
+    btn.addEventListener('click', () =>
+        removeShare(tr)
+    );
+}

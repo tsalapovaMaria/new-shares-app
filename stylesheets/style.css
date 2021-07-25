@@ -491,6 +491,9 @@ body {
   background: #054146;
 }
 
+.new-table-row {
+  transform: scale(1.2);
+}
 .empty-table {
   position: relative;
   height: 40px;
