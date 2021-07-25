@@ -4,7 +4,6 @@ const trElements = document.querySelectorAll('.shares-table__shares-item');
 
 Array.from(btns).forEach(
     (btn, id) => btn.addEventListener('click', () => {
-        const currentTbody = Array.from(tbodyElement);
 
         const amount = Number(amountInputs[id].value.replace(/\s/g, ''));
         const price = Number(priceInputs[id].value.replace(/\s/g, '').replace(',', '.'));
@@ -12,8 +11,8 @@ Array.from(btns).forEach(
         const newTr = trElements[0].cloneNode(true);
 
         const firstTd = newTr.querySelector('.shares-item__first-value > span');
-        const secTd =  newTr.querySelector('.shares-item__sec-value > span');
-        const thirdTd =  newTr.querySelector('.shares-item__third-value > span');
+        const secTd = newTr.querySelector('.shares-item__sec-value > span');
+        const thirdTd = newTr.querySelector('.shares-item__third-value > span');
 
         firstTd.innerText = amount.toLocaleString();
         secTd.innerText = price.toLocaleString();
@@ -30,9 +29,37 @@ Array.from(btns).forEach(
             newTr.style.transform = 'scale(1)';
             newTr.style.transition = '0.5s all';
             newTr.style.opacity = 1;
-        },0);
+        }, 0);
 
         const deleteBtn = newTr.querySelector('.btn-container__delete-btn');
 
         addBtnsEventRemoveShare(deleteBtn, newTr);
-}));
+
+        const emptyElements = document.querySelectorAll('.table-is-empty');
+
+        const reachParentElement = (parent) => {
+            while (parent.className !== 'shares-article__shares-container') {
+                parent = parent.parentElement;
+            }
+        }
+
+        if (emptyElements) {
+            if (emptyElements.length === 1) {
+                emptyElements[0].remove();
+                return;
+            }
+
+            let emptyElementParent = emptyElements[0].parentElement;
+            let btnParent = btn.parentElement;
+
+            reachParentElement(btnParent);
+            reachParentElement(emptyElementParent);
+
+            if (emptyElementParent === btnParent) {
+                emptyElements[0].remove();
+                return;
+            }
+
+            emptyElements[1].remove();
+        }
+    }));
