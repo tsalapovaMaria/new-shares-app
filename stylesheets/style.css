@@ -182,6 +182,11 @@ body {
   content: attr(data-currency);
 } 
 
+
+.dropdown-container .items .active-currency {
+  color: #2dc033;
+}
+
 /*MAIN*/
 .main {
   display: flex;
