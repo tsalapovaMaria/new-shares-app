@@ -23,10 +23,13 @@
             <h1 class="main-title">Калькулятор расчёта среднего</h1>
 
             <div class="dropdown-container">
-                <label for="dropdown" class="dropdown">
-                    <input type="radio" name="list" value="not_changed" id="background" checked>
+                <div class="dropdown">
                     <input type="radio" name="list" value="not_changed" id="dropdown">
+                    <label for="dropdown"></label>
+
+                    <input type="radio" name="list" value="not_changed" id="background" checked>
                     <label class="background" for="background"></label>
+                    
                     <div class="items">
                         <input type="radio" name="list" value="usd" id="first-value">
                         <label for="first-value" class="active-currency">USD</label>
@@ -44,7 +47,7 @@
                                 points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
                         </svg>
                     </span>
-                </label>
+                </div>
             </div>
         </div>
     </header>
@@ -118,7 +121,7 @@
                                     </div>
                                     <div class="shares-form-inputs__price-container">
                                         <input type="text" placeholder="215,3 $" class="price-container__input" value="215,3" required>
-                                        <span class="price-container__currency" data-currency="$" style="left:-45px"></span>
+                                        <span class="price-container__currency" data-currency="$" style="top:-1px;left:-48px"></span>
                                     </div>
                                 </div>
                                 <div class="shares-form__btn-container">
@@ -195,7 +198,7 @@
                                     </div>
                                     <div class="shares-form-inputs__price-container">
                                         <input type="text" placeholder="215,3 $" class="price-container__input" value="215,3" required>
-                                        <span class="price-container__currency" data-currency="$" style="left:-45px"></span>
+                                        <span class="price-container__currency" data-currency="$" style="top:-1px;left:-48px"></span>
                                     </div>
                                 </div>
                                 <div class="shares-form__btn-container">

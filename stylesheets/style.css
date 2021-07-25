@@ -77,19 +77,24 @@ body {
   height: 38px;
   line-height: 30px;
   position: relative;
-  cursor: pointer;
 }
-.dropdown-container .dropdown:hover
+.dropdown-container label[for="dropdown"]:hover
 {
   background: rgba(255,255,255,0.2);
   border-radius: 8px;
+}
+label[for="dropdown"]{
+  position: absolute;
+  width: 110px;
+  height: 38px;
+  display: block;
+  z-index: 3;
+  cursor: pointer;
 }
 .arrow {
   position: absolute;
   top: 5px;
   right: 7px;
-
-  cursor: pointer;
 }
 .arrow svg {
   fill: #FFFFFF;
@@ -664,7 +669,7 @@ body {
   .header__container,
   .main__container {
     min-width: 1000px;
-    width: 1000px;
+    width: 100%;
     padding: 0 14px;
   }
   .main__container {
@@ -672,7 +677,8 @@ body {
     padding-bottom: 50px;
   }
   .shares-section__shares-article {
-    width: 476px;
+    min-width: 300px;
+    width: 100%;
   }
   .shares-container__table-container,
   .shares-container__shares-form-container {
@@ -839,12 +845,16 @@ body {
 }
 @media all and (max-width: 399px){
   .header__container,
-  .main__container {
-    min-width: 320px;
+  .main__container,
+  .shares-section__shares-article{
+    min-width: 200px;
   }
   .shares-header__col-title,
   .shares-item__value {
     font-size: 11px;
+  }
+  .shares-header__first-col {
+    min-width: 74px;
   }
   .shares-header__forth-col {
     width: 10px;
