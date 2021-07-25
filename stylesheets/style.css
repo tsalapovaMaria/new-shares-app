@@ -374,6 +374,8 @@ label[for="dropdown"]{
 }
 .price-container__currency {
   position: relative;
+  left: -48px;
+  top: -1px;
 }
 .price-container__currency::after {  
   content: attr(data-currency);
@@ -518,7 +520,8 @@ label[for="dropdown"]{
   margin-top: 42px;
 }
 .tabs__content input[name=inditificator] {
-  display: none;
+  position: absolute;
+  opacity: 0;
 }
 .content__tabs-titles {  
   display: flex;
@@ -659,6 +662,13 @@ label[for="dropdown"]{
   opacity: 1;
   left: 0;
   transition: all 0.15s;
+}
+
+
+#tab_01:focus ~ .content__tabs-titles > label:first-of-type,
+#tab_02:focus ~ .content__tabs-titles > label:last-of-type {
+  background-color: rgba(203, 203, 203, 0.1);
+  border-radius: 8px 8px 0 0;
 }
 
 

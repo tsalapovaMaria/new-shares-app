@@ -98,8 +98,6 @@ const removeShare = (currentRow) => {
 
     setTimeout(() => {
         currentRow.remove();
-    }, 250);
-    setTimeout(() => {
         if (currentTbody.children.length === 0) {
             const element = createNewElement('DIV', 'table-is-empty');
             element.textContent = 'НЕТ ПОКУПОК';
