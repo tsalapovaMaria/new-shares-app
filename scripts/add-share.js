@@ -1,6 +1,16 @@
 const btns = document.querySelectorAll('.btn-container__btn-add');
-const tbodyElement = document.querySelectorAll('.table-container__shares-table > tbody');
-const trElements = document.querySelectorAll('.shares-table__shares-item');
+const tbodyElements = document.querySelectorAll('.table-container__shares-table > tbody');
+let trElements = document.querySelectorAll('.shares-table__shares-item');
+
+const trClassName = 'shares-table__shares-item';
+const tdClassName = 'shares-item__value';
+
+const firstTdClassName = 'shares-item__first-value';
+const secTdClassName = 'shares-item__sec-value';
+const thirdTdClassName = 'shares-item__third-value';
+const forthTdClassName = 'shares-item__forth-value';
+
+const btnClassName = 'btn-container__delete-btn';
 
 Array.from(btns).forEach(
     (btn, id) => btn.addEventListener('click', () => {
@@ -8,18 +18,19 @@ Array.from(btns).forEach(
         const amount = Number(amountInputs[id].value.replace(/\s/g, ''));
         const price = Number(priceInputs[id].value.replace(/\s/g, '').replace(',', '.'));
 
+        if(trElements.length === 0 ){
+            createTableRow( );
+            trElements = document.querySelector('.shares-table__shares-item');
+        }
         const newTr = trElements[0].cloneNode(true);
 
-        const firstTd = newTr.querySelector('.shares-item__first-value > span');
-        const secTd = newTr.querySelector('.shares-item__sec-value > span');
-        const thirdTd = newTr.querySelector('.shares-item__third-value > span');
+        const firstTd = newTr.querySelector(`${firstTdClassName} > span`);
+        const secTd = newTr.querySelector(`${secTdClassName} > span`);
+        const thirdTd = newTr.querySelector(`${thirdTdClassName} > span`);
 
         firstTd.innerText = amount.toLocaleString();
         secTd.innerText = price.toLocaleString();
         thirdTd.innerText = (amount * price).toLocaleString();
-
-        amountInputs[id].value = '1';
-        priceInputs[id].value = '215,3';
 
         tbodyElement[id].append(newTr);
         newTr.style.transform = 'scale(1.2)';

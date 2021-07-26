@@ -46,11 +46,38 @@ const readInputValue = (input) => {
     input.value = value.toLocaleString();
 }
 
-const createNewElement = (tag, className) => {
+const createElement = (tag, {className, dataAttr, textContent} = {}, children = []) => {
     const element = document.createElement(tag);
-    element.className = className;
 
+    if(className){
+        element.className = className;
+    }
+    if(dataAttr){
+        element.dataset.currency = dataAttr;
+    }
+    if(textContent){
+        element.textContent = textContent;
+    }
+    if(children){
+        children.forEach(child => element.append(child));
+    }
     return element;
+};
+
+const createTableRow = (tbody) => {
+
+    const firstTdChild = createElement('SPAN');
+    const secTdChild = createElement('SPAN', {dataAttr: currency});
+    const thirdTdChild = createElement('SPAN', {dataAttr: currency});
+    const forthTdChild = createElement('BUTTON', {className: btnClassName, textContent: '╳'});
+
+    const firstTd = createElement('TD', {className: `${tdClassName} ${firstTdClassName}`}, [firstTdChild]);
+    const secTd = createElement('TD', {className: `${tdClassName} ${secTdClassName}`}, [secTdChild]);
+    const thirdTd = createElement('TD', {className: `${tdClassName} ${thirdTdClassName}`}, [thirdTdChild]);
+    const forthTd = createElement('TD', {className: `${tdClassName} ${forthTdClassName}`}, [forthTdChild]);
+
+    const tableRow = createElement('TR', {className: trClassName}, [firstTd, secTd, thirdTd, forthTd]);
+    tbody.append(tableRow);
 };
 
 const addElement = ({
@@ -63,11 +90,18 @@ const addElement = ({
     const wrapperElement = input.parentElement;
     const element = document.createElement('span');
 
-    element.className = className;
-    element.textContent = `${textContent}`;
-    element.style.top = top;
-    element.style.left = left;
-
+    if(className){
+        element.className = className;
+    }
+    if(textContent){
+        element.textContent = `${textContent}`;
+    }
+    if(top){
+        element.style.top = top;
+    }
+    if(left){
+        element.style.left = left;
+    }
     wrapperElement.append(element);
 
     element.addEventListener('click', (e) => {
@@ -99,7 +133,7 @@ const removeShare = (currentRow) => {
     setTimeout(() => {
         currentRow.remove();
         if (currentTbody.children.length === 0) {
-            const element = createNewElement('DIV', 'table-is-empty');
+            const element = createElement('DIV', 'table-is-empty');
             element.textContent = 'НЕТ ПОКУПОК';
             currentTbody.append(element);
 
