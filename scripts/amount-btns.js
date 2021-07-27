@@ -5,7 +5,7 @@ const inputs = document.querySelectorAll('.amount-container__input');
 
 Array.from(addButtons).forEach(
     (btn, id) => btn.addEventListener('click', () => {
-        const value = Number(inputs[id].value.replace(/\s/g, "").replace(',', '.'));
+        const value = Number(inputs[id]?.value?.replace(/\s/g, "").replace(',', '.'));
 
         inputs[id].value = (value + 1).toLocaleString();
         
@@ -24,8 +24,8 @@ Array.from(addButtons).forEach(
 
 Array.from(removeButtons).forEach(
     (btn, id) => btn.addEventListener('click', () => {
-        const value = Number(inputs[id].value.replace(/\s/g, "").replace(',', '.'));
-        if (value === 1) {
+        const value = Number(inputs[id]?.value?.replace(/\s/g, "").replace(',', '.'));
+        if (value === 1 || value === 0) {
             return;
         }
 

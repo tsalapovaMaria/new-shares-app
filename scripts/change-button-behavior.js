@@ -15,9 +15,13 @@ const changeBtnBehavior = (input) => {
 
     const btn = formContainer.nextElementSibling?.querySelector('.btn-container__btn-add');
 
-    const isAboveZero = input.value !== '0' && inputSibling.value !== '0';
+    const value = +input.value;
+    const siblingValue = +inputSibling.value;
 
-    if (isAboveZero) {
+    const isAboveZero = value && siblingValue && value > 0 && siblingValue > 0;
+    const isNumber = value === value && siblingValue === siblingValue;
+
+    if (isAboveZero && isNumber) {
         btn.disabled = false;
     } else {
         btn.disabled = true;
