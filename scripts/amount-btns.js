@@ -8,34 +8,37 @@ Array.from(addButtons).forEach(
         const value = Number(inputs[id].value.replace(/\s/g, "").replace(',', '.'));
 
         inputs[id].value = (value + 1).toLocaleString();
-        removeElement(
-            {input: inputs[id],
-            className: amountClassName});
-        addElement(
-            {input: inputs[id],
+        
+        removeElement({
+            input: inputs[id],
+            className: amountClassName
+        });
+        addElement({
+            input: inputs[id],
             textContent: 'шт',
             className: amountClassName,
             top: '8px',
-            left: 20 + String(inputs[id].value).length * 9 + 'px'}
-        );
+            left: 20 + String(inputs[id].value).length * 9 + 'px'
+        });
     }));
 
 Array.from(removeButtons).forEach(
     (btn, id) => btn.addEventListener('click', () => {
         const value = Number(inputs[id].value.replace(/\s/g, "").replace(',', '.'));
-        if(value === 1){
+        if (value === 1) {
             return;
         }
 
         inputs[id].value = (value - 1).toLocaleString();
-        removeElement(
-            {input: inputs[id],
-            className: amountClassName});
-        addElement(
-            {input: inputs[id],
+        removeElement({
+            input: inputs[id],
+            className: amountClassName
+        });
+        addElement({
+            input: inputs[id],
             textContent: 'шт',
             className: amountClassName,
             top: '8px',
-            left: 20 + String(inputs[id].value).length * 9 + 'px'}
-        );
+            left: 20 + String(inputs[id].value).length * 9 + 'px'
+        });
     }));

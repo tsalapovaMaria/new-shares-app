@@ -511,6 +511,7 @@ label[for="dropdown"] {
 .btn-container__btn-add:disabled {
   background: #FAF8FB;
   color: #C4C4C4;
+  cursor: default;
 }
 
 .empty-table {  

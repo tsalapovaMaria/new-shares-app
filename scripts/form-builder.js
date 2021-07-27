@@ -117,7 +117,7 @@ const form = {
                 const amountInput = createElement('INPUT', {
                     type: 'text',
                     className: amountInputClassName,
-                    placeholder: '1 шт'
+                    placeholder: '0 шт'
                 });
                 amountInput.required = true;
 
@@ -133,7 +133,7 @@ const form = {
                 const priceInput = createElement('INPUT', {
                     type: 'text',
                     className: priceInputClassName,
-                    placeholder: '215,3 $'
+                    placeholder: '0 $'
                 });
 
                 return createElement('DIV', {
