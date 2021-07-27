@@ -119,28 +119,28 @@ const removeElement = ({
     }
 };
 
-const removeShare = (currentRow) => {
-    const currentTbody = currentRow.parentElement;
-    const removedRowClassName = 'shares-table__shares-item-remove';
+// const removeShare = (currentRow) => {
+//     const currentTbody = currentRow.parentElement;
+//     const removedRowClassName = 'shares-table__shares-item-remove';
 
-    currentRow.className += ` ${removedRowClassName}`;
+//     currentRow.className += ` ${removedRowClassName}`;
 
-    setTimeout(() => {
-        currentRow.remove();
-        if (currentTbody.children.length === 0) {
-            const element = createElement('DIV', 'table-is-empty');
-            element.textContent = 'НЕТ ПОКУПОК';
-            currentTbody.append(element);
+//     setTimeout(() => {
+//         currentRow.remove();
+//         if (currentTbody.children.length === 0) {
+//             const element = createElement('DIV', 'table-is-empty');
+//             element.textContent = 'НЕТ ПОКУПОК';
+//             currentTbody.append(element);
 
-            element.style.left = currentTbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
-            currentTbody.className = 'empty-table';
-            element.className = 'table-is-empty';
-        }
-    }, 250);
-}
+//             element.style.left = currentTbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
+//             currentTbody.className = 'empty-table';
+//             element.className = 'table-is-empty';
+//         }
+//     }, 250);
+// }
 
-const addBtnsEventRemoveShare = (btn, tr) => {
-    btn.addEventListener('click', () =>
-        removeShare(tr)
-    );
-}
+// const addBtnsEventRemoveShare = (btn, tr) => {
+//     btn.addEventListener('click', () =>
+//         removeShare(tr)
+//     );
+// }

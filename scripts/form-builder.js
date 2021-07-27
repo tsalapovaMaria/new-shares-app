@@ -10,9 +10,7 @@ const form = {
             total: 50
         }
     ],
-    subscriber: (callback) => {
-
-    },
+    subscriber: (callback) => {},
     createForm: (title) => {
         const wrapperClassName = 'shares-section__shares-article';
 
@@ -208,7 +206,7 @@ const form = {
     addShare: (amount, price) => {
         const totalPrice = amount * price;
         const createTableRow = () => {
-            const trClassName = 'shares-table__shares-item';
+            const trClassName = 'shares-table__shares-item-add';
             const tdClassName = 'shares-item__value';
 
             const amountTdClassName = 'shares-item__amount';
@@ -248,12 +246,9 @@ const form = {
                 className: `${tdClassName} ${removeRowBtnTdClassName}`
             }, [removeRowBtn]);
 
-
             const tr = createElement('TR', {
                 className: trClassName
             }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
-
-            
 
             return tr;
         }
@@ -266,8 +261,22 @@ const form = {
 
         return createTableRow();
     },
-    removeShare: (id) => {
-        return 2;
+    removeShare: (tr, tbody) => {
+        const removedRowClassName = 'shares-table__shares-item-remove';
+        tr.className += ` ${removedRowClassName}`;
+        
+        setTimeout(() => {
+            tr.remove();
+            if (tbody.children.length === 0) {
+                const element = createElement('DIV', 'table-is-empty');
+                element.textContent = 'НЕТ ПОКУПОК';
+                tbody.append(element);
+
+                element.style.left = tbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
+                tbody.className = 'empty-table';
+                element.className = 'table-is-empty';
+            }
+        }, 250);
     }
 }
 

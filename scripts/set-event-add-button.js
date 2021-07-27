@@ -22,8 +22,16 @@ Array.from(addShareBtnElements).forEach(btn => {
         purchases?.remove();
 
         tbody.append(tr);
+
+        setTimeout(() => {
+            tr.className = 'shares-table__shares-item';
+
+        }, 0);
+
         amountContainer.value = '0';
         priceContainer.value = '0';
         btn.disabled = true;
+        tr.querySelector('.btn-container__delete-btn').onclick = () => form.removeShare(tr, tbody);
+
     });
 });
