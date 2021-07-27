@@ -3,7 +3,6 @@ const priceInputs = document.querySelectorAll('.price-container__input');
 const amountClassName = 'amount-container__amounts';
 const priceClassName = 'price-container__currency';
 
-let currency = '$';
 
 Array.from(amountInputs).forEach(input => {
     input.addEventListener('blur',

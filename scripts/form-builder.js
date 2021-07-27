@@ -16,7 +16,7 @@ const form = {
 
         const containerTitleClassName = 'shares-article__title';
         const containerClassName = 'shares-article__shares-container';
-        
+
         const formContainerClassName = 'shares-container__shares-form-container';
 
         const createThead = () => {
@@ -96,6 +96,7 @@ const form = {
             const createAmountContainer = () => {
                 const amountContainerClassName = 'shares-form-inputs__amount-container';
                 const amountInputClassName = 'amount-container__input';
+                // const amountClassName = 'amount-container__amounts';
 
                 const btnsContainerClassName = 'amount-container__btns';
                 const removeBtnClassName = 'btns__remove-btn';
@@ -114,6 +115,10 @@ const form = {
                     className: btnsContainerClassName
                 }, [removeBtn, addBtn]);
 
+                // const amount = createElement('SPAN', {
+                //     textContent: 'шт',
+                //     className: amountClassName
+                // });
                 const amountInput = createElement('INPUT', {
                     type: 'text',
                     className: amountInputClassName,
@@ -129,7 +134,12 @@ const form = {
             const createPriceContainer = () => {
                 const priceContainerClassName = 'shares-form-inputs__price-container';
                 const priceInputClassName = 'price-container__input';
-                
+                // const currencySpanClassName = 'price-container__currency';
+
+                // const currencySpan = createElement('SPAN', {
+                //     className: currencySpanClassName,
+                //     dataAttr: currency
+                // });
                 const priceInput = createElement('INPUT', {
                     type: 'text',
                     className: priceInputClassName,
@@ -195,6 +205,10 @@ const form = {
     },
     addShare: (price, amount) => {
         const createTableRow = () => {
+            const totalPrice = amount * price;
+
+            this.state.push({amount: amount, price: price, total: totalPrice});
+
             const trClassName = 'shares-table__shares-item';
             const tdClassName = 'shares-item__value';
 
@@ -214,12 +228,12 @@ const form = {
             });
             const totalPriceSpan = createElement('SPAN', {
                 dataAttr: currency,
-                textContent: `${amount * price}`
+                textContent: totalPrice
             });
             const removeRowBtn = createElement('BUTTON', {
                 className: btnClassName
             });
-            removeRowBtn.innerHTML = '&#x2715';        
+            removeRowBtn.innerHTML = '&#x2715';
 
             const amountTd = createElement('TD', {
                 className: `${tdClassName} ${amountTdClassName}`

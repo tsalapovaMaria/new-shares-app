@@ -15,7 +15,7 @@ const changeCurrency = (inputValue) => {
 const changePlaceholderCurrency = () => {
     Array.from(priceInputs).forEach(
         input => {
-            input.placeholder = '215,3 ' + currency;
+            input.placeholder = '0 ' + currency;
         }
     );
 };
@@ -75,39 +75,6 @@ const createElement = (tag, {
     }
     return element;
 };
-
-// const createTableRow = (tbody) => {
-
-//     const amountChild = createElement('SPAN');
-//     const priceChild = createElement('SPAN', {
-//         dataAttr: currency
-//     });
-//     const totalPriceChild = createElement('SPAN', {
-//         dataAttr: currency
-//     });
-//     const deleteBtnChild = createElement('BUTTON', {
-//         className: btnClassName,
-//         textContent: '╳'
-//     });
-
-//     const amount = createElement('TD', {
-//         className: `${tdClassName} ${amountClassName}`
-//     }, [amountChild]);
-//     const price = createElement('TD', {
-//         className: `${tdClassName} ${priceClassName}`
-//     }, [priceChild]);
-//     const totalPrice = createElement('TD', {
-//         className: `${tdClassName} ${totalPriceClassName}`
-//     }, [totalPriceChild]);
-//     const deleteBtn = createElement('TD', {
-//         className: `${tdClassName} ${deleteBtnClassName}`
-//     }, [deleteBtnChild]);
-
-//     const tableRow = createElement('TR', {
-//         className: trClassName
-//     }, [amount, price, totalPrice, deleteBtn]);
-//     tbody.append(tableRow);
-// };
 
 const addElement = ({
     input,

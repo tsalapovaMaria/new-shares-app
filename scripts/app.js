@@ -1,3 +1,6 @@
+
+let currency = '$';
+
 const entryPoints = form.createForm('Точки входа');
 const exitPoints = form.createForm('Точки выхода');
 
@@ -9,11 +12,6 @@ const exitPoints = form.createForm('Точки выхода');
 
 //     const amountInput = inputContainer.querySelector('amount-container__input');
 //     const priceInput = inputContainer.querySelector('price-container__input');
-
-//     if(!amountInput.value || !priceInput.value){
-//         btn.disabled = true;
-//     }
-//     console.log(!amountInput.value || !priceInput.value);
 
 //     btn.addEventListener('click', () => {
 //         console.log('hello');
