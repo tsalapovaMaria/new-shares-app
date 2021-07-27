@@ -33,13 +33,15 @@ Array.from(btns).forEach(
         thirdTd.innerText = (amount * price).toLocaleString();
 
         tbodyElement[id].append(newTr);
-        newTr.style.transform = 'scale(1.2)';
-        newTr.style.opacity = 0.2;
+        newTr.className = 'shares-table__shares-item-add';
+        // newTr.style.transform = 'scale(1.2)';
+        // newTr.style.opacity = 0.2;
 
         setTimeout(() => {
-            newTr.style.transform = 'scale(1)';
-            newTr.style.transition = '0.5s all';
-            newTr.style.opacity = 1;
+            newTr.className = 'shares-table__shares-item';
+            // newTr.style.transform = 'scale(1)';
+            // newTr.style.transition = '0.5s all';
+            // newTr.style.opacity = 1;
         }, 0);
 
         const deleteBtn = newTr.querySelector('.btn-container__delete-btn');

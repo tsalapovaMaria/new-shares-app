@@ -46,19 +46,31 @@ const readInputValue = (input) => {
     input.value = value.toLocaleString();
 }
 
-const createElement = (tag, {className, dataAttr, textContent} = {}, children = []) => {
+const createElement = (tag, {
+    className,
+    dataAttr,
+    textContent,
+    placeholder,
+    type
+} = {}, children = []) => {
     const element = document.createElement(tag);
 
-    if(className){
+    if (className) {
         element.className = className;
     }
-    if(dataAttr){
+    if (dataAttr) {
         element.dataset.currency = dataAttr;
     }
-    if(textContent){
+    if (textContent) {
         element.textContent = textContent;
     }
-    if(children){
+    if (placeholder) {
+        element.placeholder = placeholder;
+    }
+    if (type) {
+        element.type = type;
+    }
+    if (children.length !== 0) {
         children.forEach(child => element.append(child));
     }
     return element;
@@ -66,17 +78,34 @@ const createElement = (tag, {className, dataAttr, textContent} = {}, children = 
 
 const createTableRow = (tbody) => {
 
-    const firstTdChild = createElement('SPAN');
-    const secTdChild = createElement('SPAN', {dataAttr: currency});
-    const thirdTdChild = createElement('SPAN', {dataAttr: currency});
-    const forthTdChild = createElement('BUTTON', {className: btnClassName, textContent: '╳'});
+    const amountChild = createElement('SPAN');
+    const priceChild = createElement('SPAN', {
+        dataAttr: currency
+    });
+    const totalPriceChild = createElement('SPAN', {
+        dataAttr: currency
+    });
+    const deleteBtnChild = createElement('BUTTON', {
+        className: btnClassName,
+        textContent: '╳'
+    });
 
-    const firstTd = createElement('TD', {className: `${tdClassName} ${firstTdClassName}`}, [firstTdChild]);
-    const secTd = createElement('TD', {className: `${tdClassName} ${secTdClassName}`}, [secTdChild]);
-    const thirdTd = createElement('TD', {className: `${tdClassName} ${thirdTdClassName}`}, [thirdTdChild]);
-    const forthTd = createElement('TD', {className: `${tdClassName} ${forthTdClassName}`}, [forthTdChild]);
+    const amount = createElement('TD', {
+        className: `${tdClassName} ${amountClassName}`
+    }, [amountChild]);
+    const price = createElement('TD', {
+        className: `${tdClassName} ${priceClassName}`
+    }, [priceChild]);
+    const totalPrice = createElement('TD', {
+        className: `${tdClassName} ${totalPriceClassName}`
+    }, [totalPriceChild]);
+    const deleteBtn = createElement('TD', {
+        className: `${tdClassName} ${deleteBtnClassName}`
+    }, [deleteBtnChild]);
 
-    const tableRow = createElement('TR', {className: trClassName}, [firstTd, secTd, thirdTd, forthTd]);
+    const tableRow = createElement('TR', {
+        className: trClassName
+    }, [amount, price, totalPrice, deleteBtn]);
     tbody.append(tableRow);
 };
 
@@ -90,16 +119,16 @@ const addElement = ({
     const wrapperElement = input.parentElement;
     const element = document.createElement('span');
 
-    if(className){
+    if (className) {
         element.className = className;
     }
-    if(textContent){
+    if (textContent) {
         element.textContent = `${textContent}`;
     }
-    if(top){
+    if (top) {
         element.style.top = top;
     }
-    if(left){
+    if (left) {
         element.style.left = left;
     }
     wrapperElement.append(element);
@@ -138,6 +167,7 @@ const removeShare = (currentRow) => {
 
             element.style.left = currentTbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
             currentTbody.className = 'empty-table';
+            element.className = 'table-is-empty';
         }
     }, 250);
 }
