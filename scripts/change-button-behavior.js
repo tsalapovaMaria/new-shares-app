@@ -15,8 +15,8 @@ const changeBtnBehavior = (input) => {
 
     const btn = formContainer.nextElementSibling?.querySelector('.btn-container__btn-add');
 
-    const value = +input.value;
-    const siblingValue = +inputSibling.value;
+    const value = Number(input.value);
+    const siblingValue = Number(inputSibling.value);
 
     const isAboveZero = value && siblingValue && value > 0 && siblingValue > 0;
     const isNumber = value === value && siblingValue === siblingValue;

@@ -10,7 +10,9 @@ const form = {
             total: 50
         }
     ],
-    subscriber: () => {},
+    subscriber: (callback) => {
+
+    },
     createForm: (title) => {
         const wrapperClassName = 'shares-section__shares-article';
 
@@ -203,19 +205,16 @@ const form = {
         document.querySelector('.shares-section').append(wrapper);
         return wrapper;
     },
-    addShare: (price, amount) => {
+    addShare: (amount, price) => {
+        const totalPrice = amount * price;
         const createTableRow = () => {
-            const totalPrice = amount * price;
-
-            this.state.push({amount: amount, price: price, total: totalPrice});
-
             const trClassName = 'shares-table__shares-item';
             const tdClassName = 'shares-item__value';
 
-            const amountTdClassName = 'shares-item__first-value';
-            const priceTdClassName = 'shares-item__sec-value';
-            const totalPriceTdClassName = 'shares-item__third-value';
-            const removeRowBtnTdClassName = 'shares-item__forth-value';
+            const amountTdClassName = 'shares-item__amount';
+            const priceTdClassName = 'shares-item__price';
+            const totalPriceTdClassName = 'shares-item__total-price';
+            const removeRowBtnTdClassName = 'shares-item__btn-container';
 
             const btnClassName = 'btn-container__delete-btn';
 
@@ -230,10 +229,11 @@ const form = {
                 dataAttr: currency,
                 textContent: totalPrice
             });
+            const removeRowBtnSpan = createElement('SPAN');
+            removeRowBtnSpan.innerHTML = '&#x2715';
             const removeRowBtn = createElement('BUTTON', {
                 className: btnClassName
-            });
-            removeRowBtn.innerHTML = '&#x2715';
+            }, [removeRowBtnSpan]);
 
             const amountTd = createElement('TD', {
                 className: `${tdClassName} ${amountTdClassName}`
@@ -253,13 +253,15 @@ const form = {
                 className: trClassName
             }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
 
+            
+
             return tr;
         }
 
-        this.state.push({
+        this.state += ({
             amount: amount,
             price: price,
-            total: `${amount} * ${price}`
+            total: totalPrice
         });
 
         return createTableRow();
