@@ -91,6 +91,10 @@ label[for="dropdown"]{
   z-index: 3;
   cursor: pointer;
 }
+#dropdown:checked + label {
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px;
+}
 .arrow {
   position: absolute;
   top: 5px;
@@ -244,17 +248,17 @@ label[for="dropdown"]{
   padding: 11px 0;
   font-size: 14px;
 }
-.shares-header__first-col {
+.shares-header__amount {
   width: 130px;
   border-radius: 8px 0 0 8px;
 }
-.shares-header__sec-col {
+.shares-header__price {
   width: 140px;
 }
-.shares-header__third-col {
+.shares-header__total-price {
   width: 150px;
 }
-.shares-header__forth-col {
+.shares-header__delete-btn {
   width: 40px;
   border-radius: 0 8px 8px 0;
 }
@@ -267,12 +271,12 @@ label[for="dropdown"]{
   text-align: center;
   color: #7B7B7B;
 }
-.shares-item__sec-value,
-.shares-item__third-value {
+.shares-item__price,
+.shares-item__total-price {
   padding-right: 10px;
 }
-.shares-header__forth-col,
-.shares-item__forth-value {
+.shares-header__delete-btn,
+.shares-item__btn-container {
   min-width: 20px;
 }
 
@@ -283,30 +287,40 @@ label[for="dropdown"]{
 }
 .btn-container__delete-btn {
   position: absolute;
-  top: 12px;
-  left: 0px;
+  top: 0;
+  left: 0;
 
-  font-size: 13px;
+  width: 100%;
+  height: 100%;
 
-  height: 35px;
-  width: 35px;
-
-  background-color: #fff;
+  background-color: transparent;
   border: none;
 
   color: #eb5757;
   cursor: pointer;
+}
+.btn-container__delete-btn span {
+  position: absolute;
+  left: 10px;
 
+  font-size: 20px;
   transform: rotate(0deg);
   transition: font-size 0.09s, transform 0.45s;
 }
 @media all and (min-width: 900px){
-  .btn-container__delete-btn:hover {
-    font-size: 18px;
+  .btn-container__delete-btn:hover span{
     transform: rotate(90deg);
     transition: font-size 0.09s, transform 0.45s;
   }
-} 
+}
+
+.shares-table__shares-item-remove {
+  transform: scale(1.2);
+  opacity: 0;
+  transition: 0.35s all;
+}
+
+
 
 /*shares-form*/
 
@@ -784,13 +798,13 @@ label[for="dropdown"]{
     font-size: 12px;
     line-height: 18px;
   }
-  .btn-container__delete-btn {
-    top: 14px;
-    padding: 0;
-  }
   .shares-item__value {
     font-size: 12px;
     line-height: 22px;
+  }
+
+  .btn-container__delete-btn span {
+    left: 10px;
   }
 
   .current-price__input,
@@ -853,29 +867,32 @@ label[for="dropdown"]{
   }
 
 }
+.header,
+   .main,
+   .header__container,
+   .main__container{
+     width: 100%;
+     min-width: 320px;
+   }
 @media all and (max-width: 399px){
-  .header__container,
-  .main__container,
+  body {
+    overflow: hidden;
+  }
+
   .shares-section__shares-article{
-    min-width: 200px;
+    min-width: 294px;
   }
   .shares-header__col-title,
   .shares-item__value {
     font-size: 11px;
   }
-  .shares-header__first-col {
-    min-width: 74px;
+  .btn-container__delete-btn span {
+    left: 0;
   }
-  .shares-header__forth-col {
+  .shares-header__delete-btn {
     width: 10px;
   }
   .shares-form-inputs__price-container {
     margin-left: 10px;
-  }
-  .btn-container__delete-btn {
-    top: 21px;
-
-    width: 15px;
-    height: 15px;
   }
 }

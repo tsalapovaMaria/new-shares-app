@@ -15,8 +15,8 @@ const btnClassName = 'btn-container__delete-btn';
 Array.from(btns).forEach(
     (btn, id) => btn.addEventListener('click', () => {
 
-        const amount = Number(amountInputs[id].value.replace(/\s/g, ''));
-        const price = Number(priceInputs[id].value.replace(/\s/g, '').replace(',', '.'));
+        const amount = Number(amountInputs[id]?.value.replace(/\s/g, ''));
+        const price = Number(priceInputs[id]?.value.replace(/\s/g, '').replace(',', '.'));
 
         if(trElements.length === 0 ){
             createTableRow( );

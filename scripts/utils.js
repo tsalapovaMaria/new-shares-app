@@ -125,10 +125,9 @@ const removeElement = ({
 
 const removeShare = (currentRow) => {
     const currentTbody = currentRow.parentElement;
+    const removedRowClassName = 'shares-table__shares-item-remove';
 
-    currentRow.style.transition = '0.35s all';
-    currentRow.style.transform = 'scale(1.2)';
-    currentRow.style.opacity = '0';
+    currentRow.className += ` ${removedRowClassName}`;
 
     setTimeout(() => {
         currentRow.remove();

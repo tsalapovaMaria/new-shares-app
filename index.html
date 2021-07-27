@@ -31,14 +31,16 @@
                     <label class="background" for="background"></label>
                     
                     <div class="items">
-                        <input type="radio" name="list" value="usd" id="first-value">
-                        <label for="first-value" class="active-currency">USD</label>
-                        <input type="radio" name="list" value="eur" id="second-value">
-                        <label for="second-value">EUR</label>
-                        <input type="radio" name="list" value="rub" id="third-value">
-                        <label for="third-value">RUB</label>
-                        <div id="text">
-                            <div>USD</div>
+                        <div>
+                            <input type="radio" name="list" value="usd" id="first-value">
+                            <label for="first-value" class="active-currency">USD</label>
+                            <input type="radio" name="list" value="eur" id="second-value">
+                            <label for="second-value">EUR</label>
+                            <input type="radio" name="list" value="rub" id="third-value">
+                            <label for="third-value">RUB</label>
+                            <div id="text">
+                                <div>USD</div>
+                            </div>
                         </div>
                     </div>
                     <span class="arrow">
@@ -53,8 +55,8 @@
     </header>
     <main class="main">
         <div class="main__container">
-            <section class="shares-section">
-                <article class="shares-section__shares-article">
+            <div class="shares-section">
+                <div class="shares-section__shares-article">
                     <h2 class="shares-article__title">Точки входа</h2>
 
                     <div class="shares-article__shares-container">
@@ -62,45 +64,45 @@
                             <table class="table-container__shares-table">
                                 <thead>
                                     <tr class="shares-table__shares-header">
-                                        <th class="shares-header__col-title shares-header__first-col">
+                                        <th class="shares-header__col-title shares-header__amount">
                                             <div>кол-во акций</div>
                                         </th>
-                                        <th class="shares-header__col-title shares-header__sec-col">
+                                        <th class="shares-header__col-title shares-header__price">
                                             <div>цена покупки</div>
                                         </th>
-                                        <th class="shares-header__col-title shares-header__third-col">
+                                        <th class="shares-header__col-title shares-header__total-price">
                                             <div>сумма</div>
                                         </th>
-                                        <th class="shares-header__col-title shares-header__forth-col"></th>
+                                        <th class="shares-header__col-title shares-header__delete-btn"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="shares-table__shares-item">
-                                        <td class="shares-item__value shares-item__first-value">
+                                        <td class="shares-item__value shares-item__amount">
                                             <span>10</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__sec-value">
+                                        <td class="shares-item__value shares-item__price">
                                             <span data-currency="$">210</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__third-value">
+                                        <td class="shares-item__value shares-item__total-price">
                                             <span data-currency="$">2100</span>
                                         </td>
                                         <td class="shares-item__btn-container">
-                                            <button class="btn-container__delete-btn">╳</button>
+                                            <button class="btn-container__delete-btn"> <span>&#x2715</span></button>
                                         </td>
                                     </tr>
                                     <tr class="shares-table__shares-item">
-                                        <td class="shares-item__value shares-item__first-value">
+                                        <td class="shares-item__value shares-item__amount">
                                             <span>10</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__sec-value">
+                                        <td class="shares-item__value shares-item__price">
                                             <span data-currency="$">205</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__third-value">
+                                        <td class="shares-item__value shares-item__total-price">
                                             <span data-currency="$">2050</span>
                                         </td>
                                         <td class="shares-item__btn-container">
-                                            <button class="btn-container__delete-btn">╳</button>
+                                            <button class="btn-container__delete-btn"> <span>&#x2715</span></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -130,8 +132,8 @@
                             </div>
                         </div>
                     </div>
-                </article>
-                <article class="shares-section__shares-article">
+                </div>
+                <div class="shares-section__shares-article">
                     <h2 class="shares-article__title">Точки выхода</h2>
 
                     <div class="shares-article__shares-container">
@@ -139,45 +141,45 @@
                             <table class="table-container__shares-table">
                                 <thead>
                                     <tr class="shares-table__shares-header">
-                                        <th class="shares-header__col-title shares-header__first-col">
+                                        <th class="shares-header__col-title shares-header__amount">
                                             <div>кол-во акций</div>
                                         </th>
-                                        <th class="shares-header__col-title shares-header__sec-col">
+                                        <th class="shares-header__col-title shares-header__price">
                                             <div>цена покупки</div>
                                         </th>
-                                        <th class="shares-header__col-title shares-header__third-col">
+                                        <th class="shares-header__col-title shares-header__total-price">
                                             <div>сумма</div>
                                         </th>
-                                        <th class="shares-header__col-title shares-header__forth-col"></th>
+                                        <th class="shares-header__col-title shares-header__delete-btn"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="shares-table__shares-item">
-                                        <td class="shares-item__value shares-item__first-value">
+                                        <td class="shares-item__value shares-item__amount">
                                             <span>5</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__sec-value">
+                                        <td class="shares-item__value shares-item__price">
                                             <span data-currency="$">215</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__third-value">
+                                        <td class="shares-item__value shares-item__total-price">
                                             <span data-currency="$">1075</span>
                                         </td>
                                         <td class="shares-item__btn-container">
-                                            <button class="btn-container__delete-btn">╳</button>
+                                            <button class="btn-container__delete-btn"> <span>&#x2715</span></button>
                                         </td>
                                     </tr>
                                     <tr class="shares-table__shares-item">
-                                        <td class="shares-item__value shares-item__first-value">
+                                        <td class="shares-item__value shares-item__amount">
                                             <span>1</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__sec-value">
+                                        <td class="shares-item__value shares-item__price">
                                             <span data-currency="$">220</span>
                                         </td>
-                                        <td class="shares-item__value shares-item__third-value">
+                                        <td class="shares-item__value shares-item__total-price">
                                             <span data-currency="$">220</span>
                                         </td>
                                         <td class="shares-item__btn-container">
-                                            <button class="btn-container__delete-btn">╳</button>
+                                            <button class="btn-container__delete-btn"> <span>&#x2715</span></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -207,8 +209,8 @@
                             </div>
                         </div>
                     </div>
-                </article>
-            </section>
+                </div>
+            </div>
 
             <div class="tabs">
                 <div class="tabs__content">
