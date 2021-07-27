@@ -8,7 +8,7 @@ Array.from(addButtons).forEach(
         const value = Number(inputs[id]?.value?.replace(/\s/g, "").replace(',', '.'));
 
         inputs[id].value = (value + 1).toLocaleString();
-        
+        changeBtnBehavior(inputs[id]);
         removeElement({
             input: inputs[id],
             className: amountClassName
@@ -30,6 +30,7 @@ Array.from(removeButtons).forEach(
         }
 
         inputs[id].value = (value - 1).toLocaleString();
+        changeBtnBehavior(inputs[id]);
         removeElement({
             input: inputs[id],
             className: amountClassName
