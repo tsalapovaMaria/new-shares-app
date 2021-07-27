@@ -41,7 +41,7 @@ const changePriceInputs = () => {
 const readInputValue = (input) => {
     let value = Number(input.value.replace(/\s/g, '').replace(',', '.'));
     if (value !== value || value === 0) {
-        value = 1;
+        value = 0;
     }
     input.value = value.toLocaleString();
 }
@@ -76,38 +76,38 @@ const createElement = (tag, {
     return element;
 };
 
-const createTableRow = (tbody) => {
+// const createTableRow = (tbody) => {
 
-    const amountChild = createElement('SPAN');
-    const priceChild = createElement('SPAN', {
-        dataAttr: currency
-    });
-    const totalPriceChild = createElement('SPAN', {
-        dataAttr: currency
-    });
-    const deleteBtnChild = createElement('BUTTON', {
-        className: btnClassName,
-        textContent: '╳'
-    });
+//     const amountChild = createElement('SPAN');
+//     const priceChild = createElement('SPAN', {
+//         dataAttr: currency
+//     });
+//     const totalPriceChild = createElement('SPAN', {
+//         dataAttr: currency
+//     });
+//     const deleteBtnChild = createElement('BUTTON', {
+//         className: btnClassName,
+//         textContent: '╳'
+//     });
 
-    const amount = createElement('TD', {
-        className: `${tdClassName} ${amountClassName}`
-    }, [amountChild]);
-    const price = createElement('TD', {
-        className: `${tdClassName} ${priceClassName}`
-    }, [priceChild]);
-    const totalPrice = createElement('TD', {
-        className: `${tdClassName} ${totalPriceClassName}`
-    }, [totalPriceChild]);
-    const deleteBtn = createElement('TD', {
-        className: `${tdClassName} ${deleteBtnClassName}`
-    }, [deleteBtnChild]);
+//     const amount = createElement('TD', {
+//         className: `${tdClassName} ${amountClassName}`
+//     }, [amountChild]);
+//     const price = createElement('TD', {
+//         className: `${tdClassName} ${priceClassName}`
+//     }, [priceChild]);
+//     const totalPrice = createElement('TD', {
+//         className: `${tdClassName} ${totalPriceClassName}`
+//     }, [totalPriceChild]);
+//     const deleteBtn = createElement('TD', {
+//         className: `${tdClassName} ${deleteBtnClassName}`
+//     }, [deleteBtnChild]);
 
-    const tableRow = createElement('TR', {
-        className: trClassName
-    }, [amount, price, totalPrice, deleteBtn]);
-    tbody.append(tableRow);
-};
+//     const tableRow = createElement('TR', {
+//         className: trClassName
+//     }, [amount, price, totalPrice, deleteBtn]);
+//     tbody.append(tableRow);
+// };
 
 const addElement = ({
     input,

@@ -15,7 +15,11 @@ const changeBtnBehavior = (input) => {
 
     const btn = formContainer.nextElementSibling?.querySelector('.btn-container__btn-add');
 
-    if (input.value && inputSibling.value){
+    console.log(input.value);
+    console.log(inputSibling.value);
+    console.log(input.value && inputSibling.value);
+
+    if (input.value !== '0' && inputSibling.value !== '0') {
         btn.disabled = false;
     } else {
         btn.disabled = true;
@@ -23,9 +27,7 @@ const changeBtnBehavior = (input) => {
 }
 
 Array.from(amountInputElements).forEach(input => {
-    input.addEventListener('input', () => {
-        changeBtnBehavior(input);
-    });
+    input.addEventListener('input', () => changeBtnBehavior(input));
 });
 Array.from(priceInputElements).forEach(input => {
     input.addEventListener('input', () => changeBtnBehavior(input));
