@@ -508,6 +508,10 @@ label[for="dropdown"] {
 .btn-container__btn-add:active {
   background: #054146;
 }
+.btn-container__btn-add:disabled {
+  background: #FAF8FB;
+  color: #C4C4C4;
+}
 
 .empty-table {  
   position: relative;

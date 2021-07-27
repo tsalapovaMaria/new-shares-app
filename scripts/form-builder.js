@@ -16,6 +16,8 @@ const form = {
 
         const containerTitleClassName = 'shares-article__title';
         const containerClassName = 'shares-article__shares-container';
+        
+        const formContainerClassName = 'shares-container__shares-form-container';
 
         const createThead = () => {
             const rowClassName = 'shares-table__shares-header';
@@ -84,7 +86,6 @@ const form = {
         }
 
         const createFormContainer = () => {
-            const formContainerClassName = 'shares-container__shares-form-container';
             const formSharesClassName = 'shares-form-container__shares-form';
 
             const formInputsClassName = 'shares-form__shares-form-inputs';
@@ -95,7 +96,6 @@ const form = {
             const createAmountContainer = () => {
                 const amountContainerClassName = 'shares-form-inputs__amount-container';
                 const amountInputClassName = 'amount-container__input';
-                const amountsClassName = 'amount-container__amounts';
 
                 const btnsContainerClassName = 'amount-container__btns';
                 const removeBtnClassName = 'btns__remove-btn';
@@ -121,30 +121,20 @@ const form = {
                 });
                 amountInput.required = true;
 
-                const amount = createElement('SPAN', {
-                    className: amountsClassName,
-                    textContent: 'шт'
-                });
-
                 return createElement('DIV', {
                     className: amountContainerClassName
-                }, [amountInput, amount, btnsContainer]);
+                }, [amountInput, btnsContainer]);
             };
 
             const createPriceContainer = () => {
                 const priceContainerClassName = 'shares-form-inputs__price-container';
                 const priceInputClassName = 'price-container__input';
-                const currencyClassName = 'price-container__currency';
-
+                
                 const priceInput = createElement('INPUT', {
                     type: 'text',
                     className: priceInputClassName,
                     placeholder: '215,3 $'
                 });
-                // const currencyElement = createElement('SPAN', {
-                //     className: currencyClassName,
-                //     dataAttr: currency
-                // });
 
                 return createElement('DIV', {
                     className: priceContainerClassName
@@ -163,10 +153,11 @@ const form = {
                 type: 'submit',
                 textContent: 'Добавить'
             });
+            addBtn.disabled = true;
+
             const btnContainer = createElement('DIV', {
                 className: btnContainerClassName
             }, [addBtn]);
-
 
             return createElement('DIV', {
                 className: formSharesClassName
@@ -226,9 +217,9 @@ const form = {
                 textContent: `${amount * price}`
             });
             const removeRowBtn = createElement('BUTTON', {
-                className: btnClassName,
-                textContent: `&#x2715`
+                className: btnClassName
             });
+            removeRowBtn.innerHTML = '&#x2715';        
 
             const amountTd = createElement('TD', {
                 className: `${tdClassName} ${amountTdClassName}`
@@ -259,7 +250,7 @@ const form = {
 
         return createTableRow();
     },
-    removeShare: () => {
+    removeShare: (id) => {
         return 2;
     }
 }
