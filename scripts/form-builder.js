@@ -1,15 +1,5 @@
 const form = {
-    state: [{
-            amount: 2,
-            price: 20,
-            total: 40
-        },
-        {
-            amount: 5,
-            price: 10,
-            total: 50
-        }
-    ],
+    state: [],
     subscriber: (callback) => {},
     createForm: (title) => {
         const wrapperClassName = 'shares-section__shares-article';
