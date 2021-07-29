@@ -21,7 +21,7 @@ Array.from(addShareBtnElements).forEach(btn => {
         }
         const tbody = article.querySelector('TBODY');
         const purchases = article?.querySelector('.table-is-empty');
-        purchases.remove();
+        purchases?.remove();
 
         tbody.append(tr);
 

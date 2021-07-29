@@ -193,8 +193,15 @@ const form = {
         document.querySelector('.shares-section').append(wrapper);
         return wrapper;
     },
-    addShare: (amount, price) => {
+    addShare: function(amount, price) {
         const totalPrice = amount * price;
+
+        this.state.push({
+            amount: amount,
+            price: price,
+            total: totalPrice
+        });
+
         const createTableRow = () => {
             const trClassName = 'shares-table__shares-item-add';
             const tdClassName = 'shares-item__value';
@@ -243,11 +250,6 @@ const form = {
             return tr;
         }
 
-        this.state += ({
-            amount: amount,
-            price: price,
-            total: totalPrice
-        });
 
         return createTableRow();
     },
