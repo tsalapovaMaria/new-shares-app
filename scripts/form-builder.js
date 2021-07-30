@@ -41,7 +41,7 @@ const formBuilder = function() {
             const splicesEl = this.state.find(item => item.id === id);
             const elIndex = this.state.indexOf(splicesEl);
         
-            this.state.splice(elIndex, 1);        
+            this.state.splice(elIndex, 1);
         },
     }
 };

@@ -38,11 +38,11 @@ Array.from(addShareBtnEls).forEach(btn => {
         amountContainer.value = '0';
         priceContainer.value = '0';
         btn.disabled = true;
-        tr.querySelector('.btn-container__delete-btn')
-            .onclick = () => {
-                exitPointsForm.removeRecord(trID);
-                renderForm.removeRow(tr, tbody);
-            };
 
+        const deleteRowBtn = tr.querySelector('.btn-container__delete-btn');
+        deleteRowBtn.onclick = () => {
+            exitPointsForm.removeRecord(trID);
+            renderForm.removeRow(tr);
+        };
     });
 });
