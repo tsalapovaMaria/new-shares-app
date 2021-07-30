@@ -1,5 +1,5 @@
-const amountSpanElements = document.querySelectorAll(`.${amountClassName}`);
-const priceSpanElements = document.querySelectorAll(`.${priceClassName}`);
+const amountSpanElements = document.querySelectorAll(`.amount-container__amounts`);
+const priceSpanElements = document.querySelectorAll(`.price-container__currency`);
 
 Array.from(amountSpanElements).forEach(
     (span, id) => span.addEventListener('click', (e) => {

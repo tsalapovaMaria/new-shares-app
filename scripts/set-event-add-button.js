@@ -10,10 +10,11 @@ Array.from(addShareBtnEls).forEach(btn => {
         const amountContainer = inputContainer?.querySelector('.amount-container__input');
         const priceContainer = inputContainer?.querySelector('.price-container__input');
 
-        const amount = Number(amountContainer.value);
-        const price = Number(priceContainer.value);
+        const amount = Number(amountContainer.value.replace(/\s/g, "").replace(',', '.'));
+        const price = Number(priceContainer.value.replace(/\s/g, ""));
 
         const tr = exitPointsForm.addRecord(amount, price);
+        const trID = exitPointsForm.state[exitPointsForm.state.length-1].id;
 
         let article = btnContainer?.parentElement;
         while(article.className !== articleClassName){
@@ -37,7 +38,11 @@ Array.from(addShareBtnEls).forEach(btn => {
         amountContainer.value = '0';
         priceContainer.value = '0';
         btn.disabled = true;
-        tr.querySelector('.btn-container__delete-btn').onclick = () => exitPointsForm.removeRecord(0,tr, tbody);
+        tr.querySelector('.btn-container__delete-btn')
+            .onclick = () => {
+                exitPointsForm.removeRecord(trID);
+                renderForm.removeRow(tr, tbody);
+            };
 
     });
 });
