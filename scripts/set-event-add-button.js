@@ -1,6 +1,6 @@
-const addShareBtnElements = document.querySelectorAll('.btn-container__btn-add');
+const addShareBtnEls = document.querySelectorAll('.btn-container__btn-add');
 
-Array.from(addShareBtnElements).forEach(btn => {
+Array.from(addShareBtnEls).forEach(btn => {
     btn.addEventListener('click', () => {
         const articleClassName = 'shares-article__shares-container';
         const rowClassName = 'shares-table__shares-item';

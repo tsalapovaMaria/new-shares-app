@@ -1,8 +1,8 @@
 let currency = '$';
 
 const section = document.querySelector('.shares-section');
-const entryPointsForm = new FormBuilder();
-const exitPointsForm = new FormBuilder();
+const entryPointsForm = formBuilder();
+const exitPointsForm = formBuilder();
 
 const entryPoints = entryPointsForm.createForm(
     'Точки входа', {
