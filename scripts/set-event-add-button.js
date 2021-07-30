@@ -42,7 +42,7 @@ Array.from(addShareBtnEls).forEach(btn => {
         const deleteRowBtn = tr.querySelector('.btn-container__delete-btn');
         deleteRowBtn.onclick = () => {
             exitPointsForm.removeRecord(trID);
-            renderForm.removeRow(tr);
+            renderForm.removeRow(tr, tbody);
         };
     });
 });

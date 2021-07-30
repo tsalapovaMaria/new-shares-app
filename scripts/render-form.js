@@ -46,7 +46,7 @@ const renderForm = {
 
         return tr;
     },
-    removeRow: (tr) => {        
+    removeRow: (tr, tbody) => {        
         const removedRowClassName = 'shares-table__shares-item-remove';
         tr.className += ` ${removedRowClassName}`;    
         // использование setTimeout для анимации удаления элемента 
