@@ -13,7 +13,7 @@ Array.from(addShareBtnElements).forEach(btn => {
         const amount = Number(amountContainer.value);
         const price = Number(priceContainer.value);
 
-        const tr = form.addShare(amount, price);
+        const tr = exitPointsForm.addRecord(amount, price);
 
         let article = btnContainer?.parentElement;
         while(article.className !== articleClassName){
@@ -25,14 +25,19 @@ Array.from(addShareBtnElements).forEach(btn => {
 
         tbody.append(tr);
 
+        // использование setTimeout для анимации 
+        // появления элемента
+
         setTimeout(() => {
             tr.className = rowClassName;
         }, 0);
 
+        //очистка форм после добавления новой строки
+
         amountContainer.value = '0';
         priceContainer.value = '0';
         btn.disabled = true;
-        tr.querySelector('.btn-container__delete-btn').onclick = () => form.removeShare(tr, tbody);
+        tr.querySelector('.btn-container__delete-btn').onclick = () => exitPointsForm.removeRecord(0,tr, tbody);
 
     });
 });

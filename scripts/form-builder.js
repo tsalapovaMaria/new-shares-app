@@ -1,56 +1,59 @@
-const form = {
-    state: [],
-    subscriber: (callback) => {},
-    createForm: (title) => {
+function FormBuilder(){
+    this.state = [];
+    this.createForm = (
+        title, {
+            col_1,
+            col_2,
+            col_3
+        } = {},
+        mountEl) => {
         const wrapperClassName = 'shares-section__shares-article';
-
+    
         const containerTitleClassName = 'shares-article__title';
         const containerClassName = 'shares-article__shares-container';
-
-        const formContainerClassName = 'shares-container__shares-form-container';
-
+    
         const createThead = () => {
             const rowClassName = 'shares-table__shares-header';
             const colClassName = 'shares-header__col-title';
-
+    
             const amountColClassName = 'shares-header__amount';
             const priceColClassName = 'shares-header__price';
             const totalPriceColClassName = 'shares-header__total-price';
             const btnColClassName = 'shares-header__delete-btn';
-
+    
             const amountThDiv = createElement('DIV', {
-                textContent: 'кол-во акций'
+                textContent: col_1
             });
             const amountTh = createElement('TH', {
                 className: `${colClassName} ${amountColClassName}`
             }, [amountThDiv]);
-
+    
             const priceThDiv = createElement('DIV', {
-                textContent: 'цена покупки'
+                textContent: col_2
             });
             const priceTh = createElement('TH', {
                 className: `${colClassName} ${priceColClassName}`
             }, [priceThDiv]);
-
+    
             const totalPriceThDiv = createElement('DIV', {
-                textContent: 'сумма'
+                textContent: col_3
             });
             const totalPriceTh = createElement('TH', {
                 className: `${colClassName} ${totalPriceColClassName}`
             }, [totalPriceThDiv]);
-
+    
             const btnPriceTh = createElement('TH', {
                 className: `${colClassName} ${btnColClassName}`
             }, []);
-
-
+    
+    
             const theadRow = createElement('TR', {
                 className: rowClassName
             }, [amountTh, priceTh, totalPriceTh, btnPriceTh]);
-
+    
             return createElement('THEAD', {}, [theadRow]);
         }
-
+    
         const createTbody = () => {
             const emptyTableClassName = 'empty-table';
             const div = createElement('DIV', {
@@ -61,37 +64,36 @@ const form = {
                 className: emptyTableClassName
             }, [div]);
         }
-
+    
         const createTableContainer = () => {
             const tableContainerClassName = 'shares-container__table-container';
             const tableClassName = 'table-container__shares-table';
-
+    
             const table = createElement('TABLE', {
                 className: tableClassName
             }, [tHead, tBody]);
-
+    
             return createElement('DIV', {
                 className: tableContainerClassName
             }, [table]);
         }
-
-        const createFormContainer = () => {
+    
+        const createFormContainer = (title) => {
             const formSharesClassName = 'shares-form-container__shares-form';
-
+    
             const formInputsClassName = 'shares-form__shares-form-inputs';
-
+    
             const btnContainerClassName = 'shares-form__btn-container';
             const addRowBtnClassName = 'btn-container__btn-add';
-
+    
             const createAmountContainer = () => {
                 const amountContainerClassName = 'shares-form-inputs__amount-container';
                 const amountInputClassName = 'amount-container__input';
-                // const amountClassName = 'amount-container__amounts';
-
+    
                 const btnsContainerClassName = 'amount-container__btns';
                 const removeBtnClassName = 'btns__remove-btn';
                 const addBtnClassName = 'btns__add-btn';
-
+    
                 const removeBtn = createElement('BUTTON', {
                     className: removeBtnClassName,
                     type: 'button'
@@ -100,119 +102,135 @@ const form = {
                     className: addBtnClassName,
                     type: 'button'
                 });
-
+    
                 const btnsContainer = createElement('DIV', {
                     className: btnsContainerClassName
                 }, [removeBtn, addBtn]);
-
-                // const amount = createElement('SPAN', {
-                //     textContent: 'шт',
-                //     className: amountClassName
-                // });
+    
                 const amountInput = createElement('INPUT', {
                     type: 'text',
                     className: amountInputClassName,
                     placeholder: '0 шт'
                 });
                 amountInput.required = true;
-
+    
                 return createElement('DIV', {
                     className: amountContainerClassName
                 }, [amountInput, btnsContainer]);
             };
-
+    
             const createPriceContainer = () => {
                 const priceContainerClassName = 'shares-form-inputs__price-container';
                 const priceInputClassName = 'price-container__input';
-                // const currencySpanClassName = 'price-container__currency';
-
-                // const currencySpan = createElement('SPAN', {
-                //     className: currencySpanClassName,
-                //     dataAttr: currency
-                // });
+    
                 const priceInput = createElement('INPUT', {
                     type: 'text',
                     className: priceInputClassName,
                     placeholder: '0 $'
                 });
-
+    
                 return createElement('DIV', {
                     className: priceContainerClassName
                 }, [priceInput]);
             };
-
+    
             const amountContainer = createAmountContainer();
             const priceContainer = createPriceContainer();
-
+    
             const formInputs = createElement('DIV', {
                 className: formInputsClassName
             }, [amountContainer, priceContainer]);
-
+    
             const addBtn = createElement('BUTTON', {
                 className: addRowBtnClassName,
                 type: 'submit',
                 textContent: 'Добавить'
             });
             addBtn.disabled = true;
-
+    
             const btnContainer = createElement('DIV', {
                 className: btnContainerClassName
             }, [addBtn]);
-
+    
             return createElement('DIV', {
                 className: formSharesClassName
             }, [formInputs, btnContainer]);
-
+    
         }
-
+    
         const tHead = createThead();
         const tBody = createTbody();
         const tableContainer = createTableContainer();
-
+    
         const formContainer = createFormContainer();
-
+    
         const shareFormClassName = 'shares-container__shares-form-container';
         const shareFormContainer = createElement('DIV', {
             className: shareFormClassName
         }, [formContainer]);
-
-
+    
+    
         const container = createElement('DIV', {
             className: containerClassName
         }, [tableContainer, shareFormContainer]);
-
+    
         const containerTitle = createElement('H2', {
             textContent: title,
             className: containerTitleClassName
         });
-
+    
         const wrapper = createElement('DIV', {
             className: wrapperClassName
         }, [containerTitle, container]);
-
-        document.querySelector('.shares-section').append(wrapper);
+    
+        mountEl.append(wrapper);
         return wrapper;
-    },
-    addShare: function(amount, price) {
+    };
+    this.eventManager = {
+        subscribers: [],
+        subscribe: function (callback) {
+            this.subscribers.push(callback);
+            return this.subscribers;
+        },
+        unsubscribe: function (callback) {
+            if (!this.subscribers.includes(callback)) {
+                return;
+            }
+            const index = this.subscribers.indexOf(callback);
+            this.subscribers.splice(index, 1);
+        },
+        notify: function () {
+            if (prevState && prevState !== state) {
+    
+            }
+            const prevState = state;
+        },
+    };
+    
+    this.addRecord = function (amount, price) {
         const totalPrice = amount * price;
-
-        this.state.push({
+        const id = Date.now();
+    
+        const newEl = {
+            id: id,
             amount: amount,
             price: price,
             total: totalPrice
-        });
-
+        };
+    
+        this.state.push(newEl);
+    
         const createTableRow = () => {
             const trClassName = 'shares-table__shares-item-add';
             const tdClassName = 'shares-item__value';
-
+    
             const amountTdClassName = 'shares-item__amount';
             const priceTdClassName = 'shares-item__price';
             const totalPriceTdClassName = 'shares-item__total-price';
             const removeRowBtnTdClassName = 'shares-item__btn-container';
-
+    
             const btnClassName = 'btn-container__delete-btn';
-
+    
             const amountSpan = createElement('SPAN', {
                 textContent: amount
             });
@@ -229,7 +247,7 @@ const form = {
             const removeRowBtn = createElement('BUTTON', {
                 className: btnClassName
             }, [removeRowBtnSpan]);
-
+    
             const amountTd = createElement('TD', {
                 className: `${tdClassName} ${amountTdClassName}`
             }, [amountSpan]);
@@ -242,39 +260,54 @@ const form = {
             const removeRowBtnTd = createElement('TD', {
                 className: `${tdClassName} ${removeRowBtnTdClassName}`
             }, [removeRowBtn]);
-
+    
             const tr = createElement('TR', {
                 className: trClassName
             }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
-
+    
             return tr;
         }
-
-
+    
+    
         return createTableRow();
-    },
-    removeShare: (tr, tbody) => {
+    };
+    this.removeRecord = (id, tr, tbody) => {
+        const splicesEl = this.state.find(item => item.id === id);
+        const elIndex = this.state.indexOf(splicesEl);
+    
+        this.state.splice(elIndex, 1);
+    
         const removedRowClassName = 'shares-table__shares-item-remove';
         tr.className += ` ${removedRowClassName}`;
-        
+    
+        // использование setTimeout для анимации
+        // удаления элемента 
+    
         setTimeout(() => {
             tr.remove();
-            if (tbody.children.length === 0) {
-                const element = createElement('DIV', 'table-is-empty');
-                element.textContent = 'НЕТ ПОКУПОК';
-                tbody.append(element);
-
-                element.style.left = tbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
-                tbody.className = 'empty-table';
-                element.className = 'table-is-empty';
+    
+            // ЕСЛИ в таблице нет данных (пусто)
+            // ТОГДА добавить новый элемент 
+            // с текстом "НЕТ ПОКУПОК"
+    
+            if (tbody.children.length !== 0) {
+                return;
             }
+    
+            const element = createElement('DIV', 'table-is-empty');
+            element.textContent = 'НЕТ ПОКУПОК';
+            tbody.append(element);
+    
+            element.style.left = tbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
+            tbody.className = 'empty-table';
+            element.className = 'table-is-empty';
         }, 250);
-    }
+    };
+    return state;
 }
+const state = FormBuilder.state;
 
-const state = form.state;
-
-Object.defineProperty(form, 'state', {
+Object.defineProperty(FormBuilder, 'state', {
     configurable: false,
     get() {
         return state;
