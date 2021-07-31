@@ -1,7 +1,7 @@
-const formBuilder = function() {
+const formBuilder = function () {
     return {
-        state : [],        
-        eventManager : {
+        state: [],
+        eventManager: {
             subscribers: [],
             subscribe: function (callback) {
                 this.subscribers.push(callback);
@@ -15,37 +15,36 @@ const formBuilder = function() {
                 this.subscribers.splice(index, 1);
             },
             notify: function () {
-                if (prevState && prevState !== state) {
-        
-                }
-                const prevState = state;
+                this.subscribers.forEach(callback => callback());
             },
+            // update: function () {
+            // }
         },
-        
-        addRecord : function (amount, price) {
+        addRecord: function (amount, price) {
             const totalPrice = amount * price;
             const id = Date.now();
-        
+
             const newEl = {
                 id: id,
                 amount: amount,
                 price: price,
                 total: totalPrice
             };
-        
+
             this.state.push(newEl);
-        
+            this.eventManager.notify();
+
             return renderForm.createTableRow(amount, price, totalPrice);
         },
-        removeRecord : function(id) {
+        removeRecord: function (id) {
             const splicesEl = this.state.find(item => item.id === id);
             const elIndex = this.state.indexOf(splicesEl);
-        
+
             this.state.splice(elIndex, 1);
+            this.eventManager.notify();
         },
     }
 };
-
 
 const state = formBuilder.state;
 

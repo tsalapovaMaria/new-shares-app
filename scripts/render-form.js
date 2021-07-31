@@ -10,16 +10,21 @@ const renderForm = {
 
         const btnClassName = 'btn-container__delete-btn';
 
+
+        const amountString = amount.toLocaleString();
+        const priceString = price.toLocaleString();
+        const totalString = totalPrice.toLocaleString();
+
         const amountSpan = createElement('SPAN', {
-            textContent: amount
+            textContent: amountString
         });
         const priceSpan = createElement('SPAN', {
             dataAttr: currency,
-            textContent: price
+            textContent: priceString
         });
         const totalPriceSpan = createElement('SPAN', {
             dataAttr: currency,
-            textContent: totalPrice
+            textContent: totalString
         });
         const removeRowBtnSpan = createElement('SPAN');
         removeRowBtnSpan.innerHTML = '&#x2715';

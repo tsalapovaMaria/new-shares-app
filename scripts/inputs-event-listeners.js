@@ -18,8 +18,8 @@ const changeBtnBehavior = (input) => {
 
     const btn = formContainer.nextElementSibling?.querySelector('.btn-container__btn-add');
 
-    const value = Number(input.value);
-    const siblingValue = Number(inputSibling.value);
+    const value = Number(input.value.replace(/\s/g, ""));
+    const siblingValue = Number(inputSibling.value.replace(/\s/g, ""));
 
     const isAboveZero = value && siblingValue && value > 0 && siblingValue > 0;
     const isNumber = value === value && siblingValue === siblingValue;
@@ -82,10 +82,3 @@ Array.from(priceInputs).forEach(input => {
         changeBtnBehavior(input);
     });
 });
-
-// Array.from(amountInputs).forEach(input => {
-//     input.addEventListener('input', () => changeBtnBehavior(input));
-// });
-// Array.from(priceInputs).forEach(input => {
-//     input.addEventListener('input', () => changeBtnBehavior(input));
-// });
