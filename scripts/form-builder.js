@@ -15,10 +15,11 @@ const formBuilder = function () {
                 this.subscribers.splice(index, 1);
             },
             notify: function () {
-                this.subscribers.forEach(callback => callback());
+                this.subscribers.forEach(callback => this.update(callback));
             },
-            // update: function () {
-            // }
+            update: function (callback) {
+                return callback();
+            }
         },
         addRecord: function (amount, price) {
             const totalPrice = amount * price;
@@ -34,7 +35,10 @@ const formBuilder = function () {
             this.state.push(newEl);
             this.eventManager.notify();
 
-            return renderForm.createTableRow(amount, price, totalPrice);
+            const tr = renderForm.createTableRow(amount, price, totalPrice);
+
+
+            return tr;
         },
         removeRecord: function (id) {
             const splicesEl = this.state.find(item => item.id === id);
