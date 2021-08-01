@@ -13,6 +13,8 @@ const changeCurrency = (inputValue) => {
 };
 
 const changePlaceholderCurrency = () => {
+    const priceInputs = document.querySelectorAll('.price-container__input');
+
     Array.from(priceInputs).forEach(
         input => {
             input.placeholder = '0 ' + currency;

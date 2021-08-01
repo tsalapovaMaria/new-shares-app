@@ -5,7 +5,7 @@ const addEventListeners = ({
     return {
         amountClassName: 'amount-container__amounts',
         priceClassName: 'price-container__currency',
-        rowClassName: 'shares-table__shares-item',        
+        rowClassName: 'shares-table__shares-item',
 
         amountInputAddEventListener: function () {
             const input = element.querySelector('.amount-container__input');
@@ -128,10 +128,37 @@ const addEventListeners = ({
                 priceContainer.value = '0';
                 btn.disabled = true;
 
+                //добавление события onclick для кнопки удаления строки таблицы
                 const deleteRowBtn = tr.querySelector('.btn-container__delete-btn');
                 deleteRowBtn.onclick = () => {
                     form.removeRecord(trID);
-                    renderForm.removeRow(tr, tbody);
+
+                    const removeRow = () => {
+                        const removedRowClassName = 'shares-table__shares-item-remove';
+                        tr.className += ` ${removedRowClassName}`;
+                        // использование setTimeout для анимации удаления элемента 
+
+                        setTimeout(() => {
+                            tr.remove();
+
+                            // ЕСЛИ в таблице нет данных (пусто)
+                            // ТОГДА добавить новый элемент, указывающий, что таблица пуста
+
+                            if (tbody.children.length !== 0) {
+                                return;
+                            }
+
+                            const element = createElement('DIV', 'table-is-empty');
+                            element.textContent = 'НЕТ ПОКУПОК';
+                            tbody.append(element);
+
+                            element.style.left = tbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
+                            tbody.className = 'empty-table';
+                            element.className = 'table-is-empty';
+                        }, 250);
+                    };
+                    
+                    removeRow();
                 };
             });
         },
@@ -140,7 +167,7 @@ const addEventListeners = ({
             const input = element.querySelector('.amount-container__input');
             btn.addEventListener('click', () => {
                 const value = Number(input.value?.replace(/\s/g, "").replace(',', '.'));
-        
+
                 input.value = (value + 1).toLocaleString();
                 changeBtnBehavior(input);
                 removeElement({
@@ -159,13 +186,13 @@ const addEventListeners = ({
         subAmountBtnAddEventListener: function () {
             const btn = element.querySelector('.btns__remove-btn');
             const input = element.querySelector('.amount-container__input');
-            
+
             btn.addEventListener('click', () => {
-                const value = Number(input?.value?.replace(/\s/g, "").replace(',', '.'));
+                const value = Number(input.value?.replace(/\s/g, "").replace(',', '.'));
                 if (value === 1 || value === 0) {
                     return;
                 }
-        
+
                 input.value = (value - 1).toLocaleString();
                 changeBtnBehavior(input);
                 removeElement({
@@ -184,11 +211,11 @@ const addEventListeners = ({
         amountTransparentClickAddEventListener: function () {
             const span = element.querySelector(`.${this.amountClassName}`);
             const input = element.querySelector('.amount-container__input');
-            
+
             span?.addEventListener('click', (e) => {
                 const target = e.target;
-        
-                if(!target.closest('.shares-form-inputs__amount-container')){
+
+                if (!target.closest('.shares-form-inputs__amount-container')) {
                     return;
                 }
                 input.focus();
@@ -197,15 +224,15 @@ const addEventListeners = ({
         priceTransparentClickAddEventListener: function () {
             const span = element.querySelector(`.${this.priceClassName}`);
             const input = element.querySelector('.price-container__input');
-            
+
             span?.addEventListener('click', (e) => {
                 const target = e.target;
-        
-                if(!target.closest('.shares-form-inputs__amount-container')){
+
+                if (!target.closest('.shares-form-inputs__amount-container')) {
                     return;
                 }
                 input.focus();
             });
         },
     };
-}
+};
