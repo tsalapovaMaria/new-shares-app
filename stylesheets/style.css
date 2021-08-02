@@ -63,7 +63,7 @@ body {
 .dropdown-container input {
   display: none;
 }
-.dropdown-container #text {
+.current-container {
   position: absolute;
   display: block;
   align-items: center;
@@ -71,7 +71,7 @@ body {
   width: 110px;
   height: 40px;
 }
-.dropdown-container #text div {
+.current-container__value {
   margin-top: 11px;
   margin-left: 40px;
 }
@@ -114,7 +114,7 @@ label[for="dropdown"] {
   transform: rotate(270deg);
   transition: all 0.2s;
 }
-.dropdown-container .dropdown input[name="list"]:checked ~ #text {
+.dropdown-container .dropdown input[name="list"]:checked ~ .current-container {
   background: none;
   color: transparent;
   z-index: 2;

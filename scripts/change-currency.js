@@ -1,5 +1,5 @@
-const inputElements = document.querySelectorAll('.items > div > input[type=radio]');
-const currentCurrencyElement = document.querySelector('#text > div');
+const inputElements = document.querySelectorAll('.items__wrapper > input[type=radio]');
+const currentCurrencyElement = document.querySelector('.current-container__value');
 const tableSpanElements = document.querySelectorAll('.price-container__currency');
 
 Array.from(inputElements).forEach(input =>
