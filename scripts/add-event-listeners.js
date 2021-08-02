@@ -97,11 +97,8 @@ const addEventListeners = ({
 
             //добавление новой строки в таблицу при срабатывании onclick
             btn.addEventListener('click', () => {
-                const btnContainer = btn.parentElement;
-                const inputContainer = btnContainer.previousElementSibling;
-
-                const amountContainer = inputContainer.querySelector('.amount-container__input');
-                const priceContainer = inputContainer.querySelector('.price-container__input');
+                const amountContainer = element.querySelector('.amount-container__input');
+                const priceContainer = element.querySelector('.price-container__input');
 
                 const amount = Number(amountContainer.value.replace(/\s/g, "").replace(',', '.'));
                 const price = Number(priceContainer.value.replace(/\s/g, ""));
@@ -247,60 +244,73 @@ const handleEventListeners = () => {
         form: exitPointsForm,
         element: exitPointsElement
     }).amountInputAddEventListener();
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
     }).amountInputAddEventListener();
 
+
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
     }).priceInputAddEventListener();
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
     }).priceInputAddEventListener();
+
 
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
     }).addShareBtnsAddEventListener();
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
     }).addShareBtnsAddEventListener();
 
+
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
     }).addAmountBtnAddEventListener();
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
     }).addAmountBtnAddEventListener();
 
+
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
     }).subAmountBtnAddEventListener();
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
     }).subAmountBtnAddEventListener();
 
+    
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
     }).amountTransparentClickAddEventListener();
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
     }).amountTransparentClickAddEventListener();
+
 
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
     }).priceTransparentClickAddEventListener();
+    
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement

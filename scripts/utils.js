@@ -91,17 +91,16 @@ const changeBtnBehavior = (input) => {
 
     const formContainer = inputContainer.parentElement;
 
-    const btn = formContainer.nextElementSibling?.querySelector('.btn-container__btn-add');
-
     const value = Number(input.value.replace(/\s/g, ""));
     const siblingValue = Number(inputSibling.value.replace(/\s/g, ""));
 
     const isAboveZero = value && siblingValue && value > 0 && siblingValue > 0;
     const isNumber = value === value && siblingValue === siblingValue;
 
-    if (isAboveZero && isNumber) {
-        btn.disabled = false;
-    } else {
-        btn.disabled = true;
+    if(!formContainer.nextElementSibling){
+        return;
     }
+    
+    const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
+    btn.disabled = (isAboveZero && isNumber) ? false : true;
 };
