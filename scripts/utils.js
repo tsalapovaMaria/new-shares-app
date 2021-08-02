@@ -1,5 +1,14 @@
+const leadAmountToValid = (enteredValue) => {
+    const validValue = enteredValue.replace(/\s/g, "");
+    return Number(validValue);
+};
+const leadPriceToValid = (enteredValue) => {
+    const validValue = enteredValue.replace(/\s/g, "").replace(',', '.');
+    return Number(validValue);
+};
+
 const readInputValue = (input) => {
-    let value = Number(input.value.replace(/\s/g, '').replace(',', '.'));
+    let value = (input.className.includes('price'))? leadPriceToValid(input.value) : leadAmountToValid(input.value);
     if (value !== value || value === 0) {
         value = 0;
     }
@@ -79,6 +88,7 @@ const removeElement = ({
     }
 };
 
+
 const changeBtnBehavior = (input) => {
     const inputContainer = input.parentElement;
 
@@ -91,9 +101,9 @@ const changeBtnBehavior = (input) => {
 
     const formContainer = inputContainer.parentElement;
 
-    const value = Number(input.value.replace(/\s/g, ""));
-    const siblingValue = Number(inputSibling.value.replace(/\s/g, ""));
-
+    const value = (input.className.includes('price'))? leadPriceToValid(input.value) : leadAmountToValid(input.value);
+    const siblingValue = (inputSibling.className.includes('price'))? leadPriceToValid(inputSibling.value) : leadAmountToValid(inputSibling.value);
+    
     const isUnderZero = (value < 0) && (siblingValue < 0);
     const isZero = value && siblingValue;
     const isNaN = (value !== value) && (siblingValue !== siblingValue);

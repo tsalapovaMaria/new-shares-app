@@ -91,8 +91,8 @@ const addEventListeners = ({
                 const amountContainer = element.querySelector(`.${amountInputClassName}`);
                 const priceContainer = element.querySelector(`.${priceInputClassName}`);
 
-                const amount = Number(amountContainer.value.replace(/\s/g, "").replace(',', '.'));
-                const price = Number(priceContainer.value.replace(/\s/g, ""));
+                const amount = leadAmountToValid(amountContainer.value);
+                const price = leadPriceToValid(priceContainer.value);
 
                 const tr = form.addRecord(amount, price);
                 const trID = form.state[form.state.length - 1].id;
@@ -164,7 +164,7 @@ const addEventListeners = ({
             const btn = element.querySelector('.btns__add-btn');
             const input = element.querySelector(`.${amountInputClassName}`);
             btn.addEventListener('click', () => {
-                const value = Number(input.value.replace(/\s/g, "").replace(',', '.'));
+                const value = leadAmountToValid(input.value);
 
                 input.value = (value + 1).toLocaleString();
                 const inputValueLength = input.value.length;
@@ -193,7 +193,7 @@ const addEventListeners = ({
             const input = element.querySelector(`.${amountInputClassName}`);
 
             btn.addEventListener('click', () => {
-                const value = Number(input.value.replace(/\s/g, "").replace(',', '.'));
+                const value = leadAmountToValid(input.value);
                 if (value === 1 || value === 0) {
                     return;
                 }
