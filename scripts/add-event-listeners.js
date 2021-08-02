@@ -123,10 +123,14 @@ const addEventListeners = ({
                 }, 0);
 
                 //очистка форм после добавления новой строки
+                const currencyEl = element.querySelector('.price-container__currency');
+                const amountEl = element.querySelector('.amount-container__amounts');
 
                 amountContainer.value = '0';
-                priceContainer.value = '0';
+                priceContainer.value = '0';                
                 btn.disabled = true;
+                amountEl.style.left = '29px';
+                currencyEl.style.left = '-70px';
 
                 //добавление события onclick для кнопки удаления строки таблицы
                 const deleteRowBtn = tr.querySelector('.btn-container__delete-btn');
