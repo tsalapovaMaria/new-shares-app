@@ -127,7 +127,7 @@ const addEventListeners = ({
                 const amountEl = element.querySelector('.amount-container__amounts');
 
                 amountContainer.value = '0';
-                priceContainer.value = '0';                
+                priceContainer.value = '0';
                 btn.disabled = true;
                 amountEl.style.left = '29px';
                 currencyEl.style.left = '-70px';
@@ -161,7 +161,7 @@ const addEventListeners = ({
                             element.className = 'table-is-empty';
                         }, 250);
                     };
-                    
+
                     removeRow();
                 };
             });
@@ -240,3 +240,69 @@ const addEventListeners = ({
         },
     };
 };
+
+const handleEventListeners = () => {
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).amountInputAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).amountInputAddEventListener();
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).priceInputAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).priceInputAddEventListener();
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).addShareBtnsAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).addShareBtnsAddEventListener();
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).addAmountBtnAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).addAmountBtnAddEventListener();
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).subAmountBtnAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).subAmountBtnAddEventListener();
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).amountTransparentClickAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).amountTransparentClickAddEventListener();
+
+    addEventListeners({
+        form: exitPointsForm,
+        element: exitPointsElement
+    }).priceTransparentClickAddEventListener();
+    addEventListeners({
+        form: entryPointsForm,
+        element: entryPointsElement
+    }).priceTransparentClickAddEventListener();
+}
