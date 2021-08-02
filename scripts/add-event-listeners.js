@@ -11,102 +11,76 @@ const addEventListeners = ({
     const rowClassName = 'shares-table__shares-item';
     const removedRowClassName = 'shares-table__shares-item-remove';
 
+    const inputsEventListeners = ({
+        top, 
+        className, 
+        textContent,
+        inputClassName
+    } = {}) => {
+        const input = element.querySelector(`.${inputClassName}`);
+        const inputLength = input.offsetWidth;
+
+        const symbolWidth = 9;
+
+        const paddingLeft = 17;
+        const spaceBetweenElements = 5;
+
+        input.addEventListener('blur',
+            () => {
+                readInputValue(input);
+
+                const inputValueLength = input.value.length;
+                const left = inputClassName === amountInputClassName?
+                    paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements:
+                    (inputValueLength * symbolWidth) / 2 - inputLength / 2;
+                const top = inputClassName === amountInputClassName? 8 : 0;
+
+                const span = addElement({
+                    input: input,
+                    textContent: textContent,
+                    className: className,
+                    top: top + 'px',
+                    left: left + 'px'
+                });
+                if(input.className !== priceInputClassName){
+                    return;
+                }
+                span.dataset.currency = currency;
+            });
+            
+        input.addEventListener('focus',
+            () => {
+                removeElement({
+                    input: input,
+                    className: className
+                });
+            }
+        );
+
+        input.addEventListener('input', () => {
+            changeBtnBehavior(input);
+        });
+    };
     return {
         amountInputAddEventListener: function () {
-            const input = element.querySelector(`.${amountInputClassName}`);
+            const top = 8;
 
-            // функция добавления элемент с текстом "шт" на срабатывании event blur
-            const addBlurEvent = () => {
-                const paddingLeft = 17;
-                const spaceBetweenElements = 5;
-
-                const inputValueLength = String(input.value).length;                
-                const symbolWidth = 9;
-
-                input.addEventListener('blur',
-                    () => {
-                        readInputValue(input);
-                        addElement({
-                            input: input,
-                            textContent: 'шт',
-                            className: amountClassName,
-                            top: '8px',
-                            left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
-                        });
-                    });
-            };
-            addBlurEvent();
-
-            // функция изъятия элемента с текстом "шт" на срабатывании event focus
-            const addFocusEvent = () => {
-                input.addEventListener('focus',
-                    () => {
-                        removeElement({
-                            input: input,
-                            className: amountClassName
-                        });
-                    }
-                );
-            };
-            addFocusEvent();
-
-            //функция изменения поведения свойства disable для кнопки "Добавить"
-            //в зависимости от значения в полях input
-            //на срабатывании event input
-            const addInputEvent = () => {
-                input.addEventListener('input', () => {
-                    changeBtnBehavior(input);
-                });
-            };
-            addInputEvent();
+            inputsEventListeners({
+                top: top, 
+                className: amountClassName,
+                textContent: 'шт',
+                inputClassName: amountInputClassName
+            });
         },
         priceInputAddEventListener: function () {
-            const input = element.querySelector(`.${priceInputClassName}`);
-
-            // функция добавления валюты на срабатывании event blur
-            const addBlurEvent = () => {
-                const inputValueLength = String(input.value).length;                
-                const symbolWidth = 9;
-
-                const inputLength = input.offsetWidth;
-
-                input.addEventListener('blur',
-                    () => {
-                        readInputValue(input);
-                        const spanCurrency = addElement({
-                            input: input,
-                            textContent: '',
-                            className: priceClassName,
-                            top: '0px',
-                            left: (inputValueLength * symbolWidth) / 2 - inputLength / 2 + 'px'
-                        });
-                        spanCurrency.dataset.currency = currency;
-                    });
-            };
-            addBlurEvent();
-
-            // функция изъятия элемента с валютой на срабатывании event focus
-            const addFocusEvent = () => {
-                input.addEventListener('focus',
-                    () => {
-                        removeElement({
-                            input: input,
-                            className: priceClassName
-                        });
-                    }
-                );
-            };
-            addFocusEvent();
-
-            //функция изменения поведения свойства disable для кнопки "Добавить"
-            //в зависимости от значения в полях input
-            //на срабатывании event input
-            const addInputEvent = () => {
-                input.addEventListener('input', () => {
-                    changeBtnBehavior(input);
-                });
-            };
-            addInputEvent();
+            const top = 0;
+            
+            inputsEventListeners({
+                top: top, 
+                className:priceClassName,
+                textContent: '',
+                inputClassName: priceInputClassName
+            });
         },
         addShareBtnsAddEventListener: function () {
             const btn = element.querySelector('.btn-container__btn-add');
@@ -195,7 +169,7 @@ const addEventListeners = ({
                     textContent: 'шт',
                     className: amountClassName,
                     top: '8px',
-                    left: 20 + String(input.value).length * 9 + 'px'
+                    left: 20 + input.value.length * 9 + 'px'
                 });
             })
         },
@@ -220,7 +194,7 @@ const addEventListeners = ({
                     textContent: 'шт',
                     className: amountClassName,
                     top: '8px',
-                    left: 20 + String(input.value).length * 9 + 'px'
+                    left: 20 + input.value.length * 9 + 'px'
                 });
             })
         },
