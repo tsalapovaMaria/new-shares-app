@@ -12,8 +12,7 @@ const addEventListeners = ({
     const removedRowClassName = 'shares-table__shares-item-remove';
 
     const inputsEventListeners = ({
-        top, 
-        className, 
+        className,
         textContent,
         inputClassName
     } = {}) => {
@@ -30,10 +29,11 @@ const addEventListeners = ({
                 readInputValue(input);
 
                 const inputValueLength = input.value.length;
-                const left = inputClassName === amountInputClassName?
-                    paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements:
+
+                const top = inputClassName === amountInputClassName ? 8 : 0;
+                const left = inputClassName === amountInputClassName ?
+                    paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements :
                     (inputValueLength * symbolWidth) / 2 - inputLength / 2;
-                const top = inputClassName === amountInputClassName? 8 : 0;
 
                 const span = addElement({
                     input: input,
@@ -42,12 +42,12 @@ const addEventListeners = ({
                     top: top + 'px',
                     left: left + 'px'
                 });
-                if(input.className !== priceInputClassName){
+                if (input.className !== priceInputClassName) {
                     return;
                 }
                 span.dataset.currency = currency;
             });
-            
+
         input.addEventListener('focus',
             () => {
                 removeElement({
@@ -61,12 +61,13 @@ const addEventListeners = ({
             changeBtnBehavior(input);
         });
     };
+
     return {
         amountInputAddEventListener: function () {
             const top = 8;
 
             inputsEventListeners({
-                top: top, 
+                top: top,
                 className: amountClassName,
                 textContent: 'шт',
                 inputClassName: amountInputClassName
@@ -74,10 +75,10 @@ const addEventListeners = ({
         },
         priceInputAddEventListener: function () {
             const top = 0;
-            
+
             inputsEventListeners({
-                top: top, 
-                className:priceClassName,
+                top: top,
+                className: priceClassName,
                 textContent: '',
                 inputClassName: priceInputClassName
             });
@@ -98,7 +99,9 @@ const addEventListeners = ({
 
                 const tbody = element.querySelector('TBODY');
                 const purchases = element.querySelector('.table-is-empty');
-                purchases?.remove();
+                if (purchases) {
+                    purchases.remove();
+                }
 
                 tbody.append(tr);
 
@@ -153,12 +156,19 @@ const addEventListeners = ({
             });
         },
         addAmountBtnAddEventListener: function () {
+            const symbolWidth = 9;
+    
+            const paddingLeft = 17;
+            const spaceBetweenElements = 5;
+            
             const btn = element.querySelector('.btns__add-btn');
             const input = element.querySelector(`.${amountInputClassName}`);
             btn.addEventListener('click', () => {
-                const value = Number(input.value?.replace(/\s/g, "").replace(',', '.'));
+                const value = Number(input.value.replace(/\s/g, "").replace(',', '.'));
 
                 input.value = (value + 1).toLocaleString();
+                const inputValueLength = input.value.length;
+
                 changeBtnBehavior(input);
                 removeElement({
                     input: input,
@@ -169,21 +179,28 @@ const addEventListeners = ({
                     textContent: 'шт',
                     className: amountClassName,
                     top: '8px',
-                    left: 20 + input.value.length * 9 + 'px'
+                    left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
                 });
             })
         },
         subAmountBtnAddEventListener: function () {
+            const symbolWidth = 9;
+    
+            const paddingLeft = 17;
+            const spaceBetweenElements = 5;
+            
             const btn = element.querySelector('.btns__remove-btn');
             const input = element.querySelector(`.${amountInputClassName}`);
 
             btn.addEventListener('click', () => {
-                const value = Number(input.value?.replace(/\s/g, "").replace(',', '.'));
+                const value = Number(input.value.replace(/\s/g, "").replace(',', '.'));
                 if (value === 1 || value === 0) {
                     return;
                 }
 
                 input.value = (value - 1).toLocaleString();
+                const inputValueLength = input.value.length;
+
                 changeBtnBehavior(input);
                 removeElement({
                     input: input,
@@ -194,15 +211,19 @@ const addEventListeners = ({
                     textContent: 'шт',
                     className: amountClassName,
                     top: '8px',
-                    left: 20 + input.value.length * 9 + 'px'
+                    left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
                 });
             })
         },
         amountTransparentClickAddEventListener: function () {
             const span = element.querySelector(`.${amountClassName}`);
+            if (!span) {
+                return;
+            }
+
             const input = element.querySelector(`.${amountInputClassName}`);
 
-            span?.addEventListener('click', (e) => {
+            span.addEventListener('click', (e) => {
                 const target = e.target;
 
                 if (!target.closest('.shares-form-inputs__amount-container')) {
@@ -213,9 +234,13 @@ const addEventListeners = ({
         },
         priceTransparentClickAddEventListener: function () {
             const span = element.querySelector(`.${priceClassName}`);
+            if (!span) {
+                return;
+            }
+
             const input = element.querySelector(`.${priceInputClassName}`);
 
-            span?.addEventListener('click', (e) => {
+            span.addEventListener('click', (e) => {
                 const target = e.target;
 
                 if (!target.closest('.shares-form-inputs__amount-container')) {
@@ -283,7 +308,7 @@ const handleEventListeners = () => {
         element: entryPointsElement
     }).subAmountBtnAddEventListener();
 
-    
+
     addEventListeners({
         form: exitPointsForm,
         element: exitPointsElement
@@ -299,7 +324,7 @@ const handleEventListeners = () => {
         form: exitPointsForm,
         element: exitPointsElement
     }).priceTransparentClickAddEventListener();
-    
+
     addEventListeners({
         form: entryPointsForm,
         element: entryPointsElement
