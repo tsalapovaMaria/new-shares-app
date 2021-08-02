@@ -2,25 +2,36 @@ const addEventListeners = ({
     form = null,
     element
 }) => {
-    return {
-        amountClassName: 'amount-container__amounts',
-        priceClassName: 'price-container__currency',
-        rowClassName: 'shares-table__shares-item',
+    const amountClassName = 'amount-container__amounts';
+    const amountInputClassName = 'amount-container__input';
 
+    const priceClassName = 'price-container__currency';
+    const priceInputClassName = 'price-container__input';
+
+    const rowClassName = 'shares-table__shares-item';
+    const removedRowClassName = 'shares-table__shares-item-remove';
+
+    return {
         amountInputAddEventListener: function () {
-            const input = element.querySelector('.amount-container__input');
+            const input = element.querySelector(`.${amountInputClassName}`);
 
             // функция добавления элемент с текстом "шт" на срабатывании event blur
             const addBlurEvent = () => {
+                const paddingLeft = 17;
+                const spaceBetweenElements = 5;
+
+                const inputValueLength = String(input.value).length;                
+                const symbolWidth = 9;
+
                 input.addEventListener('blur',
                     () => {
                         readInputValue(input);
                         addElement({
                             input: input,
                             textContent: 'шт',
-                            className: this.amountClassName,
+                            className: amountClassName,
                             top: '8px',
-                            left: 20 + String(input.value).length * 9 + 'px'
+                            left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
                         });
                     });
             };
@@ -32,7 +43,7 @@ const addEventListeners = ({
                     () => {
                         removeElement({
                             input: input,
-                            className: this.amountClassName
+                            className: amountClassName
                         });
                     }
                 );
@@ -50,19 +61,24 @@ const addEventListeners = ({
             addInputEvent();
         },
         priceInputAddEventListener: function () {
-            const input = element.querySelector('.price-container__input');
+            const input = element.querySelector(`.${priceInputClassName}`);
 
             // функция добавления валюты на срабатывании event blur
             const addBlurEvent = () => {
+                const inputValueLength = String(input.value).length;                
+                const symbolWidth = 9;
+
+                const inputLength = input.offsetWidth;
+
                 input.addEventListener('blur',
                     () => {
                         readInputValue(input);
                         const spanCurrency = addElement({
                             input: input,
                             textContent: '',
-                            className: this.priceClassName,
+                            className: priceClassName,
                             top: '0px',
-                            left: String(input.value).length * 9 / 2 - input.offsetWidth / 2 + 'px'
+                            left: (inputValueLength * symbolWidth) / 2 - inputLength / 2 + 'px'
                         });
                         spanCurrency.dataset.currency = currency;
                     });
@@ -75,7 +91,7 @@ const addEventListeners = ({
                     () => {
                         removeElement({
                             input: input,
-                            className: this.priceClassName
+                            className: priceClassName
                         });
                     }
                 );
@@ -97,8 +113,8 @@ const addEventListeners = ({
 
             //добавление новой строки в таблицу при срабатывании onclick
             btn.addEventListener('click', () => {
-                const amountContainer = element.querySelector('.amount-container__input');
-                const priceContainer = element.querySelector('.price-container__input');
+                const amountContainer = element.querySelector(`.${amountInputClassName}`);
+                const priceContainer = element.querySelector(`.${priceInputClassName}`);
 
                 const amount = Number(amountContainer.value.replace(/\s/g, "").replace(',', '.'));
                 const price = Number(priceContainer.value.replace(/\s/g, ""));
@@ -116,7 +132,7 @@ const addEventListeners = ({
                 // появления элемента
 
                 setTimeout(() => {
-                    tr.className = this.rowClassName;
+                    tr.className = rowClassName;
                 }, 0);
 
                 //очистка форм после добавления новой строки
@@ -135,7 +151,6 @@ const addEventListeners = ({
                     form.removeRecord(trID);
 
                     const removeRow = () => {
-                        const removedRowClassName = 'shares-table__shares-item-remove';
                         tr.className += ` ${removedRowClassName}`;
                         // использование setTimeout для анимации удаления элемента 
 
@@ -165,7 +180,7 @@ const addEventListeners = ({
         },
         addAmountBtnAddEventListener: function () {
             const btn = element.querySelector('.btns__add-btn');
-            const input = element.querySelector('.amount-container__input');
+            const input = element.querySelector(`.${amountInputClassName}`);
             btn.addEventListener('click', () => {
                 const value = Number(input.value?.replace(/\s/g, "").replace(',', '.'));
 
@@ -173,12 +188,12 @@ const addEventListeners = ({
                 changeBtnBehavior(input);
                 removeElement({
                     input: input,
-                    className: this.amountClassName
+                    className: amountClassName
                 });
                 addElement({
                     input: input,
                     textContent: 'шт',
-                    className: this.amountClassName,
+                    className: amountClassName,
                     top: '8px',
                     left: 20 + String(input.value).length * 9 + 'px'
                 });
@@ -186,7 +201,7 @@ const addEventListeners = ({
         },
         subAmountBtnAddEventListener: function () {
             const btn = element.querySelector('.btns__remove-btn');
-            const input = element.querySelector('.amount-container__input');
+            const input = element.querySelector(`.${amountInputClassName}`);
 
             btn.addEventListener('click', () => {
                 const value = Number(input.value?.replace(/\s/g, "").replace(',', '.'));
@@ -198,20 +213,20 @@ const addEventListeners = ({
                 changeBtnBehavior(input);
                 removeElement({
                     input: input,
-                    className: this.amountClassName
+                    className: amountClassName
                 });
                 addElement({
                     input: input,
                     textContent: 'шт',
-                    className: this.amountClassName,
+                    className: amountClassName,
                     top: '8px',
                     left: 20 + String(input.value).length * 9 + 'px'
                 });
             })
         },
         amountTransparentClickAddEventListener: function () {
-            const span = element.querySelector(`.${this.amountClassName}`);
-            const input = element.querySelector('.amount-container__input');
+            const span = element.querySelector(`.${amountClassName}`);
+            const input = element.querySelector(`.${amountInputClassName}`);
 
             span?.addEventListener('click', (e) => {
                 const target = e.target;
@@ -223,8 +238,8 @@ const addEventListeners = ({
             });
         },
         priceTransparentClickAddEventListener: function () {
-            const span = element.querySelector(`.${this.priceClassName}`);
-            const input = element.querySelector('.price-container__input');
+            const span = element.querySelector(`.${priceClassName}`);
+            const input = element.querySelector(`.${priceInputClassName}`);
 
             span?.addEventListener('click', (e) => {
                 const target = e.target;
