@@ -5,20 +5,9 @@ const formBuilder = function () {
             subscribers: [],
             subscribe: function (callback) {
                 this.subscribers.push(callback);
-                return this.subscribers;
-            },
-            unsubscribe: function (callback) {
-                if (!this.subscribers.includes(callback)) {
-                    return;
-                }
-                const index = this.subscribers.indexOf(callback);
-                this.subscribers.splice(index, 1);
             },
             notify: function () {
-                this.subscribers.forEach(callback => this.update(callback));
-            },
-            update: function (callback) {
-                return callback();
+                this.subscribers.forEach(callback => callback());
             }
         },
         addRecord: function (amount, price) {

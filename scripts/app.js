@@ -1,8 +1,6 @@
 let currency = '$';
 
 const section = document.querySelector('.shares-section');
-const entryPointsForm = formBuilder();
-const exitPointsForm = formBuilder();
 
 const entryPointsElement = renderForm.createForm(
     'Точки входа', {
@@ -16,4 +14,10 @@ const exitPointsElement = renderForm.createForm(
         col_2: 'цена продажи',
         col_3: 'сумма'
     }, section);
-handleEventListeners();
+
+const entryPointsForm = formBuilder();
+const exitPointsForm = formBuilder();
+
+handleEventListeners(entryPointsForm, entryPointsElement);
+
+handleEventListeners(exitPointsForm, exitPointsElement);

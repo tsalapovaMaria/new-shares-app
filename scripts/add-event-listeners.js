@@ -25,10 +25,9 @@ const addEventListeners = ({
         const spaceBetweenElements = 5;
 
         input.addEventListener('blur',
-            () => {
-                readInputValue(input);
-
-                const inputValueLength = input.value.length;
+            () => {                
+                const value = readInputValue(input);
+                const inputValueLength = value.length;
 
                 const top = inputClassName === amountInputClassName ? 8 : 0;
                 const left = inputClassName === amountInputClassName ?
@@ -167,7 +166,7 @@ const addEventListeners = ({
                 const value = leadAmountToValid(input.value);
 
                 input.value = (value + 1).toLocaleString();
-                const inputValueLength = input.value.length;
+                const inputValueLength = value.length;
 
                 changeBtnBehavior(input);
                 removeElement({
@@ -199,7 +198,7 @@ const addEventListeners = ({
                 }
 
                 input.value = (value - 1).toLocaleString();
-                const inputValueLength = input.value.length;
+                const inputValueLength = value.length;
 
                 changeBtnBehavior(input);
                 removeElement({
@@ -252,81 +251,42 @@ const addEventListeners = ({
     };
 };
 
-const handleEventListeners = () => {
+const handleEventListeners = (form, element) => {
 
     addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
+        form: form,
+        element: element
     }).amountInputAddEventListener();
 
     addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
-    }).amountInputAddEventListener();
-
-
-    addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
-    }).priceInputAddEventListener();
-
-    addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
+        form: form,
+        element: element
     }).priceInputAddEventListener();
 
 
     addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
+        form: form,
+        element: element
     }).addShareBtnsAddEventListener();
 
     addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
-    }).addShareBtnsAddEventListener();
-
-
-    addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
+        form: form,
+        element: element
     }).addAmountBtnAddEventListener();
 
     addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
-    }).addAmountBtnAddEventListener();
-
-
-    addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
+        form: form,
+        element: element
     }).subAmountBtnAddEventListener();
 
     addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
-    }).subAmountBtnAddEventListener();
-
-
-    addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
+        form: form,
+        element: element
     }).amountTransparentClickAddEventListener();
 
     addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
-    }).amountTransparentClickAddEventListener();
-
-
-    addEventListeners({
-        form: exitPointsForm,
-        element: exitPointsElement
+        form: form,
+        element: element
     }).priceTransparentClickAddEventListener();
 
-    addEventListeners({
-        form: entryPointsForm,
-        element: entryPointsElement
-    }).priceTransparentClickAddEventListener();
 }

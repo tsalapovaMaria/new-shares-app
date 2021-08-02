@@ -13,6 +13,7 @@ const readInputValue = (input) => {
         value = 0;
     }
     input.value = value.toLocaleString();
+    return value;
 }
 
 const createElement = (tag, {
