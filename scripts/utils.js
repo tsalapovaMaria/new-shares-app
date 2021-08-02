@@ -94,13 +94,14 @@ const changeBtnBehavior = (input) => {
     const value = Number(input.value.replace(/\s/g, ""));
     const siblingValue = Number(inputSibling.value.replace(/\s/g, ""));
 
-    const isAboveZero = value && siblingValue && value > 0 && siblingValue > 0;
-    const isNumber = value === value && siblingValue === siblingValue;
+    const isUnderZero = (value < 0) && (siblingValue < 0);
+    const isZero = value && siblingValue;
+    const isNaN = (value !== value) && (siblingValue !== siblingValue);
 
     if(!formContainer.nextElementSibling){
         return;
     }
     
     const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
-    btn.disabled = (isAboveZero && isNumber) ? false : true;
+    btn.disabled = !isUnderZero && !isNaN && !isZero;
 };

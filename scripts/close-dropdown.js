@@ -12,12 +12,12 @@ let wasChecked = false;
 
 dropdownList.addEventListener('click', () => {
     const toggleFunc = () => {    
-        const currentCurrency = document.querySelector('#text > div').textContent;
+        const currentCurrency = document.querySelector('.current-container__value').textContent;
     
         const label = Array.from(dropdownLabels).find(label => label.textContent === currentCurrency);
         
         if(isChecked && label.className === ''){
-            label.className = 'active-currency';
+            label.className += ' active-currency';
         }
         if(!isChecked && label.className !== ''){
             label.className = '';
