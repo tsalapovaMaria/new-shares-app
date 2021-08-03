@@ -11,7 +11,7 @@ const renderForm = () => {
 
     const setFormTitle = (title) => {
         return createFormTitle(title);
-    }
+    };
 
     //функции для создания колонок в шапке таблицы
     const colClassName = 'shares-header__col-title';
@@ -414,7 +414,7 @@ const renderForm = () => {
 
     const setAddBtn = () => {
         return createAddBtn();
-    }
+    };
 
     //функция создания контейнера для кнопки
     const createAddBtnContainer = (btn) => {
@@ -428,15 +428,25 @@ const renderForm = () => {
         return createAddBtnContainer(btn);
     };
 
-    const clickAddBtn = (container, tbody, amountInput, priceInput, noShoppingEl) => {
+    const clickAddBtn = ({
+        form,
+        container,
+        tbody,
+        amountInput,
+        priceInput,
+        noShoppingEl
+    }) => {
         const rowClassName = 'shares-table__shares-item';
 
         const amount = leadAmountToValid(amountInput.value);
         const price = leadPriceToValid(priceInput.value);
 
+        const trId = form.addRecord(amount, price);
+
         const totalPrice = amount * price;
 
-        const tr = createTableRow(tbody, amount, price, totalPrice);
+        const tr = createTableRow(trId, form, tbody, amount, price, totalPrice);
+
 
         if (noShoppingEl) {
             noShoppingEl.remove();
@@ -461,13 +471,20 @@ const renderForm = () => {
         currencyEl.style.left = '-70px';
     };
 
-    const addBtnEventListener = (btn, container, tbody, amountInput, priceInput, noShoppingEl) => {
+    const addBtnEventListener = (form, btn, container, tbody, amountInput, priceInput, noShoppingEl) => {
         btn.addEventListener('click', () => {
-            clickAddBtn(container, tbody, amountInput, priceInput, noShoppingEl);
+            clickAddBtn({
+                form: form,
+                container: container,
+                tbody: tbody,
+                amountInput: amountInput,
+                priceInput: priceInput,
+                noShoppingEl: noShoppingEl
+            });
 
             btn.disabled = true;
         });
-    }
+    };
 
     //функция создания контейнера формы
     const createFormShare = (formInputs, btnContainer) => {
@@ -533,9 +550,9 @@ const renderForm = () => {
         }, [span]);
     };
 
-    const removeRowBtnClick = (tr, tbody) => {
+    const removeRowBtnClick = (trId, form, tr, tbody) => {
         const removedRowClassName = 'shares-table__shares-item-remove';
-        //form.removeRecord(id);
+        form.removeRecord(trId);
 
         tr.className += ` ${removedRowClassName}`;
 
@@ -544,30 +561,26 @@ const renderForm = () => {
 
             // ЕСЛИ в таблице нет данных (пусто)
             // ТОГДА добавить новый элемент, указывающий, что таблица пуста
-
             if (tbody.children.length !== 0) {
                 return;
             }
-            const noShoppingEl = createNoShoppingElement();
-            // const element = createElement('DIV', 'table-is-empty');
-            // element.textContent = 'НЕТ ПОКУПОК';
-            tbody.append(noShoppingEl);
 
-            // element.style.left = tbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
-            // tbody.className = 'empty-table';
+            const noShoppingEl = createNoShoppingElement();
+            tbody.append(noShoppingEl);
         }, 250);
     };
 
-    const removeRowBtnEventListener = (tr, tbody, btn) => {        
-        btn.addEventListener('click', () => removeRowBtnClick(tr, tbody));
-    }
+    const removeRowBtnEventListener = (trId, form, tr, tbody, btn) => {
+        btn.addEventListener('click', () => removeRowBtnClick(trId, form, tr, tbody));
+    };
 
     const createTableDiv = (tdClassName, currentTdClassName, span) => {
         return createElement('TD', {
             className: `${tdClassName} ${currentTdClassName}`
         }, [span]);
-    }
-    const createTableRow = (tbody, amount, price, totalPrice) => {
+    };
+
+    const createTableRow = (trId, form, tbody, amount, price, totalPrice) => {
         const trClassName = 'shares-table__shares-item-add';
         const tdClassName = 'shares-item__value';
 
@@ -593,10 +606,11 @@ const renderForm = () => {
         const tr = createElement('TR', {
             className: trClassName
         }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
-        removeRowBtnEventListener(tr, tbody, removeRowBtn);
-        
+        removeRowBtnEventListener(trId, form, tr, tbody, removeRowBtn);
+
         return tr;
     };
+
     return {
         createForm: (
             title, {
@@ -604,7 +618,7 @@ const renderForm = () => {
                 col_2,
                 col_3
             } = {},
-            mountEl) => {
+            mountEl, form) => {
 
             const tHead = setThead(col_1, col_2, col_3);
 
@@ -636,7 +650,7 @@ const renderForm = () => {
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
 
-            addBtnEventListener(addBtn, formContainer,  tBody, amountInput, priceInput, noShoppingEl);
+            addBtnEventListener(form, addBtn, formContainer, tBody, amountInput, priceInput, noShoppingEl);
 
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);
@@ -651,58 +665,6 @@ const renderForm = () => {
 
             mountEl.append(article);
             return article;
-        },
-        createTableRow: (amount, price, totalPrice) => {
-            const trClassName = 'shares-table__shares-item-add';
-            const tdClassName = 'shares-item__value';
-
-            const amountTdClassName = 'shares-item__amount';
-            const priceTdClassName = 'shares-item__price';
-            const totalPriceTdClassName = 'shares-item__total-price';
-            const removeRowBtnTdClassName = 'shares-item__btn-container';
-
-            const btnClassName = 'btn-container__delete-btn';
-
-
-            const amountString = amount.toLocaleString();
-            const priceString = price.toLocaleString();
-            const totalString = totalPrice.toLocaleString();
-
-            const amountSpan = createElement('SPAN', {
-                textContent: amountString
-            });
-            const priceSpan = createElement('SPAN', {
-                dataAttr: currency,
-                textContent: priceString
-            });
-            const totalPriceSpan = createElement('SPAN', {
-                dataAttr: currency,
-                textContent: totalString
-            });
-            const removeRowBtnSpan = createElement('SPAN');
-            removeRowBtnSpan.innerHTML = '&#x2715';
-            const removeRowBtn = createElement('BUTTON', {
-                className: btnClassName
-            }, [removeRowBtnSpan]);
-
-            const amountTd = createElement('TD', {
-                className: `${tdClassName} ${amountTdClassName}`
-            }, [amountSpan]);
-            const priceTd = createElement('TD', {
-                className: `${tdClassName} ${priceTdClassName}`
-            }, [priceSpan]);
-            const totalPriceTd = createElement('TD', {
-                className: `${tdClassName} ${totalPriceTdClassName}`
-            }, [totalPriceSpan]);
-            const removeRowBtnTd = createElement('TD', {
-                className: `${tdClassName} ${removeRowBtnTdClassName}`
-            }, [removeRowBtn]);
-
-            const tr = createElement('TR', {
-                className: trClassName
-            }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
-
-            return tr;
-        },
+        }
     }
 };

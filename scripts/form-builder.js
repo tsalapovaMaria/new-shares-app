@@ -1,44 +1,42 @@
 const formBuilder = function () {
+    const state = [];
+    const subscribers = [];
+
+    const pushRecord = (id, amount, price) => {
+        const totalPrice = amount * price;
+        const newEl = {
+            id: id,
+            amount: amount,
+            price: price,
+            total: totalPrice
+        };
+
+        state.push(newEl);
+    };
+    const spliceRecord = (id) => {
+        const splicesEl = state.find(item => item.id === id);
+        const elIndex = state.indexOf(splicesEl);
+
+        state.splice(elIndex, 1);
+    };
     return {
-        state: [],
-        eventManager: {
-            subscribers: [],
-            subscribe: function (callback) {
-                this.subscribers.push(callback);
-            },
-            notify: function () {
-                this.subscribers.forEach(callback => callback());
-            }
+        subscribe: function (callback) {
+            subscribers.push(callback);
+        },
+        notify: function () {
+            subscribers.forEach(callback => callback());
         },
         addRecord: function (amount, price) {
-            const totalPrice = amount * price;
             const id = Date.now();
+    
+            pushRecord(id, amount, price);
+            this.notify();
 
-            const newEl = {
-                id: id,
-                amount: amount,
-                price: price,
-                total: totalPrice
-            };
-
-            this.state.push(newEl);
-            this.eventManager.notify();
+            return id;
         },
         removeRecord: function (id) {
-            const splicesEl = this.state.find(item => item.id === id);
-            const elIndex = this.state.indexOf(splicesEl);
-
-            this.state.splice(elIndex, 1);
-            this.eventManager.notify();
+            spliceRecord(id);            
+            this.notify();
         },
     }
 };
-
-const state = formBuilder.state;
-
-Object.defineProperty(formBuilder, 'state', {
-    configurable: false,
-    get() {
-        return state;
-    }
-});
