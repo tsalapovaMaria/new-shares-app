@@ -428,9 +428,9 @@ const renderForm = () => {
         return createAddBtnContainer(btn);
     };
 
-    const clickAddBtn = (tbody, amountInput, priceInput, noShoppingEl) => {
+    const clickAddBtn = (container, tbody, amountInput, priceInput, noShoppingEl) => {
         const rowClassName = 'shares-table__shares-item';
-        
+
         const amount = leadAmountToValid(amountInput.value);
         const price = leadPriceToValid(priceInput.value);
 
@@ -450,10 +450,23 @@ const renderForm = () => {
         setTimeout(() => {
             tr.className = rowClassName;
         }, 0);
+
+        //очистка форм после добавления новой строки
+        const currencyEl = container.querySelector('.price-container__currency');
+        const amountEl = container.querySelector('.amount-container__amounts');
+
+        amountInput.value = '0';
+        priceInput.value = '0';
+        amountEl.style.left = '29px';
+        currencyEl.style.left = '-70px';
     };
 
-    const addBtnEventListener = (btn, tbody, amountInput, priceInput, noShoppingEl) => {
-        btn.addEventListener('click', () => clickAddBtn(tbody, amountInput, priceInput, noShoppingEl));
+    const addBtnEventListener = (btn, container, tbody, amountInput, priceInput, noShoppingEl) => {
+        btn.addEventListener('click', () => {
+            clickAddBtn(container, tbody, amountInput, priceInput, noShoppingEl);
+
+            btn.disabled = true;
+        });
     }
 
     //функция создания контейнера формы
@@ -520,6 +533,10 @@ const renderForm = () => {
         }, [span]);
     };
 
+    const removeRowBtnClick = () => {
+
+    };
+
     const createTableDiv = (tdClassName, currentTdClassName, span) => {
         return createElement('TD', {
             className: `${tdClassName} ${currentTdClassName}`
@@ -547,7 +564,7 @@ const renderForm = () => {
         const priceTd = createTableDiv(tdClassName, priceTdClassName, priceSpan);
         const totalPriceTd = createTableDiv(tdClassName, totalPriceTdClassName, totalPriceSpan);
         const removeRowBtnTd = createTableDiv(tdClassName, removeRowBtnTdClassName, removeRowBtn);
-        
+
         return createElement('TR', {
             className: trClassName
         }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
@@ -591,7 +608,7 @@ const renderForm = () => {
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
 
-            addBtnEventListener(addBtn, tBody, amountInput, priceInput, noShoppingEl);
+            addBtnEventListener(addBtn, formContainer,  tBody, amountInput, priceInput, noShoppingEl);
 
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);
