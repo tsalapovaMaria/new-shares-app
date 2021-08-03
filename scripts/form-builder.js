@@ -24,7 +24,8 @@ const formBuilder = function () {
             this.state.push(newEl);
             this.eventManager.notify();
 
-            const tr = renderForm.createTableRow(amount, price, totalPrice);
+            const formRender = renderForm();
+            const tr = formRender.createTableRow(amount, price, totalPrice);
 
 
             return tr;

@@ -63,16 +63,6 @@ const addEventListeners = ({
     };
 
     return {
-        amountInputAddEventListener: function () {
-            const top = 8;
-
-            inputsEventListeners({
-                top: top,
-                className: amountClassName,
-                textContent: 'шт',
-                inputClassName: amountInputClassName
-            });
-        },
         priceInputAddEventListener: function () {
             const top = 0;
 
@@ -155,66 +145,6 @@ const addEventListeners = ({
                 };
             });
         },
-        addAmountBtnAddEventListener: function () {
-            const symbolWidth = 9;
-    
-            const paddingLeft = 17;
-            const spaceBetweenElements = 5;
-            
-            const btn = element.querySelector('.btns__add-btn');
-            const input = element.querySelector(`.${amountInputClassName}`);
-            btn.addEventListener('click', () => {
-                const value = leadAmountToValid(input.value);
-
-                input.value = (value + 1).toLocaleString();
-                const inputValueLength = value.length;
-
-                changeBtnBehavior(input);
-                removeElement({
-                    input: input,
-                    className: amountClassName
-                });
-                addElement({
-                    input: input,
-                    textContent: 'шт',
-                    className: amountClassName,
-                    top: '8px',
-                    left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
-                });
-            })
-        },
-        subAmountBtnAddEventListener: function () {
-            const symbolWidth = 9;
-    
-            const paddingLeft = 17;
-            const spaceBetweenElements = 5;
-            
-            const btn = element.querySelector('.btns__remove-btn');
-            const input = element.querySelector(`.${amountInputClassName}`);
-
-            btn.addEventListener('click', () => {
-                const value = leadAmountToValid(input.value);
-                if (value === 1 || value === 0) {
-                    return;
-                }
-
-                input.value = (value - 1).toLocaleString();
-                const inputValueLength = value.length;
-
-                changeBtnBehavior(input);
-                removeElement({
-                    input: input,
-                    className: amountClassName
-                });
-                addElement({
-                    input: input,
-                    textContent: 'шт',
-                    className: amountClassName,
-                    top: '8px',
-                    left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
-                });
-            })
-        },
         amountTransparentClickAddEventListener: function () {
             const span = element.querySelector(`.${amountClassName}`);
             if (!span) {
@@ -254,31 +184,16 @@ const addEventListeners = ({
 
 const handleEventListeners = (form, element) => {
 
-    addEventListeners({
-        form: form,
-        element: element
-    }).amountInputAddEventListener();
-
-    addEventListeners({
-        form: form,
-        element: element
-    }).priceInputAddEventListener();
+    // addEventListeners({
+    //     form: form,
+    //     element: element
+    // }).priceInputAddEventListener();
 
 
     addEventListeners({
         form: form,
         element: element
     }).addShareBtnsAddEventListener();
-
-    addEventListeners({
-        form: form,
-        element: element
-    }).addAmountBtnAddEventListener();
-
-    addEventListeners({
-        form: form,
-        element: element
-    }).subAmountBtnAddEventListener();
 
     addEventListeners({
         form: form,

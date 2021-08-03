@@ -119,7 +119,7 @@ const renderForm = () => {
     const setTable = (tHead, tBody) => {
         return createTable(tHead, tBody);
     };
-    
+
     //функция для создания контейнера, содержащего таблицу
     const createTableContainer = (table) => {
         const tableContainerClassName = 'shares-container__table-container';
@@ -130,6 +130,256 @@ const renderForm = () => {
     const setTableContainer = (table) => {
         return createTableContainer(table);
     };
+
+    //функции для создания формы ввода пользователем количества покупок/продаж
+
+    //функции для создания кнопки "+" (увеличение количества)
+    const createMoreAmountBtn = () => {
+        const moreBtnClassName = 'btns__add-btn';
+        return createElement('BUTTON', {
+            className: moreBtnClassName,
+            type: 'button'
+        });
+    };
+    const setMoreAmountBtn = () => {
+        const btn = createMoreAmountBtn();
+
+        return btn;
+    };
+
+    //функция для создания события кнопке
+    const moreAmountBtnsEventListener = (btn, formContainer) => {
+        const symbolWidth = 9;
+        const paddingLeft = 17;
+        const spaceBetweenElements = 5;
+
+        const amountClassName = 'amount-container__amounts';
+        const amountInputClassName = 'amount-container__input';
+        btn.addEventListener('click', () => {
+            const input = formContainer.querySelector(`.${amountInputClassName}`);
+
+            const value = leadAmountToValid(input.value);
+            const inputValueLength = value.length;
+
+            input.value = (value + 1).toLocaleString();
+
+            changeBtnBehavior(input);
+            removeElement({
+                input: input,
+                className: amountClassName
+            });
+            addElement({
+                input: input,
+                textContent: 'шт',
+                className: amountClassName,
+                top: '8px',
+                left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
+            });
+        });
+    };
+
+    //функция для создания кнопки "-" (уменьшение количества)
+    const createLessAmountBtn = () => {
+        const lessBtnClassName = 'btns__remove-btn';
+        return createElement('BUTTON', {
+            className: lessBtnClassName,
+            type: 'button'
+        });
+    };
+    const setLessAmountBtn = () => {
+        const btn = createLessAmountBtn();
+
+        return btn;
+    };
+
+    //функция для создания события кнопке
+    const lessAmountBtnsEventListener = (btn, formContainer) => {
+        const symbolWidth = 9;
+        const paddingLeft = 17;
+        const spaceBetweenElements = 5;
+
+        const amountClassName = 'amount-container__amounts';
+        const amountInputClassName = 'amount-container__input';
+        btn.addEventListener('click', () => {
+            const input = formContainer.querySelector(`.${amountInputClassName}`);
+
+            const value = leadAmountToValid(input.value);
+            if (value === 1 || value === 0) {
+                return;
+            }
+            const inputValueLength = value.length;
+
+            input.value = (value - 1).toLocaleString();
+
+            changeBtnBehavior(input);
+            removeElement({
+                input: input,
+                className: amountClassName
+            });
+            addElement({
+                input: input,
+                textContent: 'шт',
+                className: amountClassName,
+                top: '8px',
+                left: paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements + 'px'
+            });
+        });
+    };
+
+    const createBtnsContainer = (lessAmountBtn, moreAmountBtn) => {
+        const btnsContainerClassName = 'amount-container__btns';
+
+        return createElement('DIV', {
+            className: btnsContainerClassName
+        }, [lessAmountBtn, moreAmountBtn]);
+    };
+
+    const setBtnsContainer = (lessAmountBtn, moreAmountBtn) => {
+        return createBtnsContainer(lessAmountBtn, moreAmountBtn);
+    };
+
+    //функции для создания поля ввода количества    
+    const createAmountInput = () => {
+        const amountInputClassName = 'amount-container__input';
+        const amountInput = createElement('INPUT', {
+            type: 'text',
+            className: amountInputClassName,
+            placeholder: '0 шт'
+        });
+        amountInput.required = true;
+        return amountInput;
+    };
+
+    const setAmountInput = () => {
+        return createAmountInput();
+    };
+
+    //создание событий для input "количества"
+    const priceInputClassName = 'price-container__input';
+    const blurInput = (input, {
+        top,
+        left,
+        textContent,
+        className,
+    }) => {
+        readInputValue(input);
+        const span = addElement({
+            input: input,
+            textContent: textContent,
+            className: className,
+            top: top + 'px',
+            left: left + 'px'
+        });
+        if (input.className !== priceInputClassName) {
+            return;
+        }
+        span.dataset.currency = currency;
+    };
+    const focusInput = (input, className) => {
+        removeElement({
+            input: input,
+            className: className
+        });
+    };
+
+    const amountInputEventListeners = (input) => {
+        const amountClassName = 'amount-container__amounts';
+
+        const symbolWidth = 9;
+        const paddingLeft = 17;
+        const spaceBetweenElements = 5;
+
+        const top = 8;
+
+        input.addEventListener('blur', () => {
+            const value = readInputValue(input);
+            const inputValueLength = String(value).length;
+            const left = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements;
+
+            blurInput(input, {
+                top: top,
+                left: left,
+                textContent: 'шт',
+                className: amountClassName
+            });
+        });
+
+        input.addEventListener('focus', () => {
+            focusInput(input, amountClassName);
+        });
+
+        input.addEventListener('input', () => {
+            changeBtnBehavior(input);
+        });
+    };
+
+    //функция для создания контейнера формы "количество"
+    const createAmountContainer = (input, btnsContainer) => {
+        const amountContainerClassName = 'shares-form-inputs__amount-container';
+
+        return createElement('DIV', {
+            className: amountContainerClassName
+        }, [input, btnsContainer]);
+    };
+
+    const setAmountContainer = (input, btnsContainer) => {
+        return createAmountContainer(input, btnsContainer);
+    };
+
+    //функция создания поля ввода стоимости
+    const createPriceInput = () => {
+        const priceInputClassName = 'price-container__input';
+
+        return createElement('INPUT', {
+            type: 'text',
+            className: priceInputClassName,
+            placeholder: '0 $'
+        });
+    };
+
+    const createPriceContainer = (input) => {
+        const priceContainerClassName = 'shares-form-inputs__price-container';
+
+        return createElement('DIV', {
+            className: priceContainerClassName
+        }, [input]);
+    };
+
+    const setPriceContainer = (input) => {
+        return createPriceContainer(input);
+    };
+
+    const priceInputEventListener = (input) => {
+        const priceClassName = 'price-container__currency';
+        const symbolWidth = 9;
+
+        const top = 0;
+
+        input.addEventListener('blur', () => {
+            const inputLength = input.offsetWidth;
+            
+            readInputValue(input);
+            const inputValueLength = input.value.length;
+
+            const left = (inputValueLength * symbolWidth) / 2 - inputLength / 2;
+
+            blurInput(input, {
+                top: top,
+                left: left,
+                textContent: '',
+                className: priceClassName
+            });
+        });
+
+        input.addEventListener('focus', () => {
+            focusInput(input, priceClassName);
+        });
+
+        input.addEventListener('input', () => {
+            changeBtnBehavior(input);
+        });
+
+    }
 
     return {
         createForm: (
@@ -143,16 +393,23 @@ const renderForm = () => {
             const containerTitleClassName = 'shares-article__title';
             const containerClassName = 'shares-article__shares-container';
 
-            // const createTableContainer = () => {
+            const tHead = setThead(col_1, col_2, col_3);
+            const tBody = setTableBody();
 
-            //     const table = createElement('TABLE', {
-            //         className: tableClassName
-            //     }, [tHead, tBody]);
+            const table = setTable(tHead, tBody);
 
-            //     return createElement('DIV', {
-            //         className: tableContainerClassName
-            //     }, [table]);
-            // }
+            const tableContainer = setTableContainer(table);
+
+            const moreAmountBtn = setMoreAmountBtn();
+            const lessAmountBtn = setLessAmountBtn();
+
+            const amountBtnsContainer = setBtnsContainer(lessAmountBtn, moreAmountBtn);
+            const amountInput = setAmountInput();
+
+            const amountContainer = setAmountContainer(amountInput, amountBtnsContainer);
+
+            const priceInput = createPriceInput();
+            const priceContainer = setPriceContainer(priceInput);
 
             const createFormContainer = () => {
                 const formSharesClassName = 'shares-form-container__shares-form';
@@ -161,57 +418,6 @@ const renderForm = () => {
 
                 const btnContainerClassName = 'shares-form__btn-container';
                 const addRowBtnClassName = 'btn-container__btn-add';
-
-                const createAmountContainer = () => {
-                    const amountContainerClassName = 'shares-form-inputs__amount-container';
-                    const amountInputClassName = 'amount-container__input';
-
-                    const btnsContainerClassName = 'amount-container__btns';
-                    const removeBtnClassName = 'btns__remove-btn';
-                    const addBtnClassName = 'btns__add-btn';
-
-                    const removeBtn = createElement('BUTTON', {
-                        className: removeBtnClassName,
-                        type: 'button'
-                    });
-                    const addBtn = createElement('BUTTON', {
-                        className: addBtnClassName,
-                        type: 'button'
-                    });
-
-                    const btnsContainer = createElement('DIV', {
-                        className: btnsContainerClassName
-                    }, [removeBtn, addBtn]);
-
-                    const amountInput = createElement('INPUT', {
-                        type: 'text',
-                        className: amountInputClassName,
-                        placeholder: '0 шт'
-                    });
-                    amountInput.required = true;
-
-                    return createElement('DIV', {
-                        className: amountContainerClassName
-                    }, [amountInput, btnsContainer]);
-                };
-
-                const createPriceContainer = () => {
-                    const priceContainerClassName = 'shares-form-inputs__price-container';
-                    const priceInputClassName = 'price-container__input';
-
-                    const priceInput = createElement('INPUT', {
-                        type: 'text',
-                        className: priceInputClassName,
-                        placeholder: '0 $'
-                    });
-
-                    return createElement('DIV', {
-                        className: priceContainerClassName
-                    }, [priceInput]);
-                };
-
-                const amountContainer = createAmountContainer();
-                const priceContainer = createPriceContainer();
 
                 const formInputs = createElement('DIV', {
                     className: formInputsClassName
@@ -232,14 +438,15 @@ const renderForm = () => {
                     className: formSharesClassName
                 }, [formInputs, btnContainer]);
 
-            }
-
-            const tHead = setThead(col_1, col_2, col_3);
-            const tBody = setTableBody();
-            const table = setTable(tHead, tBody);
-            const tableContainer = setTableContainer(table);
+            };
 
             const formContainer = createFormContainer();
+
+            moreAmountBtnsEventListener(moreAmountBtn, formContainer);
+            lessAmountBtnsEventListener(lessAmountBtn, formContainer);
+
+            amountInputEventListeners(amountInput);
+            priceInputEventListener(priceInput);
 
             const shareFormClassName = 'shares-container__shares-form-container';
             const shareFormContainer = createElement('DIV', {
