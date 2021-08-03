@@ -2,13 +2,15 @@ let currency = '$';
 
 const section = document.querySelector('.shares-section');
 
-const entryPointsElement = renderForm.createForm(
+const formRender = renderForm();
+
+const entryPointsElement = formRender.createForm(
     'Точки входа', {
         col_1: 'кол-во акций',
         col_2: 'цена покупки',
         col_3: 'сумма'
     }, section);
-const exitPointsElement = renderForm.createForm(
+const exitPointsElement = formRender.createForm(
     'Точки выхода', {
         col_1: 'кол-во акций',
         col_2: 'цена продажи',
