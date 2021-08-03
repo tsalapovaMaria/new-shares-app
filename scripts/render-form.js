@@ -428,7 +428,9 @@ const renderForm = () => {
         return createAddBtnContainer(btn);
     };
 
-    const clickAddBtn = (amountInput, priceInput, noShoppingEl) => {
+    const clickAddBtn = (tbody, amountInput, priceInput, noShoppingEl) => {
+        const rowClassName = 'shares-table__shares-item';
+        
         const amount = leadAmountToValid(amountInput.value);
         const price = leadPriceToValid(priceInput.value);
 
@@ -436,10 +438,10 @@ const renderForm = () => {
 
         const tr = createTableRow(amount, price, totalPrice);
 
-        if(noShoppingEl){
+        if (noShoppingEl) {
             noShoppingEl.remove();
         }
-        
+
         tbody.append(tr);
 
         // использование setTimeout для анимации 
@@ -450,8 +452,8 @@ const renderForm = () => {
         }, 0);
     };
 
-    const addBtnEventListener = (btn, amountInput, priceInput, noShoppingEl) => {
-        btn.addEventListener('click', () => clickAddBtn(amountInput, priceInput, noShoppingEl));
+    const addBtnEventListener = (btn, tbody, amountInput, priceInput, noShoppingEl) => {
+        btn.addEventListener('click', () => clickAddBtn(tbody, amountInput, priceInput, noShoppingEl));
     }
 
     //функция создания контейнера формы
@@ -496,12 +498,60 @@ const renderForm = () => {
     //функция создания обёртки для всей формы
     const createArticle = (formTitle, sharesContainer) => {
         const articeClassName = 'shares-section__shares-article';
-        
+
         return createElement('DIV', {
             className: articeClassName
         }, [formTitle, sharesContainer]);
     };
 
+
+    //ФУНКЦИИ ДЛЯ СОЗДАНИЯ НОВОЙ СТРОКИ В ТАБЛИЦЕ
+    const createCellSpan = (value) => {
+        const valueString = value.toLocaleString();
+        return createElement('SPAN', {
+            textContent: valueString
+        });
+    };
+
+    const createRemoveRowBtn = (span) => {
+        const btnClassName = 'btn-container__delete-btn';
+        return createElement('BUTTON', {
+            className: btnClassName
+        }, [span]);
+    };
+
+    const createTableDiv = (tdClassName, currentTdClassName, span) => {
+        return createElement('TD', {
+            className: `${tdClassName} ${currentTdClassName}`
+        }, [span]);
+    }
+    const createTableRow = (amount, price, totalPrice) => {
+        const trClassName = 'shares-table__shares-item-add';
+        const tdClassName = 'shares-item__value';
+
+        const amountTdClassName = 'shares-item__amount';
+        const priceTdClassName = 'shares-item__price';
+        const totalPriceTdClassName = 'shares-item__total-price';
+        const removeRowBtnTdClassName = 'shares-item__btn-container';
+
+        const amountSpan = createCellSpan(amount);
+        const priceSpan = createCellSpan(price);
+        const totalPriceSpan = createCellSpan(totalPrice);
+
+        const removeRowBtnSpan = createElement('SPAN');
+        removeRowBtnSpan.innerHTML = '&#x2715';
+
+        const removeRowBtn = createRemoveRowBtn(removeRowBtnSpan);
+
+        const amountTd = createTableDiv(tdClassName, amountTdClassName, amountSpan);
+        const priceTd = createTableDiv(tdClassName, priceTdClassName, priceSpan);
+        const totalPriceTd = createTableDiv(tdClassName, totalPriceTdClassName, totalPriceSpan);
+        const removeRowBtnTd = createTableDiv(tdClassName, removeRowBtnTdClassName, removeRowBtn);
+        
+        return createElement('TR', {
+            className: trClassName
+        }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
+    };
     return {
         createForm: (
             title, {
@@ -541,7 +591,7 @@ const renderForm = () => {
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
 
-            addBtnEventListener(addBtn, amountInput, priceInput, noShoppingEl);
+            addBtnEventListener(addBtn, tBody, amountInput, priceInput, noShoppingEl);
 
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);
