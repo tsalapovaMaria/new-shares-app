@@ -26,13 +26,14 @@ const addEventListeners = ({
 
         input.addEventListener('blur',
             () => {                
-                const value = readInputValue(input);
-                const inputValueLength = value.length;
+                readInputValue(input);
+                const inputValueLength = input.value.length;
 
                 const top = inputClassName === amountInputClassName ? 8 : 0;
-                const left = inputClassName === amountInputClassName ?
-                    paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements :
-                    (inputValueLength * symbolWidth) / 2 - inputLength / 2;
+
+                const amountLeft = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements;
+                const priceLeft = (inputValueLength * symbolWidth) / 2 - inputLength / 2;
+                const left = inputClassName === amountInputClassName ? amountLeft : priceLeft;
 
                 const span = addElement({
                     input: input,
