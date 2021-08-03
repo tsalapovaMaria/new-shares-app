@@ -8,6 +8,7 @@ const addEventListeners = ({
     const priceClassName = 'price-container__currency';
     const priceInputClassName = 'price-container__input';
 
+
     return {
         amountTransparentClickAddEventListener: function () {
             const span = element.querySelector(`.${amountClassName}`);
@@ -47,6 +48,7 @@ const addEventListeners = ({
 };
 
 const handleEventListeners = (form, element) => {
+
     addEventListeners({
         form: form,
         element: element

@@ -436,7 +436,7 @@ const renderForm = () => {
 
         const totalPrice = amount * price;
 
-        const tr = createTableRow(amount, price, totalPrice);
+        const tr = createTableRow(tbody, amount, price, totalPrice);
 
         if (noShoppingEl) {
             noShoppingEl.remove();
@@ -533,16 +533,41 @@ const renderForm = () => {
         }, [span]);
     };
 
-    const removeRowBtnClick = () => {
+    const removeRowBtnClick = (tr, tbody) => {
+        const removedRowClassName = 'shares-table__shares-item-remove';
+        //form.removeRecord(id);
 
+        tr.className += ` ${removedRowClassName}`;
+
+        setTimeout(() => {
+            tr.remove();
+
+            // ЕСЛИ в таблице нет данных (пусто)
+            // ТОГДА добавить новый элемент, указывающий, что таблица пуста
+
+            if (tbody.children.length !== 0) {
+                return;
+            }
+            const noShoppingEl = createNoShoppingElement();
+            // const element = createElement('DIV', 'table-is-empty');
+            // element.textContent = 'НЕТ ПОКУПОК';
+            tbody.append(noShoppingEl);
+
+            // element.style.left = tbody.offsetWidth / 2 - element.offsetWidth / 2 + 'px';
+            // tbody.className = 'empty-table';
+        }, 250);
     };
+
+    const removeRowBtnEventListener = (tr, tbody, btn) => {        
+        btn.addEventListener('click', () => removeRowBtnClick(tr, tbody));
+    }
 
     const createTableDiv = (tdClassName, currentTdClassName, span) => {
         return createElement('TD', {
             className: `${tdClassName} ${currentTdClassName}`
         }, [span]);
     }
-    const createTableRow = (amount, price, totalPrice) => {
+    const createTableRow = (tbody, amount, price, totalPrice) => {
         const trClassName = 'shares-table__shares-item-add';
         const tdClassName = 'shares-item__value';
 
@@ -565,9 +590,12 @@ const renderForm = () => {
         const totalPriceTd = createTableDiv(tdClassName, totalPriceTdClassName, totalPriceSpan);
         const removeRowBtnTd = createTableDiv(tdClassName, removeRowBtnTdClassName, removeRowBtn);
 
-        return createElement('TR', {
+        const tr = createElement('TR', {
             className: trClassName
         }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
+        removeRowBtnEventListener(tr, tbody, removeRowBtn);
+        
+        return tr;
     };
     return {
         createForm: (
