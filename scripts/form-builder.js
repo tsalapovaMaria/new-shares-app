@@ -27,9 +27,9 @@ const formBuilder = function () {
             subscribers.forEach(callback => callback());
         },
         addRecord: function (amount, price) {
-            const id = Date.now();
-    
+            const id = Date.now();    
             pushRecord(id, amount, price);
+            
             this.notify();
 
             return id;

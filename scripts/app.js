@@ -19,8 +19,3 @@ const exitPointsElement = formRender.createForm(
         col_2: 'цена продажи',
         col_3: 'сумма'
     }, section, exitPointsForm);
-
-
-handleEventListeners(entryPointsForm, entryPointsElement);
-
-handleEventListeners(exitPointsForm, exitPointsElement);

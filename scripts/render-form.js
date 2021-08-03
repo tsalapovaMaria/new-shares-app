@@ -270,15 +270,46 @@ const renderForm = () => {
             left: left + 'px'
         });
         if (input.className !== priceInputClassName) {
-            return;
+            return span;
         }
         span.dataset.currency = currency;
+        return span;
     };
     const focusInput = (input, className) => {
         removeElement({
             input: input,
             className: className
         });
+    };
+
+    const createAmountSpan = (input, {
+        top,
+        left,
+        textContent,
+        className
+    }) => {
+        return blurInput(input, {
+            top: top,
+            left: left,
+            textContent: textContent,
+            className: className
+        });
+    };
+
+    const transparentClick = (e, input, className) => {
+        const target = e.target;
+
+        if (!target.closest(`.${className}`)) {
+            return;
+        }
+        input.focus();
+    };
+
+    const spanEventListener = (span, input, containerClassName) => {
+        if (!span) {
+            return;
+        }
+        span.addEventListener('click', (e) => transparentClick(e, input, containerClassName));
     };
 
     const amountInputEventListeners = (input) => {
@@ -295,12 +326,10 @@ const renderForm = () => {
             const inputValueLength = String(value).length;
             const left = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements;
 
-            blurInput(input, {
-                top: top,
-                left: left,
-                textContent: 'шт',
-                className: amountClassName
-            });
+            const span = createAmountSpan(input, {top: top, left: left, className: amountClassName, textContent: 'шт'});
+
+            const containerClassName = 'shares-form-inputs__amount-container';
+            spanEventListener(span, input, containerClassName);
         });
 
         input.addEventListener('focus', () => {
@@ -367,12 +396,14 @@ const renderForm = () => {
 
             const left = (inputValueLength * symbolWidth) / 2 - inputLength / 2;
 
-            blurInput(input, {
+            const span = blurInput(input, {
                 top: top,
                 left: left,
                 textContent: '',
                 className: priceClassName
             });
+            const containerClassName = 'shares-form-inputs__price-container';
+            spanEventListener(span, input, containerClassName);
         });
 
         input.addEventListener('focus', () => {
