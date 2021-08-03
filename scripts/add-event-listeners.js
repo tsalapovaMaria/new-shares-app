@@ -11,68 +11,8 @@ const addEventListeners = ({
     const rowClassName = 'shares-table__shares-item';
     const removedRowClassName = 'shares-table__shares-item-remove';
 
-    const inputsEventListeners = ({
-        className,
-        textContent,
-        inputClassName
-    } = {}) => {
-        const input = element.querySelector(`.${inputClassName}`);
-        const inputLength = input.offsetWidth;
-
-        const symbolWidth = 9;
-
-        const paddingLeft = 17;
-        const spaceBetweenElements = 5;
-
-        input.addEventListener('blur',
-            () => {                
-                readInputValue(input);
-                const inputValueLength = input.value.length;
-
-                const top = inputClassName === amountInputClassName ? 8 : 0;
-
-                const amountLeft = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements;
-                const priceLeft = (inputValueLength * symbolWidth) / 2 - inputLength / 2;
-                const left = inputClassName === amountInputClassName ? amountLeft : priceLeft;
-
-                const span = addElement({
-                    input: input,
-                    textContent: textContent,
-                    className: className,
-                    top: top + 'px',
-                    left: left + 'px'
-                });
-                if (input.className !== priceInputClassName) {
-                    return;
-                }
-                span.dataset.currency = currency;
-            });
-
-        input.addEventListener('focus',
-            () => {
-                removeElement({
-                    input: input,
-                    className: className
-                });
-            }
-        );
-
-        input.addEventListener('input', () => {
-            changeBtnBehavior(input);
-        });
-    };
 
     return {
-        priceInputAddEventListener: function () {
-            const top = 0;
-
-            inputsEventListeners({
-                top: top,
-                className: priceClassName,
-                textContent: '',
-                inputClassName: priceInputClassName
-            });
-        },
         addShareBtnsAddEventListener: function () {
             const btn = element.querySelector('.btn-container__btn-add');
 
@@ -187,13 +127,7 @@ const handleEventListeners = (form, element) => {
     // addEventListeners({
     //     form: form,
     //     element: element
-    // }).priceInputAddEventListener();
-
-
-    addEventListeners({
-        form: form,
-        element: element
-    }).addShareBtnsAddEventListener();
+    // }).addShareBtnsAddEventListener();
 
     addEventListeners({
         form: form,

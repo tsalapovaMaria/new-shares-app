@@ -104,8 +104,7 @@ const renderForm = () => {
             className: emptyTableClassName
         }, [noShoppingEl]);
     };
-    const setTableBody = () => {
-        const noShoppingEl = createNoShoppingElement();
+    const setTableBody = (noShoppingEl) => {
         return createTableBody(noShoppingEl);
     };
 
@@ -429,6 +428,32 @@ const renderForm = () => {
         return createAddBtnContainer(btn);
     };
 
+    const clickAddBtn = (amountInput, priceInput, noShoppingEl) => {
+        const amount = leadAmountToValid(amountInput.value);
+        const price = leadPriceToValid(priceInput.value);
+
+        const totalPrice = amount * price;
+
+        const tr = createTableRow(amount, price, totalPrice);
+
+        if(noShoppingEl){
+            noShoppingEl.remove();
+        }
+        
+        tbody.append(tr);
+
+        // использование setTimeout для анимации 
+        // появления элемента
+
+        setTimeout(() => {
+            tr.className = rowClassName;
+        }, 0);
+    };
+
+    const addBtnEventListener = (btn, amountInput, priceInput, noShoppingEl) => {
+        btn.addEventListener('click', () => clickAddBtn(amountInput, priceInput, noShoppingEl));
+    }
+
     //функция создания контейнера формы
     const createFormShare = (formInputs, btnContainer) => {
         const formSharesClassName = 'shares-form-container__shares-form';
@@ -487,7 +512,9 @@ const renderForm = () => {
             mountEl) => {
 
             const tHead = setThead(col_1, col_2, col_3);
-            const tBody = setTableBody();
+
+            const noShoppingEl = createNoShoppingElement();
+            const tBody = setTableBody(noShoppingEl);
 
             const table = setTable(tHead, tBody);
 
@@ -513,6 +540,8 @@ const renderForm = () => {
 
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
+
+            addBtnEventListener(addBtn, amountInput, priceInput, noShoppingEl);
 
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);

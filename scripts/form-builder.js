@@ -23,12 +23,6 @@ const formBuilder = function () {
 
             this.state.push(newEl);
             this.eventManager.notify();
-
-            const formRender = renderForm();
-            const tr = formRender.createTableRow(amount, price, totalPrice);
-
-
-            return tr;
         },
         removeRecord: function (id) {
             const splicesEl = this.state.find(item => item.id === id);
