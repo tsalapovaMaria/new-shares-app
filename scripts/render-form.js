@@ -623,8 +623,10 @@ const renderForm = () => {
         const removeRowBtnTdClassName = 'shares-item__btn-container';
 
         const amountSpan = createCellSpan(amount);
-        const priceSpan = createCellSpan(price);
+        const priceSpan = createCellSpan(price);        
+        priceSpan.dataset.currency = currency;
         const totalPriceSpan = createCellSpan(totalPrice);
+        totalPriceSpan.dataset.currency = currency;
 
         const removeRowBtnSpan = createElement('SPAN');
         removeRowBtnSpan.innerHTML = '&#x2715';
