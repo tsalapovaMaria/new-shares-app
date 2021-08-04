@@ -90,10 +90,10 @@ const renderForm = () => {
     };
 
     //функция для создания элемента, указывающего на отсутствие строк в таблице
-    const createNoShoppingElement = () => {
+    const createNoShoppingElement = (textContent) => {
         return createElement('DIV', {
             className: 'table-is-empty',
-            textContent: 'нет покупок'
+            textContent: textContent
         });
     };
 
@@ -581,7 +581,7 @@ const renderForm = () => {
         }, [span]);
     };
 
-    const removeRowBtnClick = (trId, form, tr, tbody) => {
+    const removeRowBtnClick = (trId, form, tr, tbody, textContent) => {
         const removedRowClassName = 'shares-table__shares-item-remove';
         form.removeRecord(trId);
 
@@ -596,7 +596,7 @@ const renderForm = () => {
                 return;
             }
 
-            const noShoppingEl = createNoShoppingElement();
+            const noShoppingEl = createNoShoppingElement(textContent);
             tbody.append(noShoppingEl);
         }, 250);
     };
@@ -653,7 +653,8 @@ const renderForm = () => {
 
             const tHead = setThead(col_1, col_2, col_3);
 
-            const noShoppingEl = createNoShoppingElement();
+            const noShoppingElText = title === 'Точки входа'? 'нет покупок' : 'нет продаж';
+            const noShoppingEl = createNoShoppingElement(noShoppingElText);
             const tBody = setTableBody(noShoppingEl);
 
             const table = setTable(tHead, tBody);
