@@ -465,7 +465,8 @@ const renderForm = () => {
         tbody,
         amountInput,
         priceInput,
-        noShoppingEl
+        noShoppingEl,
+        noShoppingElText
     }) => {
         const rowClassName = 'shares-table__shares-item';
 
@@ -476,7 +477,7 @@ const renderForm = () => {
 
         const totalPrice = amount * price;
 
-        const tr = createTableRow(trId, form, tbody, amount, price, totalPrice);
+        const tr = createTableRow(trId, form, tbody, amount, price, totalPrice, noShoppingElText);
 
 
         if (noShoppingEl) {
@@ -502,7 +503,7 @@ const renderForm = () => {
         currencyEl.style.left = '-70px';
     };
 
-    const addBtnEventListener = (form, btn, container, tbody, amountInput, priceInput, noShoppingEl) => {
+    const addBtnEventListener = (form, btn, container, tbody, amountInput, priceInput, noShoppingEl, noShoppingElText) => {
         btn.addEventListener('click', () => {
             clickAddBtn({
                 form: form,
@@ -510,7 +511,8 @@ const renderForm = () => {
                 tbody: tbody,
                 amountInput: amountInput,
                 priceInput: priceInput,
-                noShoppingEl: noShoppingEl
+                noShoppingEl: noShoppingEl, 
+                noShoppingElText: noShoppingElText
             });
 
             btn.disabled = true;
@@ -601,8 +603,8 @@ const renderForm = () => {
         }, 250);
     };
 
-    const removeRowBtnEventListener = (trId, form, tr, tbody, btn) => {
-        btn.addEventListener('click', () => removeRowBtnClick(trId, form, tr, tbody));
+    const removeRowBtnEventListener = (trId, form, tr, tbody, btn, textContent) => {
+        btn.addEventListener('click', () => removeRowBtnClick(trId, form, tr, tbody, textContent));
     };
 
     const createTableDiv = (tdClassName, currentTdClassName, span) => {
@@ -611,7 +613,7 @@ const renderForm = () => {
         }, [span]);
     };
 
-    const createTableRow = (trId, form, tbody, amount, price, totalPrice) => {
+    const createTableRow = (trId, form, tbody, amount, price, totalPrice, textContent) => {
         const trClassName = 'shares-table__shares-item-add';
         const tdClassName = 'shares-item__value';
 
@@ -637,7 +639,7 @@ const renderForm = () => {
         const tr = createElement('TR', {
             className: trClassName
         }, [amountTd, priceTd, totalPriceTd, removeRowBtnTd]);
-        removeRowBtnEventListener(trId, form, tr, tbody, removeRowBtn);
+        removeRowBtnEventListener(trId, form, tr, tbody, removeRowBtn, textContent);
 
         return tr;
     };
@@ -682,7 +684,7 @@ const renderForm = () => {
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
 
-            addBtnEventListener(form, addBtn, formContainer, tBody, amountInput, priceInput, noShoppingEl);
+            addBtnEventListener(form, addBtn, formContainer, tBody, amountInput, priceInput, noShoppingEl, noShoppingElText);
 
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);
