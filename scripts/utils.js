@@ -8,7 +8,7 @@ const leadPriceToValid = (enteredValue) => {
 };
 
 const readInputValue = (input) => {
-    let value = (input.className.includes('price'))? leadPriceToValid(input.value) : leadAmountToValid(input.value);
+    let value = (input.className.includes('price')) ? leadPriceToValid(input.value) : leadAmountToValid(input.value);
     if (value !== value || value === 0) {
         value = 0;
     }
@@ -102,22 +102,22 @@ const changeBtnBehavior = (input) => {
 
     const formContainer = inputContainer.parentElement;
 
-    const value = (input.className.includes('price'))? leadPriceToValid(input.value) : leadAmountToValid(input.value);
-    const siblingValue = (inputSibling.className.includes('price'))? leadPriceToValid(inputSibling.value) : leadAmountToValid(inputSibling.value);
-    
+    const value = (input.className.includes('price')) ? leadPriceToValid(input.value) : leadAmountToValid(input.value);
+    const siblingValue = (inputSibling.className.includes('price')) ? leadPriceToValid(inputSibling.value) : leadAmountToValid(inputSibling.value);
+
     const isUnderZero = (value < 0) && (siblingValue < 0);
     const isZero = value && siblingValue;
     const isNaN = (value !== value) && (siblingValue !== siblingValue);
 
-    if(!formContainer.nextElementSibling){
+    if (!formContainer.nextElementSibling) {
         return;
     }
-    
+
     const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
     btn.disabled = !isUnderZero && !isNaN && !isZero;
 };
 
-const calculateProfit = (form, currentPrice) => {
+const countAveragePrice = (form) => {
     const state = form.getState();
 
     const amountSum = Array.from(state)
@@ -127,10 +127,42 @@ const calculateProfit = (form, currentPrice) => {
         .map(item => item.total)
         .reduce((prev, amount) => prev + amount, 0);
 
-    return (totalSum) - (amountSum * currentPrice);
+    if (totalSum === 0 && amountSum === 0) {
+        return 0;
+    }
+    return totalSum / amountSum;
 };
 
-const changeProfitEl = (profit) => {
+const changeAveragePrice = (form) => {
+    const averagePrice = countAveragePrice(form);
+    const element = document.querySelector('.average-output-price');
+
+    element.textContent = (averagePrice).toFixed(2).toLocaleString();
+};
+
+const calculateProfit = (form) => {
+    const input = document.querySelector('.current-price__input');
+    const value = readInputValue(input);
+    if (!value) {
+        return 0;
+    }
+
+    const state = form.getState();
+
+    const amountSum = Array.from(state)
+        .map(item => item.amount)
+        .reduce((prev, total) => prev + total, 0);
+    const totalSum = Array.from(state)
+        .map(item => item.total)
+        .reduce((prev, amount) => prev + amount, 0);
+
+    const profit = (totalSum) - (amountSum * value);
+
+    return profit > 0 ? profit : 0;
+};
+
+const changeProfitEl = (form) => {
+    const profit = calculateProfit(form);
     const profitEl = document.querySelector('.profit-value');
     profitEl.textContent =
         (profit > 0) ? `+ ${profit.toLocaleString()}` :
@@ -138,22 +170,24 @@ const changeProfitEl = (profit) => {
         `- ${Math.abs(profit).toLocaleString()}`;
 };
 
-const calculateAmount = (desiredPriceInput, currentPriceInput, entryPointsForm, exitPointsForm) => {
+const calculateAmount = (entryPointsForm, exitPointsForm) => {
+    const desiredPriceInput = document.querySelector('.desired-price__input');
+    const currentPriceInput = document.querySelector('.desired-average-price-container__current-price > .current-price__input');
     const checkInputsValidate = () => {
         const desiredPrice = readInputValue(desiredPriceInput);
         const currentPrice = readInputValue(currentPriceInput);
-    
+
         if (!desiredPrice || !currentPrice) {
             return false;
         }
         return [desiredPrice, currentPrice];
     };
     const userValuesEntered = checkInputsValidate();
-    
+
     if (!userValuesEntered) {
         return;
     }
-    
+
     const [desiredPrice, currentPrice] = userValuesEntered;
 
     const entryState = entryPointsForm.getState();
@@ -169,7 +203,8 @@ const calculateAmount = (desiredPriceInput, currentPriceInput, entryPointsForm, 
     return ((restAmountSum * priceEntrySum) - (desiredPrice * restAmountSum)) / (desiredPrice - currentPrice);
 };
 
-const changeAmountEl = (amountToBuy) => {
+const changeAmountEl = (entryPointsForm, exitPointsForm) => {
+    const amount = calculateAmount(entryPointsForm, exitPointsForm);
     const amountToBuyEl = document.querySelector('.shares-amount__amount-output');
-    amountToBuyEl.textContent = amountToBuy > 0? Math.ceil(amountToBuy).toLocaleString() + ' шт': '0 шт';
+    amountToBuyEl.textContent = (amount > 0 && Number.isFinite(amount)) ? Math.ceil(amount).toLocaleString() + ' шт' : '0 шт';
 };

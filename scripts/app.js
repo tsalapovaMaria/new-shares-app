@@ -20,6 +20,16 @@ const exitPointsElement = formRender.createForm(
         col_3: 'сумма'
     }, section, exitPointsForm);
 
-    
-addProfitInputEventListener(exitPointsForm);
-addAveragePosInputsEvent(entryPointsForm, exitPointsForm);
+//добавляем в subscribers функции изменения и подсчета средней цены и профита
+//во вкладке "Среднее"
+entryPointsForm.subscribe(() => changeAveragePrice(entryPointsForm));
+entryPointsForm.subscribe(() => changeProfitEl(entryPointsForm));
+
+//добавляем в subscribers функции расчета и изменения количества акций к покупке 
+//во вкладке "Усреднение позиций"
+entryPointsForm.subscribe(() => changeAmountEl(entryPointsForm, exitPointsForm));
+exitPointsForm.subscribe(() => changeAmountEl(entryPointsForm, exitPointsForm));
+
+
+addProfitInputEventListener(entryPointsForm);
+addPosAveragingEvent(entryPointsForm, exitPointsForm);

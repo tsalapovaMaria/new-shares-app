@@ -3,14 +3,7 @@ const addProfitInputEventListener = (form) => {
     const input = document.querySelector('.current-price__input');
 
     input.addEventListener('input', () => {
-        const value = readInputValue(input);
-
-        if (!value) {
-            return;
-        }
-
-        const profit = calculateProfit(form, value);
-        changeProfitEl(profit);
+        changeProfitEl(form);
     });
 
     const currencyClassName = 'current-price__currency';
