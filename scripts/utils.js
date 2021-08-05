@@ -116,3 +116,24 @@ const changeBtnBehavior = (input) => {
     const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
     btn.disabled = !isUnderZero && !isNaN && !isZero;
 };
+
+const calculateProfit = (form, currentPrice) => {
+    const state = form.getState();
+
+    const amountSum = Array.from(state)
+        .map(item => item.amount)
+        .reduce((prev, total) => prev + total, 0);
+    const totalSum = Array.from(state)
+        .map(item => item.total)
+        .reduce((prev, amount) => prev + amount, 0);
+
+    return (totalSum) - (amountSum * currentPrice);
+};
+
+const changeProfitEl = (profit) => {
+    const profitEl = document.querySelector('.profit-value');
+    profitEl.textContent =
+        (profit > 0) ? `+ ${profit.toLocaleString()}` :
+        (profit === 0) ? `${profit.toLocaleString()}` :
+        `- ${Math.abs(profit).toLocaleString()}`;
+};

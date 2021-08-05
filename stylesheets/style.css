@@ -385,12 +385,14 @@ label[for="dropdown"] {
   font-weight: normal;
   color: #4f4e57;
 }
-.price-container__currency {
+.price-container__currency,
+.current-price__currency {
   position: relative;
   left: -48px;
   top: -1px;
 }
-.price-container__currency::after {
+.price-container__currency::after,
+.current-price__currency::after {
   content: attr(data-currency);
   position: absolute;
   font-weight: normal;
@@ -673,7 +675,7 @@ label[for="dropdown"] {
 }
 .current-price__input,
 .desired-price__input{
-  color: #000;
+  color: #4f4e57;
 }
 .current-price__input::placeholder,
 .desired-price__input::placeholder,

@@ -476,12 +476,7 @@ const renderForm = () => {
         return totalSum / amountSum;
     };
 
-    const changeAveragePrice = (article, form) => {
-        const formTitle = article.querySelector('.shares-article__title');
-
-        if(formTitle.textContent === 'Точки выхода'){
-            return;
-        }
+    const changeAveragePrice = (form) => {
         const averagePrice = countAveragePrice(form);
         const element = document.querySelector('.average-output-price');
 
@@ -505,7 +500,21 @@ const renderForm = () => {
 
         const trId = form.addRecord(amount, price);
 
-        changeAveragePrice(article, form);
+        const formTitle = article.querySelector('.shares-article__title');
+        
+        if(formTitle.textContent === 'Точки входа'){
+            changeAveragePrice(form);
+        }
+        if(formTitle.textContent === 'Точки выхода'){
+            const input = document.querySelector('.current-price__input');
+            const value = readInputValue(input);
+
+            if(!value){
+                return;
+            }
+            const profit = calculateProfit(form, value);
+            changeProfitEl(profit);
+        }
 
         const totalPrice = amount * price;
 
