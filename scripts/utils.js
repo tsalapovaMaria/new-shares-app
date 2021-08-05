@@ -137,17 +137,25 @@ const changeProfitEl = (profit) => {
         (profit === 0) ? `${profit.toLocaleString()}` :
         `- ${Math.abs(profit).toLocaleString()}`;
 };
-const checkInputsValidate = () => {
-    const desiredPrice = readInputValue(desiredPriceInput);
-    const currentPrice = readInputValue(currentPriceInput);
 
-    if (!desiredPrice || !currentPrice) {
-        return false;
+const calculateAmount = (desiredPriceInput, currentPriceInput, entryPointsForm, exitPointsForm) => {
+    const checkInputsValidate = () => {
+        const desiredPrice = readInputValue(desiredPriceInput);
+        const currentPrice = readInputValue(currentPriceInput);
+    
+        if (!desiredPrice || !currentPrice) {
+            return false;
+        }
+        return [desiredPrice, currentPrice];
+    };
+    const userValuesEntered = checkInputsValidate();
+    
+    if (!userValuesEntered) {
+        return;
     }
-    return [desiredPrice, currentPrice];
-};
+    
+    const [desiredPrice, currentPrice] = userValuesEntered;
 
-const calculateAmount = (desiredPrice, currentPrice) => {
     const entryState = entryPointsForm.getState();
     const exitState = exitPointsForm.getState();
 
@@ -159,4 +167,9 @@ const calculateAmount = (desiredPrice, currentPrice) => {
     const priceEntrySum = Array.from(entryState).map(item => item.price).reduce((prev, curr) => prev + curr, 0);
 
     return ((restAmountSum * priceEntrySum) - (desiredPrice * restAmountSum)) / (desiredPrice - currentPrice);
+};
+
+const changeAmountEl = (amountToBuy) => {
+    const amountToBuyEl = document.querySelector('.shares-amount__amount-output');
+    amountToBuyEl.textContent = amountToBuy > 0? Math.ceil(amountToBuy).toLocaleString() + ' шт': '0 шт';
 };
