@@ -483,8 +483,41 @@ const renderForm = () => {
         const averagePrice = countAveragePrice(form);
         const element = document.querySelector('.average-output-price');
 
-        element.textContent = averagePrice.toLocaleString();
+        element.textContent = (averagePrice).toFixed(2).toLocaleString();
     };
+    
+    const changeAddBtnAveragePrice = (form, formTitle) => {
+        if(formTitle.textContent !== 'Точки входа'){
+            return;
+        }    
+        changeAveragePrice(form);
+    };
+
+    const changeAddBtnProfit = (form, formTitle) => {
+        if(formTitle.textContent !== 'Точки выхода'){
+            return;
+        }    
+        const input = document.querySelector('.current-price__input');
+        const value = readInputValue(input);
+
+        const profit = calculateProfit(form, value);
+        changeProfitEl(profit);
+    };
+
+    changeAddBtnAmount = () => {
+        const desiredPriceInput = document.querySelector('.desired-price__input');
+        const currentPriceInput = document.querySelector('.desired-average-price-container__current-price > .current-price__input');
+    
+        const desiredPrice = readInputValue(desiredPriceInput);
+        const currentPrice = readInputValue(currentPriceInput);
+
+        if(!desiredPrice || !currentPrice){
+            return;
+        }
+
+        const amountToBuy = calculateAmount(desiredPriceInput, currentPriceInput, entryPointsForm, exitPointsForm);
+        changeAmountEl(amountToBuy);
+    }
 
     const clickAddBtn = ({
         article,
@@ -504,16 +537,9 @@ const renderForm = () => {
 
         const formTitle = article.querySelector('.shares-article__title');
         
-        if(formTitle.textContent === 'Точки входа'){
-            changeAveragePrice(form);
-        }
-        if(formTitle.textContent === 'Точки выхода'){
-            const input = document.querySelector('.current-price__input');
-            const value = readInputValue(input);
-
-            const profit = calculateProfit(form, value);
-            changeProfitEl(profit);
-        }
+        changeAddBtnAveragePrice(form, formTitle);  //изменить среднюю цену позиции
+        changeAddBtnProfit(form, formTitle); //изменить текущий профит
+        changeAddBtnAmount(); //изменить количество акций к покупке в "усреднение позиций"
 
         const totalPrice = amount * price;
 
@@ -651,18 +677,10 @@ const renderForm = () => {
         }, 250);
 
         const formTitle = article.querySelector('.shares-article__title');
-        if(formTitle.textContent === 'Точки входа'){
-            changeAveragePrice(form);
-            return;
-        }
-        if(formTitle.textContent === 'Точки выхода'){
-            const input = document.querySelector('.current-price__input');
-            const value = readInputValue(input);
-
-            const profit = calculateProfit(form, value);
-            changeProfitEl(profit);
-            return;
-        }
+        
+        changeAddBtnAveragePrice(form, formTitle);  //изменить среднюю цену позиции
+        changeAddBtnProfit(form, formTitle); //изменить текущий профит
+        changeAddBtnAmount(); //изменить количество акций к покупке в "усреднение позиций"
     };
 
     const removeRowBtnEventListener = (article, trId, form, tr, tbody, btn, textContent) => {

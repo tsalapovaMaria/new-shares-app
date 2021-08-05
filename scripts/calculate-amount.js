@@ -45,5 +45,5 @@ const addAveragePosInputsEvent = (entryPointsForm, exitPointsForm) => {
     const currentPriceInput = document.querySelector('.desired-average-price-container__current-price > .current-price__input');
 
     addPosAveragingEvent(desiredPriceInput, currentPriceInput, entryPointsForm, exitPointsForm);
-    addPosAveragingEvent(currentPriceInput, desiredPriceInput, entryPointsForm, exitPointsForm);
+    addPosAveragingEvent(desiredPriceInput, currentPriceInput, entryPointsForm, exitPointsForm);
 };
