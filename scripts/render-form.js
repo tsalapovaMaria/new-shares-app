@@ -473,6 +473,9 @@ const renderForm = () => {
             .map(item => item.total)
             .reduce((prev, amount) => prev + amount, 0);
 
+        if(totalSum === 0 && amountSum === 0){
+            return 0;
+        }
         return totalSum / amountSum;
     };
 
@@ -490,7 +493,6 @@ const renderForm = () => {
         tbody,
         amountInput,
         priceInput,
-        noShoppingEl,
         noShoppingElText
     }) => {
         const rowClassName = 'shares-table__shares-item';
@@ -509,9 +511,6 @@ const renderForm = () => {
             const input = document.querySelector('.current-price__input');
             const value = readInputValue(input);
 
-            if(!value){
-                return;
-            }
             const profit = calculateProfit(form, value);
             changeProfitEl(profit);
         }
@@ -520,7 +519,7 @@ const renderForm = () => {
 
         const tr = createTableRow(trId, form, tbody, amount, price, totalPrice, noShoppingElText);
 
-
+        const noShoppingEl = article.querySelector('.table-is-empty'); 
         if (noShoppingEl) {
             noShoppingEl.remove();
         }
@@ -551,7 +550,6 @@ const renderForm = () => {
         tbody,
         amountInput,
         priceInput,
-        noShoppingEl,
         noShoppingElText
     }) => {
         btn.addEventListener('click', () => {
@@ -562,7 +560,6 @@ const renderForm = () => {
                 tbody: tbody,
                 amountInput: amountInput,
                 priceInput: priceInput,
-                noShoppingEl: noShoppingEl,
                 noShoppingElText: noShoppingElText
             });
 
@@ -652,6 +649,7 @@ const renderForm = () => {
             const noShoppingEl = createNoShoppingElement(textContent);
             tbody.append(noShoppingEl);
         }, 250);
+        changeAveragePrice(form);
     };
 
     const removeRowBtnEventListener = (trId, form, tr, tbody, btn, textContent) => {
