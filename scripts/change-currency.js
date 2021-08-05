@@ -30,6 +30,16 @@ Array.from(inputElements).forEach(input =>
                     input.placeholder = '0 ' + currency;
                 }
             );
+
+            const priceInputAverage = document.querySelectorAll('.current-price__input');
+            Array.from(priceInputAverage).forEach(
+                input => {
+                    input.placeholder = '220 ' + currency;
+                }
+            );
+
+            const desiredPriceInput = document.querySelector('.desired-price__input');
+            desiredPriceInput.placeholder = '205 ' + currency;
         };
 
         const changeCurrencyElements = () => {

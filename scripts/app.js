@@ -20,4 +20,5 @@ const exitPointsElement = formRender.createForm(
         col_3: 'сумма'
     }, section, exitPointsForm);
 
-addInputEventListener(exitPointsForm);
+addProfitInputEventListener(exitPointsForm);
+addPosAveragingEvent(entryPointsForm, exitPointsForm);

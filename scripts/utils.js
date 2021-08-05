@@ -137,3 +137,26 @@ const changeProfitEl = (profit) => {
         (profit === 0) ? `${profit.toLocaleString()}` :
         `- ${Math.abs(profit).toLocaleString()}`;
 };
+const checkInputsValidate = () => {
+    const desiredPrice = readInputValue(desiredPriceInput);
+    const currentPrice = readInputValue(currentPriceInput);
+
+    if (!desiredPrice || !currentPrice) {
+        return false;
+    }
+    return [desiredPrice, currentPrice];
+};
+
+const calculateAmount = (desiredPrice, currentPrice) => {
+    const entryState = entryPointsForm.getState();
+    const exitState = exitPointsForm.getState();
+
+    const entryAmountSum = Array.from(entryState).map(item => item.amount).reduce((prev, curr) => prev + curr, 0);
+    const exitAmountSum = Array.from(exitState).map(item => item.amount).reduce((prev, curr) => prev + curr, 0);
+
+    const restAmountSum = entryAmountSum - exitAmountSum;
+
+    const priceEntrySum = Array.from(entryState).map(item => item.price).reduce((prev, curr) => prev + curr, 0);
+
+    return ((restAmountSum * priceEntrySum) - (desiredPrice * restAmountSum)) / (desiredPrice - currentPrice);
+};

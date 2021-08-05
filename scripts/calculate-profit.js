@@ -1,5 +1,5 @@
 
-const addInputEventListener = (form) => {
+const addProfitInputEventListener = (form) => {
     const input = document.querySelector('.current-price__input');
 
     input.addEventListener('input', () => {
