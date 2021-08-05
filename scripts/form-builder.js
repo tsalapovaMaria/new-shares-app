@@ -38,5 +38,8 @@ const formBuilder = function () {
             spliceRecord(id);            
             this.notify();
         },
+        getState: function () {
+            return state;
+        }
     }
 };

@@ -149,7 +149,7 @@ const renderForm = () => {
     //функция для создания события кнопке
     const moreAmountBtnsEventListener = (btn, formContainer) => {
         const symbolWidth = 9;
-        const paddingLeft = 17;
+        const paddingLeft = 20;
         const spaceBetweenElements = 5;
 
         const amountClassName = 'amount-container__amounts';
@@ -326,7 +326,12 @@ const renderForm = () => {
             const inputValueLength = String(value).length;
             const left = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements;
 
-            const span = createAmountSpan(input, {top: top, left: left, className: amountClassName, textContent: 'шт'});
+            const span = createAmountSpan(input, {
+                top: top,
+                left: left,
+                className: amountClassName,
+                textContent: 'шт'
+            });
 
             const containerClassName = 'shares-form-inputs__amount-container';
             spanEventListener(span, input, containerClassName);
@@ -459,7 +464,32 @@ const renderForm = () => {
         return createAddBtnContainer(btn);
     };
 
+    const countAveragePrice = (form) => {
+        const state = form.getState();
+        const amountSum = Array.from(state)
+            .map(item => item.amount)
+            .reduce((prev, total) => prev + total, 0);
+        const totalSum = Array.from(state)
+            .map(item => item.total)
+            .reduce((prev, amount) => prev + amount, 0);
+
+        return totalSum / amountSum;
+    };
+
+    const changeAveragePrice = (article, form) => {
+        const formTitle = article.querySelector('.shares-article__title');
+
+        if(formTitle.textContent === 'Точки выхода'){
+            return;
+        }
+        const averagePrice = countAveragePrice(form);
+        const element = document.querySelector('.average-output-price');
+
+        element.textContent = averagePrice.toLocaleString();
+    };
+
     const clickAddBtn = ({
+        article,
         form,
         container,
         tbody,
@@ -474,6 +504,8 @@ const renderForm = () => {
         const price = leadPriceToValid(priceInput.value);
 
         const trId = form.addRecord(amount, price);
+
+        changeAveragePrice(article, form);
 
         const totalPrice = amount * price;
 
@@ -500,18 +532,28 @@ const renderForm = () => {
         amountInput.value = '0';
         priceInput.value = '0';
         amountEl.style.left = '29px';
-        currencyEl.style.left = '-70px';
+        currencyEl.style.left = '-64px';
     };
-
-    const addBtnEventListener = (form, btn, container, tbody, amountInput, priceInput, noShoppingEl, noShoppingElText) => {
+    const addBtnEventListener = ({
+        article,
+        form,
+        btn,
+        container,
+        tbody,
+        amountInput,
+        priceInput,
+        noShoppingEl,
+        noShoppingElText
+    }) => {
         btn.addEventListener('click', () => {
             clickAddBtn({
+                article: article,
                 form: form,
                 container: container,
                 tbody: tbody,
                 amountInput: amountInput,
                 priceInput: priceInput,
-                noShoppingEl: noShoppingEl, 
+                noShoppingEl: noShoppingEl,
                 noShoppingElText: noShoppingElText
             });
 
@@ -623,7 +665,7 @@ const renderForm = () => {
         const removeRowBtnTdClassName = 'shares-item__btn-container';
 
         const amountSpan = createCellSpan(amount);
-        const priceSpan = createCellSpan(price);        
+        const priceSpan = createCellSpan(price);
         priceSpan.dataset.currency = currency;
         const totalPriceSpan = createCellSpan(totalPrice);
         totalPriceSpan.dataset.currency = currency;
@@ -657,7 +699,7 @@ const renderForm = () => {
 
             const tHead = setThead(col_1, col_2, col_3);
 
-            const noShoppingElText = title === 'Точки входа'? 'нет покупок' : 'нет продаж';
+            const noShoppingElText = title === 'Точки входа' ? 'нет покупок' : 'нет продаж';
             const noShoppingEl = createNoShoppingElement(noShoppingElText);
             const tBody = setTableBody(noShoppingEl);
 
@@ -686,8 +728,6 @@ const renderForm = () => {
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
 
-            addBtnEventListener(form, addBtn, formContainer, tBody, amountInput, priceInput, noShoppingEl, noShoppingElText);
-
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);
 
@@ -698,6 +738,18 @@ const renderForm = () => {
             const formTitle = setFormTitle(title);
 
             const article = createArticle(formTitle, sharesContainer);
+
+            addBtnEventListener({
+                article: article,
+                form: form,
+                btn: addBtn,
+                container: formContainer,
+                tbody: tBody,
+                amountInput: amountInput,
+                priceInput: priceInput,
+                noShoppingElText: noShoppingElText,
+                noShoppingEl: noShoppingEl
+            });
 
             mountEl.append(article);
             return article;

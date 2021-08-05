@@ -670,6 +670,14 @@ label[for="dropdown"] {
   font-weight: normal;
   font-size: 16px;
   line-height: 22px;
+}
+.current-price__input,
+.desired-price__input{
+  color: #000;
+}
+.current-price__input::placeholder,
+.desired-price__input::placeholder,
+.profit__price {
   color: #909090;
 }
 .text__shares-amount {
