@@ -1,4 +1,32 @@
 const renderForm = () => {
+    //изменение поведения кнопки "Добавить"
+    const changeBtnBehavior = (input) => {
+        const inputContainer = input.parentElement;
+    
+        const inputSiblingContainer =
+            (inputContainer.nextElementSibling) ?
+            inputContainer.nextElementSibling :
+            inputContainer.previousElementSibling;
+    
+        const inputSibling = inputSiblingContainer.querySelector('INPUT');
+    
+        const formContainer = inputContainer.parentElement;
+    
+        const value = (input.className.includes('price')) ? leadPriceToValid(input.value) : leadAmountToValid(input.value);
+        const siblingValue = (inputSibling.className.includes('price')) ? leadPriceToValid(inputSibling.value) : leadAmountToValid(inputSibling.value);
+    
+        const isUnderZero = (value < 0) && (siblingValue < 0);
+        const isZero = value && siblingValue;
+        const isNaN = (value !== value) && (siblingValue !== siblingValue);
+    
+        if (!formContainer.nextElementSibling) {
+            return;
+        }
+    
+        const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
+        btn.disabled = !isUnderZero && !isNaN && !isZero;
+    };
+
     // функции для создания названия формы
     const createFormTitle = (title) => {
         const className = 'shares-article__title';
@@ -7,10 +35,6 @@ const renderForm = () => {
             textContent: title,
             className: className
         });
-    };
-
-    const setFormTitle = (title) => {
-        return createFormTitle(title);
     };
 
     //функции для создания колонок в шапке таблицы
@@ -104,30 +128,19 @@ const renderForm = () => {
             className: emptyTableClassName
         }, [noShoppingEl]);
     };
-    const setTableBody = (noShoppingEl) => {
-        return createTableBody(noShoppingEl);
-    };
 
     //функции для создания таблицы
     const createTable = (tHead, tBody) => {
-        const tableClassName = 'table-container__shares-table';
         return createElement('TABLE', {
-            className: tableClassName
+            className: 'table-container__shares-table'
         }, [tHead, tBody]);
-    };
-    const setTable = (tHead, tBody) => {
-        return createTable(tHead, tBody);
     };
 
     //функция для создания контейнера, содержащего таблицу
     const createTableContainer = (table) => {
-        const tableContainerClassName = 'shares-container__table-container';
         return createElement('DIV', {
-            className: tableContainerClassName
+            className: 'shares-container__table-container'
         }, [table]);
-    };
-    const setTableContainer = (table) => {
-        return createTableContainer(table);
     };
 
     //функции для создания формы ввода пользователем количества покупок/продаж
@@ -139,11 +152,6 @@ const renderForm = () => {
             className: moreBtnClassName,
             type: 'button'
         });
-    };
-    const setMoreAmountBtn = () => {
-        const btn = createMoreAmountBtn();
-
-        return btn;
     };
 
     //функция для создания события кнопке
@@ -184,11 +192,6 @@ const renderForm = () => {
             className: lessBtnClassName,
             type: 'button'
         });
-    };
-    const setLessAmountBtn = () => {
-        const btn = createLessAmountBtn();
-
-        return btn;
     };
 
     //функция для создания события кнопке
@@ -233,10 +236,6 @@ const renderForm = () => {
         }, [lessAmountBtn, moreAmountBtn]);
     };
 
-    const setBtnsContainer = (lessAmountBtn, moreAmountBtn) => {
-        return createBtnsContainer(lessAmountBtn, moreAmountBtn);
-    };
-
     //функции для создания поля ввода количества    
     const createAmountInput = () => {
         const amountInputClassName = 'amount-container__input';
@@ -247,10 +246,6 @@ const renderForm = () => {
         });
         amountInput.required = true;
         return amountInput;
-    };
-
-    const setAmountInput = () => {
-        return createAmountInput();
     };
 
     //создание событий для input "количества"
@@ -355,10 +350,6 @@ const renderForm = () => {
         }, [input, btnsContainer]);
     };
 
-    const setAmountContainer = (input, btnsContainer) => {
-        return createAmountContainer(input, btnsContainer);
-    };
-
     //функция создания поля ввода стоимости
     const createPriceInput = () => {
         const priceInputClassName = 'price-container__input';
@@ -370,20 +361,12 @@ const renderForm = () => {
         });
     };
 
-    const setPriceInput = () => {
-        return createPriceInput();
-    };
-
     const createPriceContainer = (input) => {
         const priceContainerClassName = 'shares-form-inputs__price-container';
 
         return createElement('DIV', {
             className: priceContainerClassName
         }, [input]);
-    };
-
-    const setPriceContainer = (input) => {
-        return createPriceContainer(input);
     };
 
     //добавление обработчиков для поля ввода стоимости
@@ -430,10 +413,6 @@ const renderForm = () => {
         }, [amountContainer, priceContainer]);
     };
 
-    const setFormInputs = (amountContainer, priceContainer) => {
-        return createFormInputs(amountContainer, priceContainer);
-    };
-
     //функция создания кнопки "Добавить"
     const createAddBtn = () => {
         const addRowBtnClassName = 'btn-container__btn-add';
@@ -448,20 +427,12 @@ const renderForm = () => {
         return addBtn;
     };
 
-    const setAddBtn = () => {
-        return createAddBtn();
-    };
-
     //функция создания контейнера для кнопки
     const createAddBtnContainer = (btn) => {
         const btnContainerClassName = 'shares-form__btn-container';
         return createElement('DIV', {
             className: btnContainerClassName
         }, [btn]);
-    };
-
-    const setAddBtnContainer = (btn) => {
-        return createAddBtnContainer(btn);
     };
 
     const clickAddBtn = ({
@@ -541,21 +512,12 @@ const renderForm = () => {
         }, [formInputs, btnContainer]);
     };
 
-    const setFormShare = (formInputs, btnContainer) => {
-        return createFormShare(formInputs, btnContainer);
-    };
-
-
     // функция создания контейнера формы
     const createFormContainer = (formContainer) => {
         const shareFormClassName = 'shares-container__shares-form-container';
         return createElement('DIV', {
             className: shareFormClassName
         }, [formContainer]);
-    };
-
-    const setFormContainer = (formContainer) => {
-        return createFormContainer(formContainer);
     };
 
     //функция создания контейнера для таблицы и контейнера формы
@@ -565,10 +527,6 @@ const renderForm = () => {
         return createElement('DIV', {
             className: containerClassName
         }, [tableContainer, shareFormContainer]);
-    };
-
-    const setSharesContainer = (tableContainer, shareFormContainer) => {
-        return createSharesContainer(tableContainer, shareFormContainer);
     };
 
     //функция создания обёртки для всей формы
@@ -627,7 +585,7 @@ const renderForm = () => {
         }, [span]);
     };
 
-    const createTableRow = (article, trId, form, tbody, amount, price, totalPrice, textContent) => {
+    const createTableRow = (trId, form, tbody, amount, price, totalPrice, textContent) => {
         const trClassName = 'shares-table__shares-item-add';
         const tdClassName = 'shares-item__value';
 
@@ -673,29 +631,29 @@ const renderForm = () => {
 
             const noShoppingElText = title === 'Точки входа' ? 'нет покупок' : 'нет продаж';
             const noShoppingEl = createNoShoppingElement(noShoppingElText);
-            const tBody = setTableBody(noShoppingEl);
+            const tBody = createTableBody(noShoppingEl);
 
-            const table = setTable(tHead, tBody);
+            const table = createTable(tHead, tBody);
 
-            const tableContainer = setTableContainer(table);
+            const tableContainer = createTableContainer(table);
 
-            const moreAmountBtn = setMoreAmountBtn();
-            const lessAmountBtn = setLessAmountBtn();
+            const moreAmountBtn = createMoreAmountBtn();
+            const lessAmountBtn = createLessAmountBtn();
 
-            const amountBtnsContainer = setBtnsContainer(lessAmountBtn, moreAmountBtn);
-            const amountInput = setAmountInput();
+            const amountBtnsContainer = createBtnsContainer(lessAmountBtn, moreAmountBtn);
+            const amountInput = createAmountInput();
 
-            const amountContainer = setAmountContainer(amountInput, amountBtnsContainer);
+            const amountContainer = createAmountContainer(amountInput, amountBtnsContainer);
 
-            const priceInput = setPriceInput();
-            const priceContainer = setPriceContainer(priceInput);
+            const priceInput = createPriceInput();
+            const priceContainer = createPriceContainer(priceInput);
 
-            const formInputs = setFormInputs(amountContainer, priceContainer);
+            const formInputs = createFormInputs(amountContainer, priceContainer);
 
-            const addBtn = setAddBtn();
-            const btnContainer = setAddBtnContainer(addBtn);
+            const addBtn = createAddBtn();
+            const btnContainer = createAddBtnContainer(addBtn);
 
-            const formContainer = setFormShare(formInputs, btnContainer);
+            const formContainer = createFormShare(formInputs, btnContainer);
 
             moreAmountBtnsEventListener(moreAmountBtn, formContainer);
             lessAmountBtnsEventListener(lessAmountBtn, formContainer);
@@ -703,11 +661,11 @@ const renderForm = () => {
             amountInputEventListeners(amountInput);
             priceInputEventListener(priceInput);
 
-            const shareFormContainer = setFormContainer(formContainer);
+            const shareFormContainer = createFormContainer(formContainer);
 
-            const sharesContainer = setSharesContainer(tableContainer, shareFormContainer);
+            const sharesContainer = createSharesContainer(tableContainer, shareFormContainer);
 
-            const formTitle = setFormTitle(title);
+            const formTitle = createFormTitle(title);
 
             const article = createArticle(formTitle, sharesContainer);
 

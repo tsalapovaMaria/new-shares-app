@@ -89,34 +89,6 @@ const removeElement = ({
     }
 };
 
-
-const changeBtnBehavior = (input) => {
-    const inputContainer = input.parentElement;
-
-    const inputSiblingContainer =
-        (inputContainer.nextElementSibling) ?
-        inputContainer.nextElementSibling :
-        inputContainer.previousElementSibling;
-
-    const inputSibling = inputSiblingContainer.querySelector('INPUT');
-
-    const formContainer = inputContainer.parentElement;
-
-    const value = (input.className.includes('price')) ? leadPriceToValid(input.value) : leadAmountToValid(input.value);
-    const siblingValue = (inputSibling.className.includes('price')) ? leadPriceToValid(inputSibling.value) : leadAmountToValid(inputSibling.value);
-
-    const isUnderZero = (value < 0) && (siblingValue < 0);
-    const isZero = value && siblingValue;
-    const isNaN = (value !== value) && (siblingValue !== siblingValue);
-
-    if (!formContainer.nextElementSibling) {
-        return;
-    }
-
-    const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
-    btn.disabled = !isUnderZero && !isNaN && !isZero;
-};
-
 const countAveragePrice = (form) => {
     const state = form.getState();
 
