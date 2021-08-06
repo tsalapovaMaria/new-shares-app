@@ -71,9 +71,8 @@ const renderForm = () => {
     };
 
     const createBtnHead = () => {
-        const btnColClassName = 'shares-header__delete-btn';
         return createElement('TH', {
-            className: `${colClassName} ${btnColClassName}`
+            className: `${colClassName} shares-header__delete-btn`
         }, []);
     };
 
@@ -84,9 +83,8 @@ const renderForm = () => {
         totalPriceTh,
         btnTh
     }) => {
-        const rowClassName = 'shares-table__shares-header';
         return createElement('TR', {
-            className: rowClassName
+            className: 'shares-table__shares-header'
         }, [amountTh, priceTh, totalPriceTh, btnTh]);
     };
 
@@ -123,9 +121,8 @@ const renderForm = () => {
 
     //функции для создания тела таблицы
     const createTableBody = (noShoppingEl) => {
-        const emptyTableClassName = 'empty-table';
         return createElement('TBODY', {
-            className: emptyTableClassName
+            className: 'empty-table'
         }, [noShoppingEl]);
     };
 
@@ -147,22 +144,21 @@ const renderForm = () => {
 
     //функции для создания кнопки "+" (увеличение количества)
     const createMoreAmountBtn = () => {
-        const moreBtnClassName = 'btns__add-btn';
         return createElement('BUTTON', {
-            className: moreBtnClassName,
+            className: 'btns__add-btn',
             type: 'button'
         });
     };
 
     //функция для создания события кнопке
-    const moreAmountBtnsEventListener = (btn, formContainer) => {
+    const moreAmountBtnsEventListener = (moreAmountBtn, formContainer) => {
         const symbolWidth = 9;
         const paddingLeft = 20;
         const spaceBetweenElements = 5;
 
         const amountClassName = 'amount-container__amounts';
         const amountInputClassName = 'amount-container__input';
-        btn.addEventListener('click', () => {
+        moreAmountBtn.addEventListener('click', () => {
             const input = formContainer.querySelector(`.${amountInputClassName}`);
 
             const value = leadAmountToValid(input.value);
@@ -195,14 +191,14 @@ const renderForm = () => {
     };
 
     //функция для создания события кнопке
-    const lessAmountBtnsEventListener = (btn, formContainer) => {
+    const lessAmountBtnsEventListener = (lessAmountBtn, formContainer) => {
         const symbolWidth = 9;
         const paddingLeft = 17;
         const spaceBetweenElements = 5;
 
         const amountClassName = 'amount-container__amounts';
         const amountInputClassName = 'amount-container__input';
-        btn.addEventListener('click', () => {
+        lessAmountBtn.addEventListener('click', () => {
             const input = formContainer.querySelector(`.${amountInputClassName}`);
 
             const value = leadAmountToValid(input.value);
@@ -453,7 +449,7 @@ const renderForm = () => {
 
         const totalPrice = amount * price;
 
-        const tr = createTableRow(article, trId, form, tbody, amount, price, totalPrice, noShoppingElText);
+        const tr = createTableRow(trId, form, tbody, amount, price, totalPrice, noShoppingElText);
 
         const noShoppingEl = article.querySelector('.table-is-empty'); 
         if (noShoppingEl) {
