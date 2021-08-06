@@ -17,23 +17,22 @@ const renderForm = () => {
     
         const isUnderZero = (value < 0) && (siblingValue < 0);
         const isZero = value && siblingValue;
-        const isNaN = (value !== value) && (siblingValue !== siblingValue);
+        const isValueNaN = value !== value;
+        const isSiblingValueNaN = siblingValue !== siblingValue;
     
         if (!formContainer.nextElementSibling) {
             return;
         }
     
-        const btn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
-        btn.disabled = !isUnderZero && !isNaN && !isZero;
+        const addRowBtn = formContainer.nextElementSibling.querySelector('.btn-container__btn-add');
+        addRowBtn.disabled = !isUnderZero && (!isValueNaN || !isSiblingValueNaN) && !isZero;
     };
 
     // функции для создания названия формы
     const createFormTitle = (title) => {
-        const className = 'shares-article__title';
-
         return createElement('H2', {
             textContent: title,
-            className: className
+            className: 'shares-article__title'
         });
     };
 
@@ -260,10 +259,9 @@ const renderForm = () => {
             top: top + 'px',
             left: left + 'px'
         });
-        if (input.className !== priceInputClassName) {
-            return span;
+        if (input.className === priceInputClassName) {
+            span.dataset.currency = currency;
         }
-        span.dataset.currency = currency;
         return span;
     };
     const focusInput = (input, className) => {
