@@ -312,6 +312,12 @@ const renderForm = () => {
 
         input.addEventListener('blur', () => {
             const value = readInputValue(input);
+
+            if(value === 0){
+                input.value = '';
+                return;
+            }
+            
             const inputValueLength = String(value).length;
             const left = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements;
 
@@ -373,7 +379,13 @@ const renderForm = () => {
         input.addEventListener('blur', () => {
             const inputLength = input.offsetWidth;
 
-            readInputValue(input);
+            const value = readInputValue(input);
+
+            if(value === 0){
+                input.value = '';
+                return;
+            }
+
             const inputValueLength = input.value.length;
 
             const left = (inputValueLength * symbolWidth) / 2 - inputLength / 2;
