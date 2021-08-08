@@ -11,6 +11,8 @@ const readInputValue = (input) => {
     let value = (input.className.includes('price')) ? leadPriceToValid(input.value) : leadAmountToValid(input.value);
     if (value !== value || value === 0) {
         value = 0;
+        input.value = '';
+        return value;
     }
     input.value = value.toLocaleString();
     return value;
@@ -46,7 +48,7 @@ const createElement = (tag, {
     return element;
 };
 
-const addElement = ({
+const createPseudoElement = ({
     input,
     textContent,
     className,
@@ -79,7 +81,7 @@ const addElement = ({
     return element;
 };
 
-const removeElement = ({
+const removePseudoElement = ({
     input,
     className
 } = {}) => {

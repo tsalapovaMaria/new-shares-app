@@ -166,11 +166,11 @@ const renderForm = () => {
             input.value = (value + 1).toLocaleString();
 
             changeBtnBehavior(input);
-            removeElement({
+            removePseudoElement({
                 input: input,
                 className: amountClassName
             });
-            addElement({
+            createPseudoElement({
                 input: input,
                 textContent: 'шт',
                 className: amountClassName,
@@ -209,11 +209,11 @@ const renderForm = () => {
             input.value = (value - 1).toLocaleString();
 
             changeBtnBehavior(input);
-            removeElement({
+            removePseudoElement({
                 input: input,
                 className: amountClassName
             });
-            addElement({
+            createPseudoElement({
                 input: input,
                 textContent: 'шт',
                 className: amountClassName,
@@ -252,7 +252,7 @@ const renderForm = () => {
         className,
     }) => {
         readInputValue(input);
-        const span = addElement({
+        const span = createPseudoElement({
             input: input,
             textContent: textContent,
             className: className,
@@ -265,7 +265,7 @@ const renderForm = () => {
         return span;
     };
     const focusInput = (input, className) => {
-        removeElement({
+        removePseudoElement({
             input: input,
             className: className
         });

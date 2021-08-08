@@ -705,7 +705,7 @@ label[for="dropdown"] {
   .header__container,
   .main__container {
     min-width: 1000px;
-    width: 100%;
+    width: 1000px;
     padding: 0 14px;
   }
   .main__container {
@@ -713,8 +713,8 @@ label[for="dropdown"] {
     padding-bottom: 50px;
   }
   .shares-section__shares-article {
-    min-width: 300px;
-    width: 100%;
+    min-width: 476px;
+    width: 476px;
   }
   .shares-container__table-container,
   .shares-container__shares-form-container {

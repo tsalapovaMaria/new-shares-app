@@ -6,24 +6,22 @@ const dropdownItems = document.querySelector('.items');
 
 const dropdownLabels = dropdownItems.querySelectorAll('LABEL');
 
-
 let wasChecked = false;
 
+const toggleFunc = () => {    
+    const currentCurrency = document.querySelector('.current-container__value').textContent;
+
+    const label = Array.from(dropdownLabels).find(label => label.textContent === currentCurrency);
+    
+    if(isChecked && label.className === ''){
+        label.className += ' active-currency';
+    }
+    if(!isChecked && label.className !== ''){
+        label.className = '';
+    }
+};
 
 dropdownList.addEventListener('click', () => {
-    const toggleFunc = () => {    
-        const currentCurrency = document.querySelector('.current-container__value').textContent;
-    
-        const label = Array.from(dropdownLabels).find(label => label.textContent === currentCurrency);
-        
-        if(isChecked && label.className === ''){
-            label.className += ' active-currency';
-        }
-        if(!isChecked && label.className !== ''){
-            label.className = '';
-        }
-    }
-
     const isChecked = toggler.checked;
 
     toggleFunc();
@@ -32,5 +30,4 @@ dropdownList.addEventListener('click', () => {
         toggler.checked = false;
     }
     wasChecked = isChecked;
-
 });
