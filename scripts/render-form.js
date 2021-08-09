@@ -564,6 +564,8 @@ const renderForm = () => {
         const removedRowClassName = 'shares-table__shares-item-remove';
         form.removeRecord(trId);
 
+        const tbodyWidth = tbody.offsetWidth;
+
         tr.className += ` ${removedRowClassName}`;
 
         setTimeout(() => {
@@ -576,6 +578,7 @@ const renderForm = () => {
             }
 
             const noShoppingEl = createNoShoppingElement(textContent);
+            noShoppingEl.style.left = tbodyWidth / 2 - noShoppingEl.offsetWidth / 2 + 'px';
             tbody.append(noShoppingEl);
         }, 250);
 
@@ -688,6 +691,9 @@ const renderForm = () => {
             });
 
             mountEl.append(article);
+
+            noShoppingEl.style.left = tBody.offsetWidth / 2 - noShoppingEl.offsetWidth / 2 + 'px';
+
             return article;
         }
     }

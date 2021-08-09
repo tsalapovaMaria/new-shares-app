@@ -527,7 +527,7 @@ label[for="dropdown"] {
 .table-is-empty {
   position: absolute;
   top: 50%;
-  left: 40%;
+  /* left: 40%; */
 
   text-align: center;
 
@@ -781,6 +781,9 @@ label[for="dropdown"] {
   .main-title {
     font-size: 14px;
     line-height: 18px;
+  }
+  .shares-section__shares-article {
+    min-width: 374px;
   }
   .shares-article__title {
     font-size: 16px;
