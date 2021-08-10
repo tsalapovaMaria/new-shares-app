@@ -8,7 +8,7 @@ const dropdownLabels = dropdownItems.querySelectorAll('LABEL');
 
 let wasChecked = false;
 
-const toggleFunc = () => {    
+const toggleFunc = (isChecked) => {    
     const currentCurrency = document.querySelector('.current-container__value').textContent;
 
     const label = Array.from(dropdownLabels).find(label => label.textContent === currentCurrency);
@@ -24,7 +24,7 @@ const toggleFunc = () => {
 dropdownList.addEventListener('click', () => {
     const isChecked = toggler.checked;
 
-    toggleFunc();
+    toggleFunc(isChecked);
 
     if (wasChecked && isChecked) {
         toggler.checked = false;

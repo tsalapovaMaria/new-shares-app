@@ -13,7 +13,7 @@ const formBuilder = function () {
 
         state.push(newEl);
     };
-    const spliceRecord = (id) => {
+    const deleteRecord = (id) => {
         const splicesEl = state.find(item => item.id === id);
         const elIndex = state.indexOf(splicesEl);
 
@@ -35,11 +35,25 @@ const formBuilder = function () {
             return id;
         },
         removeRecord: function (id) {
-            spliceRecord(id);            
+            deleteRecord(id);            
             this.notify();
         },
         getState: function () {
-            return state;
+            // const stateCloneArr = state.slice(0);
+
+            // const stateCloneObj = Object.assign({}, stateCloneArr);
+
+            // for(let key of state){
+            //     stateClone[key] = state[key];
+            // }
+            const stateCloneObj = {};
+            for(let key of state){
+                stateCloneObj[key] = Object.assign({}, state[key]);
+            }
+            console.log(state);
+            // console.log(stateCloneArr);
+            console.log(stateCloneObj);
+            return stateCloneObj;
         }
     }
 };
