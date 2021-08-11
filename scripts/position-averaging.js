@@ -50,3 +50,22 @@ const changeAmountEl = (entryPointsForm, exitPointsForm) => {
     const amount = calculateAmount(userValuesEntered, boughtRecords, soldRecords);
     amountToBuyEl.textContent = (amount > 0 && Number.isFinite(amount)) ? Math.ceil(amount).toLocaleString() + ' шт' : '0 шт';
 };
+
+const addPositionAveragingInputEvent = (input, entryPointsForm, exitPointsForm) => {
+    input.addEventListener('input', () => {
+        const value = readInputValue(input);
+        if (!value) {
+            return 0;
+        }
+
+        changeAmountEl(entryPointsForm, exitPointsForm);
+    });
+};
+
+const addPosAveragingEvent = (entryPointsForm, exitPointsForm) => {
+    addInputBlurFocusEvents(desiredPriceAmountInput);
+    addPositionAveragingInputEvent(desiredPriceAmountInput, entryPointsForm, exitPointsForm);
+
+    addInputBlurFocusEvents(currentPriceAmountInput);
+    addPositionAveragingInputEvent(currentPriceAmountInput, entryPointsForm, exitPointsForm);
+};

@@ -90,3 +90,103 @@ const removePseudoElement = ({
         element.remove();
     }
 };
+
+//фильтр записей таблицы "Точки входа"
+const getFilteredBoughtRecords = (boughtRecords, soldRecord) => {
+    //берем элементы, чьи id меньше id точки выхода (покупки, приобретенные раньше продажи)
+    const recordsBoughtEarlier = boughtRecords.filter(boughtRecord => boughtRecord.id < soldRecord.id);
+
+    if (recordsBoughtEarlier.length === 0) {
+        return;
+    }
+
+    const recordsBoughtLater = boughtRecords.filter(boughtRecord => boughtRecord.id > soldRecord.id);
+
+    let lastBoughtRecord = recordsBoughtEarlier[recordsBoughtEarlier.length - 1];
+
+
+    const calculateAmountDifference = () => {
+        let amountDifference = soldRecord.amount - lastBoughtRecord.amount;
+
+        //количество продаж превышает количество покупок
+        let isSalesExceedPurchases = amountDifference >= 0;
+        return [amountDifference, isSalesExceedPurchases];
+    };
+
+    //разница в количестве продаж и покупок
+    let [amountDifference, isSalesExceedPurchases] = calculateAmountDifference();
+
+    //фильтр массива покупок до тех пор, пока
+    //количество продаж превышает количество покупок
+    while (isSalesExceedPurchases) {
+        soldRecord.amount = amountDifference;
+        recordsBoughtEarlier.pop();
+
+        lastBoughtRecord = recordsBoughtEarlier[recordsBoughtEarlier.length - 1];
+
+        if (!lastBoughtRecord) {
+            break;
+        }
+
+        [amountDifference, isSalesExceedPurchases] = calculateAmountDifference();
+    }
+
+    //выйти из функции, если в boughtRecords не осталось значений
+    if (!lastBoughtRecord) {
+        return;
+    }
+
+    if (amountDifference < 0) {
+        soldRecord.amount = 0;
+    }
+
+    recordsBoughtEarlier[recordsBoughtEarlier.length - 1].amount = Math.abs(amountDifference);
+
+    if (recordsBoughtLater.length !== 0) {
+        return recordsBoughtEarlier.concat(recordsBoughtLater);
+    }
+
+    return recordsBoughtEarlier;
+};
+
+const addInputBlurFocusEvents = (input) => {
+    const currencyClassName = 'current-price__currency';
+
+    const symbolWidth = 9;
+    const paddingLeft = 12;
+    const spaceBetweenElements = 5;
+
+    const top = 0;
+
+    const addPseudoElement = () => {
+        const inputLength = input.offsetWidth;
+        const value = readInputValue(input);
+        const inputValueLength = value.toLocaleString().length;
+        const left = paddingLeft + inputValueLength * symbolWidth + spaceBetweenElements - inputLength;
+
+        if (value === 0) {
+            input.value = '';
+            return;
+        }
+
+        const span = createPseudoElement({
+            input: input,
+            textContent: '',
+            className: currencyClassName,
+            top: top + 'px',
+            left: left + 'px'
+        });
+        span.dataset.currency = currency;
+    };
+
+    input.addEventListener('blur', () => {
+        addPseudoElement();
+    });
+
+    input.addEventListener('focus', () => {
+        removePseudoElement({
+            input: input,
+            className: currencyClassName
+        });
+    });
+};

@@ -39,20 +39,12 @@ const formBuilder = function () {
             this.notify();
         },
         getState: function () {
-            // const stateCloneArr = state.slice(0);
-
-            // const stateCloneObj = Object.assign({}, stateCloneArr);
-
-            // for(let key of state){
-            //     stateClone[key] = state[key];
-            // }
             const stateCloneObj = {};
-            for(let key of state){
-                stateCloneObj[key] = Object.assign({}, state[key]);
-            }
-            console.log(state);
-            // console.log(stateCloneArr);
-            console.log(stateCloneObj);
+
+            state.forEach((value, key) => {
+                stateCloneObj[key] = Object.assign({}, value);
+            });
+            
             return stateCloneObj;
         }
     }
