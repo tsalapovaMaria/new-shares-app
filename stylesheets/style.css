@@ -673,6 +673,12 @@ label[for="dropdown"] {
   font-size: 16px;
   line-height: 22px;
 }
+.negative-profit {
+  color: #EB5757;
+}
+.positive-profit {
+  color: #2DC033;
+}
 .current-price__input,
 .desired-price__input{
   color: #4f4e57;

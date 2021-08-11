@@ -27,10 +27,10 @@ entryPointsForm.subscribe(() => changeAmountPriceValue(entryPointsForm, exitPoin
 entryPointsForm.subscribe(() => changeProfitValue(entryPointsForm, exitPointsForm));
 
 //добавляем в subscribers функции расчета и изменения количества акций к покупке 
-//во вкладке "Усреднение позиций"
-entryPointsForm.subscribe(() => changeAmountEl(entryPointsForm, exitPointsForm));
+//во вкладке "Среднее"
+entryPointsForm.subscribe(() => changeAmountToBuyValue(entryPointsForm, exitPointsForm));
 
-exitPointsForm.subscribe(() => changeAmountEl(entryPointsForm, exitPointsForm));
+exitPointsForm.subscribe(() => changeAmountToBuyValue(entryPointsForm, exitPointsForm));
 exitPointsForm.subscribe(() => changeAmountPriceValue(entryPointsForm, exitPointsForm));
 exitPointsForm.subscribe(() => changeProfitValue(entryPointsForm, exitPointsForm));
 

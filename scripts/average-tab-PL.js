@@ -13,18 +13,24 @@ const changeAmountPriceValue = (entryPointsForm, exitPointsForm) => {
 const changeProfitValue = (entryPointsForm, exitPointsForm) => {
     const profitEl = document.querySelector('.profit-value');
     const value = readInputValue(currentPriceProfitInput);
-    
+
     if (!value) {
         currentPriceProfitInput.textContent = '';
         return 0;
     }
 
     const profit = profitPrice.count(value, entryPointsForm, exitPointsForm);
+    const profitClassName = 'profit-value';
 
     profitEl.textContent =
         (profit > 0) ? `+ ${profit.toLocaleString()}` :
         (profit === 0) ? `0` :
         `- ${Math.abs(profit).toLocaleString()}`;
+
+    profitEl.className =
+        (profit > 0) ? `${profitClassName} positive-profit` :
+        (profit < 0) ? `${profitClassName} negative-profit` :
+        profitClassName;
 };
 
 
@@ -35,7 +41,7 @@ const addProfitInputEvent = (input, entryPointsForm, exitPointsForm) => {
             return 0;
         }
 
-        profitPrice.count(value, entryPointsForm, exitPointsForm);
+        changeProfitValue(entryPointsForm, exitPointsForm);
     });
 };
 

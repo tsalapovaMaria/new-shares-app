@@ -23,7 +23,7 @@ const averagePriceCounter = function() {
         return Number.isNaN(result) ? 0 : result;
     };
 
-    const countAveragePrice = (boughtRecords, soldRecords) => {    
+    const countPriceWhileSoldExist = (boughtRecords, soldRecords) => {    
         let soldRecordIndex = soldRecords.length - 1;
         let soldRecord = soldRecords[soldRecordIndex];
     
@@ -63,7 +63,7 @@ const averagePriceCounter = function() {
                 .keys(exitState)
                 .map((key) => exitState[key]);
         
-            return countAveragePrice(boughtRecords, soldRecords);
+            return countPriceWhileSoldExist(boughtRecords, soldRecords);
         }
     }
 };
@@ -81,7 +81,7 @@ const profitPriceCounter = function() {
     
         const profit = totalsSum - (amountSum * value);
     
-        return profit > 0 ? profit : 0;
+        return profit;
     };    
 
     return {
