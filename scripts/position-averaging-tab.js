@@ -1,5 +1,8 @@
 
 
+const currentPriceAmountInput = document.querySelector('.desired-average-price-container__current-price > .current-price__input');
+const desiredPriceAmountInput = document.querySelector('.desired-average-price-container__desired-price > .desired-price__input');
+
 const checkInputsValidate = () => {
     const desiredPrice = readInputValue(desiredPriceInput);
     const currentPrice = readInputValue(currentPriceInput);
