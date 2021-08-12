@@ -42,6 +42,11 @@ const averagePriceCounter = function() {
 
         while (soldRecord && soldRecord.amount) {
             const filteredBoughtRecords = getFilteredBoughtRecords(boughtRecords, soldRecord);
+            
+            if(!filteredBoughtRecords){
+                return 0;
+            }
+
             averagePrice += countAverage(filteredBoughtRecords);
     
             soldRecordIndex = soldRecords.length - ++indexModificator;
@@ -68,8 +73,6 @@ const averagePriceCounter = function() {
     }
 };
 
-// const currentPriceProfitInput = document.querySelector('.tab01 .current-price__input');
-    
 const profitPriceCounter = function() {    
     const calculateProfit = (boughtRecords, value) => {
         const amountSum = Array.from(boughtRecords)
@@ -113,13 +116,22 @@ const profitPriceCounter = function() {
         
             let profit = 0;
             let indexModificator = 1;
+
+            const startTime = performance.now();
+
             while (soldRecord && soldRecord.amount) {
                 const filteredBoughtRecords = getFilteredBoughtRecords(boughtRecords, soldRecord);
+                
+                if(!filteredBoughtRecords){
+                    return 0;
+                }
+
                 profit += calculateProfit(filteredBoughtRecords, value);
         
                 soldRecordIndex = soldRecords.length - ++indexModificator;
                 soldRecord = soldRecords[soldRecordIndex];
             }
+            console.log(performance.now() - startTime);
             return profit;
         }
     }

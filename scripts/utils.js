@@ -117,7 +117,8 @@ const getFilteredBoughtRecords = (boughtRecords, soldRecord) => {
     let [amountDifference, isSalesExceedPurchases] = calculateAmountDifference();
 
     //фильтр массива покупок до тех пор, пока
-    //количество продаж превышает количество покупок
+    //количество продаж soldRecord превышает количество покупок,
+    //(которые были куплены до продажи soldRecord)
     while (isSalesExceedPurchases) {
         soldRecord.amount = amountDifference;
         recordsBoughtEarlier.pop();
