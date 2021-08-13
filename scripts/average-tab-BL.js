@@ -121,8 +121,6 @@ const profitPriceCounter = function() {
             let profit = 0;
             let indexModificator = 1;
 
-            const startTime = performance.now();
-
             while (soldRecord && soldRecord.amount) {
                 const filteredBoughtRecords = getFilteredBoughtRecords(boughtRecords, soldRecord);
                 
@@ -135,7 +133,6 @@ const profitPriceCounter = function() {
                 soldRecordIndex = soldRecords.length - ++indexModificator;
                 soldRecord = soldRecords[soldRecordIndex];
             }
-            console.log(performance.now() - startTime);
             return profit;
         }
     }
