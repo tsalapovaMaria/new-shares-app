@@ -32,7 +32,7 @@ const changeAmountToBuyValue = function(entryPointsForm, exitPointsForm) {
     const amountToBuyEl = document.querySelector('.shares-amount__amount-output');
     const amountToBuyValue = amountToBuy.count(userValuesEntered, entryPointsForm, exitPointsForm);
 
-    amountToBuyEl.textContent = (amountToBuyValue > 0 && Number.isFinite(amountToBuyValue)) ? Math.ceil(amountToBuyValue).toLocaleString() + ' шт' : '0 шт';
+    amountToBuyEl.textContent = (amountToBuyValue > 0 && Number.isFinite(amountToBuyValue)) ? Math.floor(amountToBuyValue).toLocaleString() + ' шт' : '0 шт';
 };
 
 const addPositionAveragingInputEvent = (input, entryPointsForm, exitPointsForm) => {
