@@ -39,22 +39,25 @@ const averagePriceCounter = function() {
     
         let averagePrice = 0;
         let indexModificator = 1;
+        let filteredBoughtRecords;
 
+        //фильтровать массив с купленными акциями
+        //ПОКА проходим по массиву с проданными акциями
         while (soldRecord && soldRecord.amount) {
-            const filteredBoughtRecords = getFilteredBoughtRecords(boughtRecords, soldRecord);
+            filteredBoughtRecords = getFilteredBoughtRecords(boughtRecords, soldRecord);
             
             if(!filteredBoughtRecords){
                 return 0;
             }
-
-            if(filteredBoughtRecords.length === 1){
-                averagePrice = filteredBoughtRecords[0].price;
-            } else {
-                averagePrice = countAverage(filteredBoughtRecords);
-            }
     
             soldRecordIndex = soldRecords.length - ++indexModificator;
             soldRecord = soldRecords[soldRecordIndex];
+        }
+
+        if(filteredBoughtRecords.length === 1){
+            averagePrice = filteredBoughtRecords[0].price;
+        } else {
+            averagePrice = countAverage(filteredBoughtRecords);
         }
 
         return averagePrice;
