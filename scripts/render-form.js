@@ -476,25 +476,26 @@ const renderForm = () => {
         }, 0);
 
         //очистка форм после добавления новой строки
+        amountInput.value = '';
+        priceInput.value = '';
+        
         const currencyEl = container.querySelector('.price-container__currency');
         const amountEl = container.querySelector('.amount-container__amounts');
 
-        amountInput.value = '0';
-        priceInput.value = '0';
-        amountEl.style.left = '29px';
-        currencyEl.style.left = '-64px';
+        amountEl.remove();
+        currencyEl.remove();
     };
     const addBtnEventListener = ({
         article,
         form,
-        btn,
+        deleteRowBtn,
         container,
         tbody,
         amountInput,
         priceInput,
         noShoppingElText
     }) => {
-        btn.addEventListener('click', () => {
+        deleteRowBtn.addEventListener('click', () => {
             clickAddBtn({
                 article: article,
                 form: form,
@@ -505,7 +506,7 @@ const renderForm = () => {
                 noShoppingElText: noShoppingElText
             });
 
-            btn.disabled = true;
+            deleteRowBtn.disabled = true;
         });
     };
 
@@ -584,8 +585,8 @@ const renderForm = () => {
 
     };
 
-    const removeRowBtnEventListener = (trId, form, tr, tbody, btn, textContent) => {
-        btn.addEventListener('click', () => removeRowBtnClick(trId, form, tr, tbody, textContent));
+    const removeRowBtnEventListener = (trId, form, tr, tbody, deleteRowBtn, textContent) => {
+        deleteRowBtn.addEventListener('click', () => removeRowBtnClick(trId, form, tr, tbody, textContent));
     };
 
     const createTableDiv = (tdClassName, currentTdClassName, span) => {
@@ -681,7 +682,7 @@ const renderForm = () => {
             addBtnEventListener({
                 article: article,
                 form: form,
-                btn: addBtn,
+                deleteRowBtn: addBtn,
                 container: formContainer,
                 tbody: tBody,
                 amountInput: amountInput,

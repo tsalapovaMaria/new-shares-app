@@ -37,7 +37,6 @@ const averagePriceCounter = function() {
             return countAverage(boughtRecords);
         }
     
-        let averagePrice = 0;
         let indexModificator = 1;
         let filteredBoughtRecords;
 
@@ -55,12 +54,10 @@ const averagePriceCounter = function() {
         }
 
         if(filteredBoughtRecords.length === 1){
-            averagePrice = filteredBoughtRecords[0].price;
+            return filteredBoughtRecords[0].price;
         } else {
-            averagePrice = countAverage(filteredBoughtRecords);
+            return countAverage(filteredBoughtRecords);
         }
-
-        return averagePrice;
     };
 
     return {
