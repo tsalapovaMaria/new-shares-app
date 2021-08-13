@@ -47,7 +47,11 @@ const averagePriceCounter = function() {
                 return 0;
             }
 
-            averagePrice += countAverage(filteredBoughtRecords);
+            if(filteredBoughtRecords.length === 1){
+                averagePrice = filteredBoughtRecords[0].price;
+            } else {
+                averagePrice = countAverage(filteredBoughtRecords);
+            }
     
             soldRecordIndex = soldRecords.length - ++indexModificator;
             soldRecord = soldRecords[soldRecordIndex];
