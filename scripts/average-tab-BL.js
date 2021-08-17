@@ -27,7 +27,7 @@ const averagePriceCounter = function() {
         let soldRecordIndex = soldRecords.length - 1;
         let soldRecord = soldRecords[soldRecordIndex];
     
-        if (!soldRecord || !soldRecord.amount) {
+        if (!(soldRecord && soldRecord.amount)) {
             return countAverage(boughtRecords);
         }
     
